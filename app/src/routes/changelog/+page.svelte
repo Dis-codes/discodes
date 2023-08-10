@@ -1,25 +1,43 @@
 <script>
     export let logs = [
-      { name: "test1", image: "https://amoeboids.com/wp-content/uploads/2020/02/Pointers-for-making-a-good-changelog.webp", description: "test1", author: "Noxyyk", time:"9.8.2023"},
-      { name: "test2", image: "https://amoeboids.com/wp-content/uploads/2020/02/Pointers-for-making-a-good-changelog.webp", description: "test2", author: "Noxyyk", time:"9.8.2023" },
-      { name: "test3", image: "https://amoeboids.com/wp-content/uploads/2020/02/Pointers-for-making-a-good-changelog.webp", description: "test3", author: "Noxyyk", time:"9.8.2023" }
+      { name: "Awesome mountain!", image: "https://picsum.photos/seed/picsum/500/300", description: "Best looiking mountain ever tbh", author: "LimeNade", time:"10/8/2023",tags: ['site', 'database']},
+      { name: "Best update EVER", image: "https://picsum.photos/500/300/", description: "Ikr, I'm the best dev!!!", author: "Noxyyk", time:"9/8/2023",tags: ['backend', 'documentation'] },
+      { name: "I love chicken nuggets", image: "https://picsum.photos/500/300", description: "When I met you in the summer 😘", author: "LimeNade", time:"9/8/2023", tags: ['blocks', 'website']}
     ];
   </script>
   
-  <div class="changelog-container w-1/2 mx-auto">
-    {#each logs as log (log.name)}
-      <div class="log-item border p-4 my-2 rounded relative">
-        <h4 class="text-lg font-bold mb-2 text-center">{log.name}</h4>
-        <img class="w-full h-auto max-h-80 object-contain mb-2" src={log.image} alt={log.name} />
+
+
+
+
+  <h2 class='text-2xl mb-2'>Changelog</h2>
+  <div class="changelog-container w-1/4 mx-auto">
+    {#each logs as log, i (log.name)}
+    <div class="card w-100 bg-base-100 shadow-xl">
+      <figure><img src={log.image} alt={log.name}/></figure>
+      <div class="card-body">
+        <h2 class="card-title">
+          {log.name}
+          {#if i == 0}
+          <div class="badge badge-secondary">NEW</div>
+          {/if}
+        </h2>
         <p>{log.description}</p>
-        <div class="absolute bottom-0 right-0 text-sm text-gray-500 mr-1">
-            Posted by <span class="font-bold">{log.author}</span> at {log.time}
-          </div>
+        <div class="card-actions justify-end">
+          {#each log.tags as tag}
+          <div class="badge badge-accent badge-outline">{tag}</div> 
+          {/each}
+        </div>
       </div>
+    </div>
+    {#if i != 0}
+    <div class='divider'></div>
+    {:else}
+    <div class='divider'>NEW</div>
+    {/if}
+
     {/each}
   </div>
-  
-  
   <style>
     .changelog-container {
       max-height: 50vh;
