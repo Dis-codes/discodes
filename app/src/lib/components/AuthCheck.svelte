@@ -1,11 +1,8 @@
 <script lang='ts'>
-    import { auth } from "$lib/firebase";
-    import { userStore } from 'sveltefire';
-
-    const user = userStore(auth);
+    import { user } from "$lib/firebase";
 </script>
 
-{#if user}
+{#if $user}
     <slot/>
 {:else}
     <p class='text-error'>
