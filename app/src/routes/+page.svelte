@@ -12,7 +12,6 @@ function loginRedirect() {
 
   </script>
 
-<AuthCheck>
 <div class="flex flex-col items-center justify-center h-screen">
     <h1 class="text-3xl font-bold underline text-[45px] mb-2">Discodes</h1>
     <h3 class="text-center font-bold mt-4 mb-2">The best place for your discord bot</h3>
@@ -20,4 +19,3 @@ function loginRedirect() {
     <div class="py-10" />
     <Changelog />
   </div>
-</AuthCheck>
