@@ -1,12 +1,27 @@
 <script lang='ts'>
+    import { goto } from "$app/navigation";
     import { user } from "$lib/firebase";
+
+    function redirectToLogin() {
+        goto('/login')
+    }
 </script>
 
 {#if $user}
     <slot/>
 {:else}
-    <p class='text-error'>
-        You must be signed in to view this page.
-        <a class="btn btn-primary" href="/login">Sign In</a>
-    </p>
+<div class='flex justify-center items-center h-screen'>
+    <div class="card w-96 bg-base-100 shadow-xl ">
+        <figure class="px-10 pt-10">
+            <img src="../../Gifs/sad-pikachu.gif" alt="Shoes" class="rounded-xl" />
+        </figure>
+        <div class="card-body items-center text-center">
+            <h2 class="card-title">Uh Oh!</h2>
+            <p class='text-error'>You must be signed in to view this page!</p>
+            <div class="card-actions">
+                <button class="btn btn-primary" on:click={redirectToLogin}>Sign In</button>
+            </div>
+        </div>
+    </div>
+</div>
 {/if}
