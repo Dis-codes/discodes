@@ -25,7 +25,6 @@
 	"type": "module",
 	"dependencies": {
 		"firebase": "^10.1.0",
-		"firebase-admin": "^11.10.1",
-		"sveltefire": "^0.4.1"
+		"firebase-admin": "^11.10.1"
 	}
 }
