@@ -35,11 +35,11 @@ async function upload(e:any) {
             height="256"
             class="mx-auto"
             />
-
-            <label for='photoURL' class='label'>
+            <div class='pl-1/2 mt-4'>
+            <!-- <label for='photoURL' class='label'>
                 <span class='label-text'>Pick a file</span>
-            </label>
-
+            </label> -->
+            <p class="text-xl mb-1">Pick a file</p>
             <input
             on:change={upload}
             name='photoURL'
@@ -51,6 +51,7 @@ async function upload(e:any) {
             <p>Uploading...</p>
             <progress class="progress progress-info w-56 mt-6" />
             {/if}
+            </div>
         </div>
     </form>
 </AuthCheck>

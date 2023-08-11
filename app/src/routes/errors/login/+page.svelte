@@ -1,6 +1,3 @@
-<script lang="ts">
-    import { goto } from "$app/navigation";
-</script>
 
 <div class='flex justify-center items-center h-screen'>
     <div class="card w-96 bg-base-100 shadow-xl ">
@@ -11,7 +8,7 @@
             <h2 class="card-title">Uh Oh!</h2>
             <p class='text-error'>You must be signed in to view this page!</p>
             <div class="card-actions">
-                <button class="btn btn-primary" on:click={() => {goto('/login')}}>Sign In</button>
+                <a class="btn btn-primary" href="/login">Sign In</a>
             </div>
         </div>
     </div>

@@ -18,8 +18,6 @@
         loading = true;
 
         debounceTimer = setTimeout(async () => {
-            console.log('checking aviability of ', username);
-
             const ref = doc(db,"usernames", username);
             const exists = await getDoc(ref).then((doc) => doc.exists());
             
@@ -65,6 +63,7 @@ $: isTaken = isValid && !isAvailable && !loading
 
 
 <AuthCheck>
+    <h2 class="text-xl">Choose a username</h2>
     <form class="w-2/5" on:submit|preventDefault={confirmUsername}>
         <input
         type="text"
@@ -76,7 +75,7 @@ $: isTaken = isValid && !isAvailable && !loading
         class:input-warning={isTaken}
         class:input-success={isAvailable && isValid && !loading}
         />
-        <div class="my-4 min-h-16 px-8 w-full">
+        <div class="my-4 min-h-16 w-full">
         {#if loading}
             {#if username.length > 0}
             <p class="text-secondary">Checking availability of @{username}...</p>
@@ -96,9 +95,9 @@ $: isTaken = isValid && !isAvailable && !loading
         {/if}
     
         {#if isAvailable && isValid && !loading}
-            <button class="btn btn-success" on:click={() => {goto('/login/photo')}}>Confirm username @{username} </button>
+            <a class="btn btn-success" href='/login/photo'>Confirm username @{username} </a>
         {:else}
-        <button class="btn btn-outline btn-disabled">Confirm username @{username} </button>
+            <button class="btn btn-outline btn-disabled">Confirm username @{username} </button>
         {/if}
         </div>
     </form>

@@ -1,8 +1,10 @@
 <script lang="ts">
     import { page } from "$app/stores";
     import AnimatedRoute from "$lib/components/AnimatedRoute.svelte";
+    import NavBar from "$lib/components/NavBar.svelte";
 </script>
 
+<!-- <NavBar/> -->
 <nav class="flex justify-center my-6">
     <ul class="steps">
         <a href="/login" class="step step-primary">Sign In</a>
@@ -22,7 +24,7 @@
 </nav>
 
 <AnimatedRoute>
-<main class="card w-4/6 bg-neutral text-neutral-content mx-auto">
+<main class="card w-1/3 bg-neutral text-neutral-content mx-auto">
     <div class="card-body items-center text-center">
         <slot />
     </div>

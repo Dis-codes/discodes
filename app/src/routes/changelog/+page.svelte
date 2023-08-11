@@ -1,6 +1,5 @@
 <script>
     export let logs = [
-      { name: "Best update EVER", image: "https://picsum.photos/500/300/", description: "Ikr, I'm the best dev!!!", author: "Noxyyk", time:"9/8/2023",tags: ['backend', 'documentation'] },
       { name: "Awesome mountain!", image: "https://picsum.photos/seed/picsum/500/300", description: "Best looiking mountain ever tbh", author: "LimeNade", time:"10/8/2023",tags: ['site', 'database']},
       { name: "Best update EVER", image: "https://picsum.photos/500/300/", description: "Ikr, I'm the best dev!!!", author: "Noxyyk", time:"9/8/2023",tags: ['backend', 'documentation'] },
       { name: "I love chicken nuggets", image: "https://picsum.photos/500/300", description: "When I met you in the summer 😘", author: "LimeNade", time:"9/8/2023", tags: ['blocks', 'website']}
