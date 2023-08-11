@@ -1,14 +1,15 @@
 <script lang='ts'>
     import { goto } from "$app/navigation";
     import { user } from "$lib/firebase";
+    import { onMount } from "svelte";
 
-    function redirectToLogin() {
-        
-    }
+   
+
+    
 </script>
 
 {#if $user}
     <slot/>
 {:else}
-{goto('/errors/login')}
+{onMount(() => goto('/errors/login'))}
 {/if}
