@@ -9,9 +9,9 @@
     <h1 class="text-3xl font-bold underline text-[45px] mb-2">DisCodes</h1>
     <h3 class="text-center font-bold mt-4 mb-2">The best place for your discord bot</h3>
     {#if $user}
-    <a class="btn btn-accent" href="/dashboard">Open</a>
+    <a class="btn btn-accent" href="/dashboard">Open dashboard</a>
     {:else}
-    <a class="btn btn-accent" href="/login">Let's go!</a>
+    <a class="btn btn-accent" href="/login">Let's begin!</a>
     {/if}
     <div class="py-10" />
     <Changelog />
