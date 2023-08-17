@@ -1,9 +1,6 @@
 <script lang="ts">
     import Changelog from './changelog/+page.svelte';
     import NavBar from '$lib/components/NavBar.svelte';
-	import { Auth } from '@supabase/auth-ui-svelte'
-	import { ThemeSupa } from '@supabase/auth-ui-shared'
-
     export let data
     const { session } = data
 </script>
