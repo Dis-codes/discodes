@@ -3,24 +3,25 @@
     import NavBar from '$lib/components/NavBar.svelte';
     import { supabase } from '$lib/supabase';
 
-    
-    let registeredUsers = async () => {
-    try {
-        const { data, error } = await supabase
-            .from('profiles')
-            .select('*');
-        return data?.length;
-    } catch (error) {
-        console.error('Error fetching user count:', error.message);
-        return 0; // Return a default value or handle the error as needed
-    }
-}
-
-
     let info = {
-        onlineUsers: 1,
+        registeredUsers: "loading...",
         reports: 3,
     }
+    
+    let Users = async () => {
+    const { data: profilesData, error: profilesError } = await supabase
+        .from('profiles')
+        .select('*');
+    
+        if (profilesData) {
+        info.registeredUsers = profilesData.length;
+        }
+}
+
+Users();
+
+
+   
 </script>
 
 <NavBar/>
@@ -34,16 +35,8 @@
             <div class="divider"></div>
             
             <h2 class="text-xl font-semibold">Registered users:
-                {#await registeredUsers()}
-                <span>Loading..</span>
-                {:then resolved}
-                <span>{resolved}</span>
-                {:catch error}
-                <p style="color: red">{error.message}</p>
-                {/await}
+            {info.registeredUsers}
             </h2>
-
-            <h2 class="text-xl font-semibold">Online users: <span>{info.onlineUsers}</span></h2> 
             <h2 class="text-xl font-semibold">Reports: <span>{info.reports}</span>
             {#if info.reports > 0 }
             <button class="btn btn-sm btn-outline">View reports</button>
