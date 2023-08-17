@@ -1,11 +1,7 @@
 <script lang='ts'>
     import { goto } from "$app/navigation";
-    import { user } from "$lib/firebase";
+    import { user } from "$lib/userStore";
     import { onMount } from "svelte";
-
-   
-
-    
 </script>
 
 {#if $user}
