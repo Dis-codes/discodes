@@ -12,7 +12,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.22.6",
-		"autoprefixer": "^10.4.14",
+		"autoprefixer": "^10.4.15",
 		"daisyui": "^3.5.1",
 		"postcss": "^8.4.27",
 		"svelte": "^4.0.5",
