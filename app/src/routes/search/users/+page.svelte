@@ -5,13 +5,13 @@
     export let data;
     const { session } = data;
     let loggedUser = session?.user?.user_metadata?.full_name;
-    let keyword = '';
-    let errorTxt = '';
-    let searchResults = [];
-    let currentPage = 1;
+    let keyword: string = '';
+    let errorTxt: string = '';
+    let searchResults:any = [];
+    let currentPage: number = 1;
     const resultsPerPage = 12;
     let totalPages = 0;
-    const currentDate = new Date();
+    const currentDate:any = new Date();
     const maxSessionDuration = 86400 * 1000
     let contentLoaded = false;
     const fetchSearchResults = async () => {
@@ -71,7 +71,7 @@
                 <div class="text-center"><p>This is you</p></div>
         {:else}
             <div class="text-center">
-                <a class="mt-2 w-full border rounded-lg px-4 py-2 btn btn-outline no-animation btn-sm">Add as friend</a>
+                <a class="mt-2 w-full border rounded-lg px-4 py-2 btn btn-outline no-animation btn-sm">Follow</a>
             </div>
         {/if}
     </div>
