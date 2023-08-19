@@ -21,14 +21,6 @@
             </div>
                 <!-- <p><strong>Account Created:</strong> {$user?.metadata?.creationTime}</p>
                 <p><strong>Last Signed In:</strong> {$user?.metadata?.lastSignInTime}</p> -->
-            <div class="mb-4 mt-6">
-                <h3 class="text-lg font-semibold mb-2">Connections:</h3>
-                <div class="flex">
-                  <p class="ml-4">{$user?.app_metadata.provider}</p>   
-            </div>
-            </div>
-            <div class="flex justify-center"><h2 class="text-xl font-semibold">Public profile</h2></div>
-            <div class="divider"></div>
             <div class="form-control">
                 <label class="label">
                   <span class="label-text">Bio</span>
