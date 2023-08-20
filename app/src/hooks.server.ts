@@ -10,7 +10,9 @@ event.locals.supabase = createSupabaseServerClient({
 })
 
 /**
- * A convenience helper so we can just call await getSession() instead const { data: { session } } = await supabase.auth.getSession()
+ * a little helper that is written for convenience so that instead
+ * of calling `const { data: { session } } = await supabase.auth.getSession()`
+ * you just call this `await getSession()`
  */
 event.locals.getSession = async () => {
     const {

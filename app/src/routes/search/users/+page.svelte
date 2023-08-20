@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount, afterUpdate } from 'svelte';
     import NavBar from '$lib/components/NavBar.svelte';
+    import Loading from '$lib/components/Loading.svelte';
     import { supabase } from '$lib/supabase';
     export let data;
     const { session } = data;
@@ -115,7 +116,5 @@
     {/if}
   </div>
   {:else}
-  <div class="flex flex-col items-center justify-center h-screen">
-  <span class="loading loading-spinner text-discodes loading-lg"></span>
-</div>
+<Loading />
     {/if}   

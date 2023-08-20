@@ -2,6 +2,7 @@
     import { user } from "$lib/userStore";
     import NavBar from '$lib/components/NavBar.svelte';
     import { supabase } from '$lib/supabase';
+    import Loading from '$lib/components/Loading.svelte';
 
     let info = {
         registeredUsers: "loading...",
@@ -50,6 +51,6 @@ Users();
             </div>
         </div>
     {:else}
-    <span class="loading loading-spinner text-discodes loading-lg"></span>
+    <Loading />
     {/if}
 </main>

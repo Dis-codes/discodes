@@ -13,7 +13,8 @@ export const load = async ({ fetch, data, depends }) => {
         serverSession: data.session,
     });
 
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session },
+    } = await supabase.auth.getSession();
     
     if (session) {
         user.set(session.user); // Set the user data in the user store

@@ -2,8 +2,9 @@
     import Account from "./Account.svelte";
     import { user } from '$lib/userStore';
     let searchContent = '';
+    
   </script>
-  
+
   <div class="navbar bg-base-200 fixed">
     <div class="flex-1">
       <a href="/" class="btn btn-square btn-ghost">
@@ -45,11 +46,12 @@
         <a class="btn btn-ghost normal-case" href="/dashboard">Dashboard</a>
         <Account />
       {:else}
-        <a class="btn btn-ghost normal-case" href="/login">Log In</a>
+        <slot/>
+        <!-- <a class="btn btn-ghost normal-case" href="/login">Log In</a> -->
       {/if}
     </div>
   </div>
   <!-- <div class="mt-16 flex flex-col items-center">
-   
+
   </div> -->
 
