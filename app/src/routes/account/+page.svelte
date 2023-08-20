@@ -2,7 +2,6 @@
     import {user } from "$lib/userStore";
     import NavBar from '$lib/components/NavBar.svelte';
     import AuthCheck from "$lib/components/AuthCheck.svelte";
-
 </script>
 
 <AuthCheck>
