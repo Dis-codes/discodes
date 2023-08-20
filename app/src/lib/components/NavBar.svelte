@@ -33,9 +33,9 @@
 
         {#if searchContent}
         <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-full">
-            <li><a href={`/search/users?keyword=${searchContent}`}>Search <span class="truncate">{searchContent}</span> in people</a></li>
-            <li><a href={`/search/plugins/${searchContent}`}>Search <span class="truncate">{searchContent}</span> in plugins</a></li>
-            <li><a href={`/search/marketplace/${searchContent}`}>Search <span class="truncate">{searchContent}</span> in marketplace</a></li>
+            <li><button on:click={() => window.location.href = `/search/users?keyword=${searchContent}`}>Search <span class="truncate">{searchContent}</span> in people</button></li>
+            <li><button on:click={() => window.location.href =`/search/plugins/${searchContent}`}>Search <span class="truncate">{searchContent}</span> in plugins</button></li>
+            <li><button on:click={() => window.location.href =`/search/marketplace/${searchContent}`}>Search <span class="truncate">{searchContent}</span> in marketplace</button></li>
           </ul>
         {/if}
       </div>
