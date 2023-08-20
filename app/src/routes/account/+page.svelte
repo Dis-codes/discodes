@@ -1,7 +1,9 @@
 <script lang="ts">
     import {user } from "$lib/userStore";
     import NavBar from '$lib/components/NavBar.svelte';
+    import Loading from '$lib/components/Loading.svelte';
     import AuthCheck from "$lib/components/AuthCheck.svelte";
+  import Loading from "$lib/components/Loading.svelte";
 
 </script>
 
@@ -45,7 +47,7 @@
               <div class="flex justify-center"><button class="btn btn-outline btn-error btn-disabled">Delete your account</button></div>
         </div>
     {:else}
-    <span class="loading loading-spinner text-discodes loading-lg"></span>
+   <Loading />
     {/if}
 </main>
 </AuthCheck>

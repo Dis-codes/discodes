@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import Loading from '$lib/components/Loading.svelte';
     export let data
     const { session,supabase } = data
   
@@ -14,7 +15,4 @@
     });
   </script>
   
-  <div class="flex flex-col items-center justify-center h-screen">
-    <span class="loading loading-spinner text-discodes loading-lg"></span>
-  </div>
-  
+  <Loading />

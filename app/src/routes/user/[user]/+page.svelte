@@ -2,6 +2,7 @@
     import NavBar from '$lib/components/NavBar.svelte';
     import { supabase } from '$lib/supabase';
     import { onMount } from 'svelte';
+    import Loading from '$lib/components/Loading.svelte';
 
     let user: any = null;
     let datas: any = null;
@@ -107,7 +108,5 @@
     </div>
 </div>
 {:else}
-<div class="flex items-center justify-center h-screen">
-    <span class="loading loading-spinner text-discodes loading-lg"></span>
-</div>
+<Loading />
 {/if}
