@@ -3,7 +3,6 @@
     import NavBar from '$lib/components/NavBar.svelte';
     import Loading from '$lib/components/Loading.svelte';
     import AuthCheck from "$lib/components/AuthCheck.svelte";
-  import Loading from "$lib/components/Loading.svelte";
 
 </script>
 
