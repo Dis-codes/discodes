@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
     import { Auth } from '@supabase/auth-ui-svelte'
 	import { ThemeSupa } from '@supabase/auth-ui-shared'
     import { onMount } from 'svelte';
@@ -18,4 +18,11 @@ redirectTo={`${data.url}/auth/callback`}
 showLinks={false}
 onlyThirdPartyProviders={true}
 />
-</div>
+</div> -->
+
+<script lang="ts">
+    import { goto } from "$app/navigation";
+    import { onMount } from "svelte";
+
+    onMount(() => {goto('/')})
+</script>
