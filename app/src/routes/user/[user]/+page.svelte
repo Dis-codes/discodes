@@ -3,14 +3,24 @@
     import { supabase } from '$lib/supabase';
     import { onMount } from 'svelte';
     import Loading from '$lib/components/Loading.svelte';
+    import GetUserOnDiscord from '$lib/utils/server';
 
     let user: any = null;
     let datas: any = null;
-    const badges: string[] = ["Developer", "Alpha", "Owner"];
+    let badges: string[] = [];
     const badgesMap: any = {
-        "Developer": "bg-blue-500",
-        "Alpha": "bg-green-500",
-        "Owner": "bg-red-500"
+        "1138771459938988052" : {
+            "name": "Developer",
+            "color": "bg-blue-500"
+        },
+        "1139721194225016862": {
+            name : "S4D staff",
+            color : "bg-yellow-500"
+        },
+        "1139658510343344291" : {
+            name : "Alpha",
+            color: "bg-green-500"
+        }
     };
     const plugins = [
         { name: "Discord moderation", description: "An unique way to ban Limenade" },
@@ -37,6 +47,7 @@
         }
 
         user = { ...user, ...identity[0] };
+        badges = (await GetUserOnDiscord(user.discord_id)).roles
     });
 </script>
 
@@ -52,11 +63,13 @@
         <!-- Badges -->
         <div class="border text-white rounded-full mb-4">
             <div class="mx-2 flex gap-2">
-                {#each badges as badge}
-                    <div class="py-2">
-                        <span class={badgesMap[badge] + " px-2 rounded-full py-1"}>{badge}</span>
-                    </div>
-                {/each}
+                {#each badges as badgeId}
+            {#if badgesMap[badgeId]}
+                <div class="py-2">
+                    <span class={badgesMap[badgeId].color + " px-2 rounded-full py-1"}>{badgesMap[badgeId].name}</span>
+                </div>
+            {/if}
+        {/each}
             </div>
         </div>
 
