@@ -64,7 +64,7 @@
                     class="h-20 w-20 rounded-full mb-2 outline outline-cyan-700"/>
                   </h2>
                     <div class="flex-1">
-                      <a class="text-xl font-semibold link link-hover" href="/user/{user.display_name}">{user.display_name}</a>
+                      <a class="text-xl font-semibold link link-hover" href="/user/{user.username}">{user.display_name}</a>
                       <p class="text-gray-500">@{user.username}</p>
                       <p class="text-sm font-semibold mt-1 text-cyan-400">{((currentDate - new Date(user.logged_at)) <= maxSessionDuration) ? "online" : "offline"}</p>
                   </div>
