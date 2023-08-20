@@ -4,6 +4,7 @@
 
 <NavBar />
 
+
 <div class='flex justify-center items-center h-screen'>
     <div class="text-center">
         <h1 class="text-3xl font-semibold mb-4">Welcome to our Server Help Page</h1>

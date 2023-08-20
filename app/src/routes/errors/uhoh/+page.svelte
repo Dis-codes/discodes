@@ -4,10 +4,10 @@
             <img src="../../Gifs/itsfine.gif" alt="gif" class="rounded-xl" />
         </figure>
         <div class="card-body items-center text-center">
-            <h2 class="card-title">Oops, looks like you lost yourself!</h2>
-            <p class='text-secondary'>It's ok it happens to everyone</p>
+            <h2 class="card-title">Uh oh, some unexpected error occured!</h2>
+            <p class='text-secondary'>Try going back to the main menu!</p>
             <div class="card-actions">
-                <a class="btn btn-secondary" href="/">Go back to the website</a>
+                <a class="btn btn-secondary" href="/">Go back to the wbesite</a>
             </div>
         </div>
     </div>
