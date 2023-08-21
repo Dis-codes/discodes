@@ -1,4 +1,4 @@
-<!--
+<!-- 
     svelte-blockly
     https://github.com/SillyFreak/svelte-blockly/blob/main/src/lib/Component.svelte
 
