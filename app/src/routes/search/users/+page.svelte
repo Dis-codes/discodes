@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { onMount, afterUpdate } from 'svelte';
-    import NavBar from '$lib/components/NavBar.svelte';
-    import Loading from '$lib/components/Loading.svelte';
+    import { onMount } from 'svelte';
+    import { NavBar, Loading } from "$lib/components/Components";
     import { supabase } from '$lib/supabase';
     export let data;
     const { session } = data;

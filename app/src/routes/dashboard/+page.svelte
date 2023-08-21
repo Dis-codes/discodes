@@ -1,8 +1,7 @@
 <script lang="ts">
-    import AuthCheck from "$lib/components/AuthCheck.svelte";
+    import { NavBar,AuthCheck } from "$lib/components/Components";
     import BotUptime from "$lib/components/DashboardComponents/BotUptime.svelte";
     import CommandStats from "$lib/components/DashboardComponents/CommandStats.svelte";
-    import NavBar from "$lib/components/NavBar.svelte";
 </script>
 
 <AuthCheck>

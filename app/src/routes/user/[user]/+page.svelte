@@ -1,9 +1,8 @@
 <script lang="ts">
-    import NavBar from '$lib/components/NavBar.svelte';
+    import { NavBar, Loading } from '$lib/components/Components';
     import { supabase } from '$lib/supabase';
     import { onMount } from 'svelte';
-    import Loading from '$lib/components/Loading.svelte';
-    import GetUserOnDiscord from '$lib/utils/server';
+    import { GetUserRoles } from '$lib/utils/utils';
 
     let user: any = null;
     let datas: any = null;
@@ -47,7 +46,7 @@
         }
 
         user = { ...user, ...identity[0] };
-        badges = (await GetUserOnDiscord(user.discord_id)).roles
+        badges = (await GetUserRoles(user.discord_id)).roles
     });
 </script>
 

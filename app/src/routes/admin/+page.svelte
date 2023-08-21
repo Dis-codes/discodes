@@ -1,8 +1,7 @@
 <script>
     import { user } from "$lib/userStore";
-    import NavBar from '$lib/components/NavBar.svelte';
     import { supabase } from '$lib/supabase';
-    import Loading from '$lib/components/Loading.svelte';
+    import { NavBar, Loading} from "$lib/components/Components";
 
     let info = {
         registeredUsers: "loading...",
