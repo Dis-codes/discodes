@@ -3,7 +3,9 @@
     import { supabase } from '$lib/supabase';
     import { onMount } from 'svelte';
     import Loading from '$lib/components/Loading.svelte';
-    import GetUserOnDiscord from '$lib/utils/server';
+
+    import GetUserRoles from '$lib/utils/server';
+    import GetBadges from '$lib/utils/getBadges';
 
     let user: any = null;
     let datas: any = null;
@@ -47,7 +49,8 @@
         }
 
         user = { ...user, ...identity[0] };
-        badges = (await GetUserOnDiscord(user.discord_id)).roles
+        badges = (await GetUserRoles(user.discord_id))
+        badges = GetBadges(badges)
     });
 </script>
 
