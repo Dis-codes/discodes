@@ -9,7 +9,7 @@
 
     export let data
 
-    const allowedUrls: Array<string> = ['/errors/permission', '/']
+    const allowedUrls: Array<string> = ['/errors/permission', '/', '/auth/callback', '/getsession', ]
 
     let { supabase, session } = data
     $: ({ supabase, session } = data)
@@ -34,7 +34,7 @@
 
 
 
-{#if $page.url.pathname == allowedUrls[0] || $page.url.pathname == allowedUrls[1]}
+{#if allowedUrls.includes($page.url.pathname)}
     <slot />
 
 {:else}
