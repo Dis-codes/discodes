@@ -56,16 +56,16 @@
 {#if user}
 <div class="flex items-center justify-center h-screen mx-10">
     <!-- Left Screen (User Profile) -->
-    <div style="height: 53%;" class="shadow-xl mt-8 w-1/4 p-8 border border-neutral rounded-xl mb-20 ">
+    <div style="height: 54%;" class="shadow-xl mt-8 w-1/4 p-8 border border-neutral rounded-xl mb-20 ">
     
         <!-- User Image -->
         <img src={user.avatar_url} alt="User Image" class="w-24 h-24 rounded-full  mb-4 ring ring-neutral">
         <p class="text-xl font-bold">{user.display_name}</p>
         <p>@{user.username}</p>
-        <p class="transperent">{user.discord_id}</p>
+        <!-- <p class="transperent">{user.discord_id}</p> -->
         <!-- Badges -->
         <div class="divider"></div>
-        <div class="border border-neutral text-white rounded-full mb-4">
+        <div class="border border-neutral shadow-xl text-white rounded-full mb-4">
             <div class="mx-2 flex gap-2">
                 {#each badges as badgeId}
             {#if badgesMap[badgeId]}
@@ -78,16 +78,18 @@
         </div>
 
         <div class="text-white rounded-lg">
-            <p class="text-gray-400 font-semibold">Description:<br></p><p> {user.bio}</p>
+            <p class="text-gray-400 font-semibold">Description:<br></p>
+            <p> {user.bio}</p>
         </div>
+        <p class="text-gray-400 mt-32">Joined: {new Date(user.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
     </div>
     <div class="ml-4 w-full">
         <div class="flex-1 flex flex-col border border-neutral rounded-xl mb-4">
             <!-- Info content -->
             <div class="flex-1 p-6 shadow-xl">
-                <h1 class="text-4xl mb-2">User status</h1>
+                <h1 class="text-4xl font-bold mb-5">User status<br></h1>
                 <div class="ml-6">
-                    <div class="stats stats-horizontal">
+                    <div class="stats stats-horizontal mt-3">
   
                         <div class="stat">
                           <div class="stat-title">Followers</div>
@@ -103,19 +105,17 @@
                           <div class="stat-title">Plugin Downloads:</div>
                           <div class="stat-value">{user.plugins_downloads || 0}</div>
                         </div>
-                        
-                      </div>
-                    <p>Joined: {new Date(user.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>                
+                    </div>                
                 </div>
             </div>
         </div>
         <div class="flex-1 flex flex-col border border-neutral rounded-xl mb-12">
             <!-- Info content -->
             <div class="flex-1 p-6 shadow-xl">
-                <h1 class="text-2xl">Plugins</h1>
+                <h1 class="text-3xl font-bold">Plugins</h1>
                 <div class="ml-6 mt-4 flex gap-2">
                     {#each plugins.slice(0,  4) as plugin}
-                        <div class="bg-gray-600 py-16 w-1/4 rounded-lg">
+                        <div class="shadow-xl py-16 w-1/4 rounded-lg border border-spacing-0.5 border-neutral">
                             <div class="text-center">
                                 <p class="font-bold">{plugin.name}</p>
                                 <p>{plugin.description}</p>
