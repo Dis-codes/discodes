@@ -1,8 +1,7 @@
 <script lang="ts">
-    import NavBar from '$lib/components/NavBar.svelte';
+    import { NavBar, Loading } from '$lib/components/Components';
     import { supabase } from '$lib/supabase';
     import { onMount } from 'svelte';
-    import Loading from '$lib/components/Loading.svelte';
 
     import GetUserRoles from '$lib/utils/server';
     import GetBadges from '$lib/utils/getBadges';

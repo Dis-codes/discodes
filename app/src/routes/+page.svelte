@@ -1,6 +1,5 @@
 <script lang="ts">
-    import Changelog from './changelog/+page.svelte';
-    import NavBar from '$lib/components/NavBar.svelte';
+    import { NavBar, Changelog } from "$lib/components/Components";
     // import { page } from '$app/stores';
     // import { goto } from '$app/navigation';
     // import { onMount } from 'svelte';

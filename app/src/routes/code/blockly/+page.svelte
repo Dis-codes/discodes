@@ -1,8 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-
-    import NavBar from "$lib/components/NavBar.svelte";
-    import AuthCheck from "$lib/components/AuthCheck.svelte";
+    import { NavBar, AuthCheck } from "$lib/components/Components";
 
     import Blockly from "blockly/core";
     import toolbox from "$lib/toolbox";

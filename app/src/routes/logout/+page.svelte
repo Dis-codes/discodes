@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import Loading from '$lib/components/Loading.svelte';
+    import { Loading } from "$lib/components/Components";
     export let data
     const { session,supabase } = data
   
