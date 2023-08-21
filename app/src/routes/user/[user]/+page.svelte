@@ -11,15 +11,15 @@
     const badgesMap: any = {
         "1138771459938988052" : {
             "name": "Developer",
-            "color": "bg-blue-500"
+            "color": "text-blue-500 badge badge-outline"
         },
         "1139721194225016862": {
             name : "S4D staff",
-            color : "bg-yellow-500"
+            color : "text-yellow-500 badge badge-outline"
         },
         "1139658510343344291" : {
             name : "Alpha",
-            color: "bg-green-500"
+            color: "text-green-500 badge badge-outline"
         }
     };
     const plugins = [
@@ -56,12 +56,16 @@
 {#if user}
 <div class="flex items-center justify-center h-screen mx-10">
     <!-- Left Screen (User Profile) -->
-    <div class="w-1/4 p-8 border rounded-xl">
+    <div style="height: 54%;" class="shadow-xl mt-8 w-1/4 p-8 border border-neutral rounded-xl mb-20 ">
+    
         <!-- User Image -->
-        <img src={user.avatar_url} alt="User Image" class="w-32 h-32 rounded-full mx-auto mb-4">
-
+        <img src={user.avatar_url} alt="User Image" class="w-24 h-24 rounded-full  mb-4 ring ring-neutral">
+        <p class="text-xl font-bold">{user.display_name}</p>
+        <p>@{user.username}</p>
+        <!-- <p class="transperent">{user.discord_id}</p> -->
         <!-- Badges -->
-        <div class="border text-white rounded-full mb-4">
+        <div class="divider"></div>
+        <div class="border border-neutral shadow-xl text-white rounded-full mb-4">
             <div class="mx-2 flex gap-2">
                 {#each badges as badgeId}
             {#if badgesMap[badgeId]}
@@ -73,37 +77,45 @@
             </div>
         </div>
 
-        <div class="border text-white rounded-lg py-40">
-            <div class="text-center">
-                <p>another info idk</p>
-            </div>
+        <div class="text-white rounded-lg">
+            <p class="text-gray-400 font-semibold">Description:<br></p>
+            <p> {user.bio}</p>
         </div>
+        <p class="text-gray-400 mt-32">Joined: {new Date(user.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
     </div>
-
     <div class="ml-4 w-full">
-        <div class="flex-1 flex flex-col border rounded-xl mb-4">
+        <div class="flex-1 flex flex-col border border-neutral rounded-xl mb-4">
             <!-- Info content -->
-            <div class="flex-1 p-6 ">
-                <h1 class="text-4xl">Info</h1>
+            <div class="flex-1 p-6 shadow-xl">
+                <h1 class="text-4xl font-bold mb-5">User status<br></h1>
                 <div class="ml-6">
-                    <p class="text-xl font-bold">{user.display_name}</p>
-                    <p>@{user.username}</p>
-                    <p>ID: {user.discord_id}</p>
-                    <p>Bio: {user.bio}</p>
-                    <p>Created At: {new Date(user.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
-                    <p>Followers: {user.followers ? user.followers.length : 0}</p>
-                    <p>Following: {user.following ? user.following.length : 0}</p>
-                    <p>Plugin Downloads: {user.plugins_downloads || 0}</p>
+                    <div class="stats stats-horizontal mt-3">
+  
+                        <div class="stat">
+                          <div class="stat-title">Followers</div>
+                          <div class="stat-value">{user.followers ? user.followers.length : 0}</div>
+                        </div>
+                        
+                        <div class="stat">
+                          <div class="stat-title">Following</div>
+                          <div class="stat-value">{user.following ? user.following.length : 0}</div>
+                        </div>
+                        
+                        <div class="stat">
+                          <div class="stat-title">Plugin Downloads:</div>
+                          <div class="stat-value">{user.plugins_downloads || 0}</div>
+                        </div>
+                    </div>                
                 </div>
             </div>
         </div>
-        <div class="flex-1 flex flex-col border rounded-xl">
+        <div class="flex-1 flex flex-col border border-neutral rounded-xl mb-12">
             <!-- Info content -->
-            <div class="flex-1 p-6 ">
-                <h1 class="text-2xl">Plugins</h1>
+            <div class="flex-1 p-6 shadow-xl">
+                <h1 class="text-3xl font-bold">Plugins</h1>
                 <div class="ml-6 mt-4 flex gap-2">
                     {#each plugins.slice(0,  4) as plugin}
-                        <div class="bg-gray-600 py-16 w-1/4 rounded-lg">
+                        <div class="shadow-xl py-16 w-1/4 rounded-lg border border-spacing-0.5 border-neutral">
                             <div class="text-center">
                                 <p class="font-bold">{plugin.name}</p>
                                 <p>{plugin.description}</p>
@@ -123,3 +135,8 @@
 {:else}
 <Loading />
 {/if}
+<style>
+    .transperent{
+     color: rgba(128, 128, 128, 0.171);
+    }
+</style>
