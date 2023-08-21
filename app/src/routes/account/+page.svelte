@@ -7,7 +7,7 @@
 
 <AuthCheck>
 <NavBar/>
-<main class="flex items-center justify-center h-screen">
+<main class="flex items-center justify-center h-screen shadow-xl">
     {#if $user}
         <div class="p-6 shadow-xl border border-neutral rounded-lg ">
             <div class="flex justify-center"><h1 class="text-2xl font-semibold">
@@ -28,7 +28,7 @@
                 <!-- <p><strong>Account Created:</strong> {$user?.metadata?.creationTime}</p>
                 <p><strong>Last Signed In:</strong> {$user?.metadata?.lastSignInTime}</p> -->
             <div class="form-control">
-                <textarea class="textarea textarea-ghost" placeholder="Bio"></textarea>
+                <textarea class="textarea textarea-ghost mb-2 shadow-sm" placeholder="Bio"></textarea>
               </div>
               <div class="form-control">
                 <label class="label cursor-pointer">

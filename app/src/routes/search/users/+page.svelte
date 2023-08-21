@@ -69,14 +69,22 @@
                       <p class="text-gray-500">@{user.username}</p>
                       <p class="text-sm font-semibold mt-1 text-cyan-400">{((currentDate - new Date(user.logged_at)) <= maxSessionDuration) ? "online" : "offline"}</p>
                   </div>
-                  <div class="absolute bottom-48 right-2 mb-2 mr-2">
-                  <button> 
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                  </button>
-                  </div>
+                  <div class="absolute bottom-48 right-2 mt-1 mr-2">
+                      <div class="dropdown dropdown-end">
+                        <label tabindex="0" class="btn btn-circle btn-ghost btn-xs text-info">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </label>
+                        <div tabindex="0" class="card compact dropdown-content z-[1] shadow-xl bg-base-100 rounded-box w-56">
+                          <div class="card-body">
+                            <h2 class="card-title font-semibold">About me:</h2> 
+                            <p>Have fun make the about me user puts here!</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   {#if user.username === loggedUser}
                   <div class="text-center mt-2">
-                    <p class="text-sm text-gray-500 mt-2">This is you</p>
+                    <p class="text-sm text-gray-500 mt-4">This is you</p>
                   </div>
                   
           {:else}
