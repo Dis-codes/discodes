@@ -62,7 +62,7 @@
     <div style="height: 54%;" class="shadow-xl mt-8 w-1/4 p-8 border border-neutral rounded-xl mb-20 ">
     
         <!-- User Image -->
-        <img src={user.avatar_url} alt="User Image" class="w-24 h-24 rounded-full  mb-4 ring ring-neutral">
+        <img src={user.avatar_url} alt="User" class="w-24 h-24 rounded-full  mb-4 ring ring-neutral">
         <p class="text-xl font-bold">{user.display_name}</p>
         <p>@{user.username}</p>
         <!-- <p class="transperent">{user.discord_id}</p> -->
@@ -93,20 +93,20 @@
                 <h1 class="text-4xl font-bold mb-5">User status<br></h1>
                 <div class="ml-6">
                     <div class="stats stats-horizontal mt-3">
-  
+
                         <div class="stat">
-                          <div class="stat-title">Followers</div>
-                          <div class="stat-value">{user.followers ? user.followers.length : 0}</div>
+                            <div class="stat-title">Followers</div>
+                            <div class="stat-value">{user.followers ? user.followers.length : 0}</div>
                         </div>
                         
                         <div class="stat">
-                          <div class="stat-title">Following</div>
-                          <div class="stat-value">{user.following ? user.following.length : 0}</div>
+                            <div class="stat-title">Following</div>
+                            <div class="stat-value">{user.following ? user.following.length : 0}</div>
                         </div>
                         
                         <div class="stat">
-                          <div class="stat-title">Plugin Downloads:</div>
-                          <div class="stat-value">{user.plugins_downloads || 0}</div>
+                            <div class="stat-title">Plugin Downloads:</div>
+                            <div class="stat-value">{user.plugins_downloads || 0}</div>
                         </div>
                     </div>                
                 </div>
