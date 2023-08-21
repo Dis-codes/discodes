@@ -5,7 +5,9 @@ let { supabase, session } = data
 $: ({ supabase, session } = data)
 onMount(() => {
     if (session && session.user) {
-        window.location.href = `https://workspace.discodes.xyz?session_key=${encodeURIComponent(JSON.stringify(session))}`
+        let newSession = session
+        newSession.user.user_metadata.name = null
+        window.location.href = `https://workspace.discodes.xyz?session_key=${encodeURIComponent(JSON.stringify(newSession))}`
 }
 });
 </script>
