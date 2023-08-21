@@ -1,6 +1,5 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { Loading } from "$lib/components/components";
     export let data
 let { supabase, session } = data
 $: ({ supabase, session } = data)
@@ -27,6 +26,4 @@ onMount(() => {
         </div>
     </div>
 </div>
-{:else}
-<Loading />
 {/if}
