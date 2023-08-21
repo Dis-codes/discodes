@@ -5,7 +5,7 @@
     onMount(() => {
         let username = $user.user_metadata.full_name
         if (!username) {
-          window.location.href = "/login";
+          window.location.href = "/errors/login";
         }
         window.location.href = "/user/" + username;
     });

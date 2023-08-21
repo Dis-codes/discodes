@@ -1,8 +1,7 @@
 <script>
     import { user } from "$lib/userStore";
-    import NavBar from '$lib/components/NavBar.svelte';
     import { supabase } from '$lib/supabase';
-    import Loading from '$lib/components/Loading.svelte';
+    import { NavBar, Loading, RoleCheck} from "$lib/components/Components";
 
     let info = {
         registeredUsers: "loading...",
@@ -25,6 +24,7 @@ Users();
    
 </script>
 
+<RoleCheck roleID={'1138771459938988052'} userID={$user?.user_metadata.provider_id}>
 <NavBar/>
 <main class="flex items-center justify-center h-screen mx-10">
     {#if $user}
@@ -55,3 +55,4 @@ Users();
     <Loading />
     {/if}
 </main>
+</RoleCheck>

@@ -1,8 +1,6 @@
 <script lang="ts">
     import { user } from "$lib/userStore";
-    import NavBar from '$lib/components/NavBar.svelte';
-    import Loading from '$lib/components/Loading.svelte';
-    import AuthCheck from "$lib/components/AuthCheck.svelte";
+    import { NavBar, Loading, AuthCheck } from "$lib/components/Components";
 </script>
 
 <AuthCheck>
