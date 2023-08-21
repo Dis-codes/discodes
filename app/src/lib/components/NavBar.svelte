@@ -1,6 +1,6 @@
 <script lang="ts">
     import Account from "./Account.svelte";
-    import { user } from '$lib/userStore';
+    import { sessionStore, user} from '$lib/userStore';
     let searchContent = '';
     
   </script>
@@ -13,7 +13,7 @@
       <h2 class="ml-4 normal-case text-xl">DisCodes</h2>
     </div>
     <div class="flex-auto">
-      <a class="btn btn-ghost normal-case no-animation" href="/plugins">Plugins</a>
+      <a class="btn btn-ghost normal-case no-animation" href="https://workspace.discodes.xyz?session_key={JSON.stringify($sessionStore)}">Workspace</a>
       <a class="btn btn-ghost normal-case no-animation mx-2" href="/marketplace">Marketplace</a>
       <div class="dropdown w-64">
         <input

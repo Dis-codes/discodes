@@ -1,6 +1,11 @@
 <script lang="ts">
     import { user } from "$lib/userStore";
     import { NavBar, Loading, AuthCheck } from "$lib/components/Components";
+    let maxChars = 100;
+    let bio = "User of DisCodes";
+
+
+
 </script>
 
 <AuthCheck>
@@ -25,8 +30,13 @@
 
                 <!-- <p><strong>Account Created:</strong> {$user?.metadata?.creationTime}</p>
                 <p><strong>Last Signed In:</strong> {$user?.metadata?.lastSignInTime}</p> -->
-            <div class="form-control">
-                <textarea class="textarea textarea-ghost mb-2 shadow-sm" placeholder="Bio"></textarea>
+            <div class="form-control relative">
+                <textarea class="textarea h-28 textarea-ghost mb-2 shadow-sm" 
+                placeholder="Bio" 
+                style="resize: none;" 
+                maxlength="100"
+                bind:value={bio}></textarea>
+ <div class="absolute bottom-2 right-2 text-gray-500 text-sm">{maxChars - bio.length} / {maxChars}</div>
               </div>
               <div class="form-control">
                 <label class="label cursor-pointer">
@@ -40,6 +50,9 @@
                   <input type="checkbox" class="checkbox" checked />
                 </label>
               </div>
+              <div class="flex justify-center"><button class="btn btn-accent btn-outline shadow-xl btn-sm">Update profile <span class="material-symbols-outlined">
+                done
+                </span></button></div>
               <div class="divider"></div>
               <div class="flex justify-center"><button class="btn btn-outline btn-error btn-neutral">Delete your account</button></div>
         </div>

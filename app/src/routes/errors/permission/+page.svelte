@@ -6,6 +6,7 @@
         <div class="card-body items-center text-center">
             <h2 class="card-title">Caught you lackin!</h2>
             <p class='text-secondary'> You ain't got enough perms to get to this page!</p>
+            <p class='text-secondary'> Sadly Discodes Is not accessible to anyone without ALFA ACCESS PERMS</p>
             <div class="card-actions">
                 <a class="btn btn-secondary" href="/">Go back to the website</a>
             </div>

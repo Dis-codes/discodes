@@ -80,7 +80,7 @@
         </div>
 
         <div class="text-white rounded-lg">
-            <p class="text-gray-400 font-semibold">Description:<br></p>
+            <p class="text-gray-400 font-semibold">Bio:<br></p>
             <p> {user.bio}</p>
         </div>
         <p class="text-gray-400 mt-32">Joined: {new Date(user.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
@@ -89,7 +89,7 @@
         <div class="flex-1 flex flex-col border border-neutral rounded-xl mb-4">
             <!-- Info content -->
             <div class="flex-1 p-6 shadow-xl">
-                <h1 class="text-4xl font-bold mb-5">User status<br></h1>
+                <h1 class="text-4xl font-bold mb-5">User stats<br></h1>
                 <div class="ml-6">
                     <div class="stats stats-horizontal mt-3">
 
