@@ -3,11 +3,9 @@
     export let data
 let { supabase, session } = data
 $: ({ supabase, session } = data)
-console.log(session)
-
 onMount(() => {
     if (session && session.user) {
-        window.location.href = `https://workspace.discodes.xyz?session_key=${JSON.stringify(session)}`
+        window.location.href = `https://workspace.discodes.xyz?session_key=${encodeURIComponent(JSON.stringify(session))}`
 }
 });
 </script>
