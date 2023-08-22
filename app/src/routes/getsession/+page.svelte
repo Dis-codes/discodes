@@ -3,15 +3,14 @@
     export let data
 let { supabase, session } = data
 $: ({ supabase, session } = data)
-onMount(() => {
-    if (session && session.user) {
-        let newSession = session
-        newSession.user.user_metadata.name = null
-        window.location.href = `https://workspace.discodes.xyz?session_key=${encodeURIComponent(JSON.stringify(newSession))}`
-}
-});
+// onMount(() => {
+//     if (session && session.user) {
+//         let newSession = session
+//         newSession.user.user_metadata.name = null
+//         window.location.href = `https://workspace.discodes.xyz?session_key=${encodeURIComponent(JSON.stringify(newSession))}`
+// }
+// });
 </script>
-{#if !session?.user}
 <div class='flex justify-center items-center h-screen'>
     <div class="card w-96 bg-base-100 shadow-xl ">
         <figure class="px-10 pt-10">
@@ -26,4 +25,3 @@ onMount(() => {
         </div>
     </div>
 </div>
-{/if}
