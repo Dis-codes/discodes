@@ -5,7 +5,6 @@
 
     import GetUserRoles from '$lib/utils/server';
     import GetBadges from '$lib/utils/getBadges';
-
     let user: any = null;
     let datas: any = null;
     let badges: string[] = [];
@@ -21,6 +20,10 @@
         "1139658510343344291" : {
             name : "Alpha",
             color: "text-green-500 badge badge-outline"
+        },
+        "pro" : {
+            name : "Pro",
+            color: "text-pink-500 badge badge-outline"
         }
     };
     const plugins = [
@@ -32,24 +35,28 @@
     onMount(async () => {
         let username = window.location.pathname.split('/')[2];
         const { data, e } = await supabase
-            .from('profiles')
+        .from('profiles')
             .select('*')
             .eq('username', username);
-        
-        user = data[0];
-        
-        const { data: identity, error: e2 } = await supabase
+            
+            user = data[0];
+            
+            const { data: identity, error: e2 } = await supabase
             .from('identity')
             .select('*')
             .eq('id', user.id);
-
-        if (e || e2) {
-            return;
+            if (e || e2) {
+                return;
+            }
+            user = { ...user, ...identity[0] };
+            console.log(user)
+        if (identity[0].achievements){
+            badges = (await GetUserRoles(user.discord_id))
         }
-
-        user = { ...user, ...identity[0] };
-        badges = (await GetUserRoles(user.discord_id))
         badges = GetBadges(badges)
+        if (identity[0].pro){
+            badges.push("pro")
+        }
     });
 </script>
 
@@ -92,6 +99,7 @@
                 <h1 class="text-4xl font-bold mb-5">User stats<br></h1>
                 <div class="ml-6">
                     <div class="stats stats-horizontal mt-3">
+                        {#if !user.private}
 
                         <div class="stat">
                             <div class="stat-title">Followers</div>
@@ -107,6 +115,11 @@
                             <div class="stat-title">Plugin Downloads:</div>
                             <div class="stat-value">{user.plugins_downloads || 0}</div>
                         </div>
+                        {:else}
+                        <div class="stat">
+                            <div class="stat-title">This user has private profile</div>
+                        </div>
+                        {/if}
                     </div>                
                 </div>
             </div>
