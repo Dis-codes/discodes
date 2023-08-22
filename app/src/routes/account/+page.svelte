@@ -62,6 +62,7 @@ const { error } = await supabase
         }, 3000)
         return;
       }
+      initialProfileData = { ...profileData };
       showMessage = true;
       isSuccess = true;
       setTimeout(() => {
