@@ -26,10 +26,7 @@
             color: "text-pink-500 badge badge-outline"
         }
     };
-    const plugins = [
-        { name: "Discord moderation", description: "An unique way to ban Limenade" },
-        // Add more plugin objects here
-    ];
+    let plugins = [];
     let showAllPlugins = false; // Initially show only 4 plugins
 
     onMount(async () => {
@@ -57,6 +54,16 @@
         if (identity[0].pro){
             badges.push("pro")
         }
+        const { data: pluginsData, error: e3} = await supabase
+            .from('marketplace')
+            .select('*')
+            .eq('user_id', user.id);
+            if (e3) {
+                return;
+            }
+            console.log(pluginsData)
+            plugins = [...pluginsData]
+            
     });
 </script>
 
@@ -132,8 +139,9 @@
                     {#each plugins.slice(0,  4) as plugin}
                         <div class="shadow-xl py-16 w-1/4 rounded-lg border border-spacing-0.5 border-neutral">
                             <div class="text-center">
-                                <p class="font-bold">{plugin.name}</p>
+                                <a href="/user/{user.username}/plugins/{plugin.id}" class="font-bold hover:underline">{plugin.name}</a>
                                 <p>{plugin.description}</p>
+                                <p class="text-sm font-semibold mt-1 text-cyan-400"> {((new Date(plugin.created_at)).toLocaleDateString('en-GB'))}</p>
                             </div>
                         </div>
                     {/each}

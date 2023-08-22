@@ -14,7 +14,7 @@
     </div>
     <div class="flex-auto">
       <a class="btn btn-ghost normal-case no-animation" href="https://workspace.discodes.xyz?session_key={JSON.stringify($sessionStore)}">Workspace</a>
-      <a class="btn btn-ghost normal-case no-animation mx-2" href="/marketplace">Marketplace</a>
+      <a class="btn btn-ghost normal-case no-animation mx-2" href="/search/marketplace">Marketplace</a>
       <div class="dropdown w-64">
         <input
           type="text"
@@ -35,7 +35,7 @@
         <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-full">
             <li><button on:click={() => window.location.href = `/search/users?keyword=${searchContent}`}>Search <span class="truncate">{searchContent}</span> in people</button></li>
             <li><button on:click={() => window.location.href =`/search/plugins/${searchContent}`}>Search <span class="truncate">{searchContent}</span> in plugins</button></li>
-            <li><button on:click={() => window.location.href =`/search/marketplace/${searchContent}`}>Search <span class="truncate">{searchContent}</span> in marketplace</button></li>
+            <li><button on:click={() => window.location.href =`/search/marketplace?keyword=${searchContent}`}>Search <span class="truncate">{searchContent}</span> in marketplace</button></li>
           </ul>
         {/if}
       </div>
