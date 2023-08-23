@@ -24,6 +24,7 @@
   <div class="changelog-container w-1/4 mx-auto">
     {#each logs as log, i (log.title)}
     <div class="card w-100 bg-base-100 shadow-xl">
+      {#if log.image}  <figure><img src={log.image} alt={log.title}/></figure>{/if}
       <div class="card-body">
         <h2 class="card-title">
           {log.title}
@@ -31,7 +32,6 @@
           <div class="badge badge-secondary">NEW</div>
           {/if}
         </h2>
-        {#if log.image}  <figure><img src={log.image} alt={log.title}/></figure>{/if}
         <p>{log.description}</p>
         <div class="card-actions justify-between">
           <div class="badge badge-accent justify-normal">
