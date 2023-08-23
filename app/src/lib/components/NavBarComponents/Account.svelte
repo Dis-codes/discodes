@@ -17,20 +17,20 @@
         <img src={$user?.user_metadata?.avatar_url} alt={"Profile Picture of " + ($user ? $user.user_metadata.full_name : "User")} class="h-full w-full rounded-full" />
     </summary>
     <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-        <li><a href="/account" target="_self"><span class="material-symbols-outlined">
+        <li><a href="/account"><span class="material-symbols-outlined">
             person
             </span> Account</a></li>
-        <li><a href="/account/notifications" target="_self"><span class="material-symbols-outlined">
+        <li><a href="/account/notifications"><span class="material-symbols-outlined">
             notifications
             </span> Notifications <span class="badge badge-error text-xs">{notificationCount}</span></a></li>
-        <li><a href="/account/settings" target="_self"><span class="material-symbols-outlined">
+        <li><a href="/account/settings"><span class="material-symbols-outlined">
             settings
             </span> Settings</a></li>
-        <li><a href="/help" target="_self"><span class="material-symbols-outlined">
+        <li><a href="/help"><span class="material-symbols-outlined">
             help
             </span> Help & Support</a></li>
             {#if isAdmin}
-            <li><a href="/account/admin" target="_self"><span class="material-symbols-outlined">
+            <li><a href="/account/admin" ><span class="material-symbols-outlined">
                 shield_person
                 </span> Admin</a></li>
             {/if}
@@ -38,3 +38,4 @@
         <LogOutModal />
     </ul>
 </details>
+<!-- target="_self" -->
