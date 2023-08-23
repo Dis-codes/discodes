@@ -11,7 +11,7 @@
         return;
     }
     console.log(data)
-    logs = data.reverse();
+    logs = data
   }
   getLogs()
   </script>
