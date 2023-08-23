@@ -1,9 +1,19 @@
 <script>
-    export let logs = [
-      { name: "Awesome mountain!", image: "https://picsum.photos/seed/picsum/500/300", description: "Best looiking mountain ever tbh", author: "LimeNade", time:"10/8/2023",tags: ['site', 'database']},
-      { name: "Best update EVER", image: "https://picsum.photos/500/300/", description: "Ikr, I'm the best dev!!!", author: "Noxyyk", time:"9/8/2023",tags: ['backend', 'documentation'] },
-      { name: "I love chicken nuggets", image: "https://picsum.photos/500/300", description: "When I met you in the summer 😘", author: "LimeNade", time:"9/8/2023", tags: ['blocks', 'website']}
-    ];
+    let logs = []
+    import { supabase } from '$lib/supabase';
+    async function getLogs() {
+    const { data, error } = await supabase
+        .from('changelog')
+        .select('*')
+
+    if (error) {
+        console.log(error)
+        return;
+    }
+    console.log(data)
+    logs = data.reverse();
+  }
+  getLogs()
   </script>
   
 
@@ -12,22 +22,27 @@
 
   <h2 class='text-2xl mb-2'>Changelog</h2>
   <div class="changelog-container w-1/4 mx-auto">
-    {#each logs as log, i (log.name)}
+    {#each logs as log, i (log.title)}
     <div class="card w-100 bg-base-100 shadow-xl">
-      <figure><img src={log.image} alt={log.name}/></figure>
       <div class="card-body">
         <h2 class="card-title">
-          {log.name}
+          {log.title}
           {#if i == 0}
           <div class="badge badge-secondary">NEW</div>
           {/if}
         </h2>
+        {#if log.image}  <figure><img src={log.image} alt={log.title}/></figure>{/if}
         <p>{log.description}</p>
-        <div class="card-actions justify-end">
-          {#each log.tags as tag}
-          <div class="badge badge-accent badge-outline">{tag}</div> 
-          {/each}
-        </div>
+        <div class="card-actions justify-between">
+          <div class="badge badge-accent justify-normal">
+            {new Date(log.creation_time).toLocaleString('en-GB', { day: '2-digit', month: '2-digit' })}
+          </div>
+          <div class="tag-container">
+            {#each log.tags as tag}
+            <div class="badge badge-accent badge-outline mx-1">{tag}</div>
+            {/each}
+          </div>
+        </div>        
       </div>
     </div>
     {#if i != 0}
