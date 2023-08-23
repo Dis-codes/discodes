@@ -1,8 +1,8 @@
 <script>
     import { user } from "$lib/userStore";
-    import { supabase } from '$lib/supabase';
     import { NavBar, Loading, RoleCheck} from "$lib/components/Components";
-
+    export let data
+    let { supabase, session } = data
     let info = {
         registeredUsers: "loading...",
         reports: 3,
@@ -19,7 +19,22 @@
 }
 
 Users();
-
+async function sendNewLog() {
+    const title = document.getElementById('titleInput').value;
+    const description = document.getElementById('descriptionInput').value;
+    const tags = document.getElementById('tagsInput').value.split(',').map(tag => tag.trim());
+    const image = document.getElementById('imageInput').value;
+    if (!title || !description || !tags) {
+        alert('Please fill in all fields');
+        return;
+    }
+    const { data, error } = await supabase
+        .from('changelog')
+        .insert([
+            { user_id: $user.id, title, description, image, tags },
+        ])
+        .select();
+}
 
    
 </script>
@@ -46,7 +61,7 @@ Users();
             </h2>
             <div class="flex justify-center"><h2 class="text-xl font-semibold">Admin's Tools</h2></div>
             <div class="mt-4">
-                <button class="btn btn-accent btn-outline shadow-xl">Send changelog</button>
+                <button on:click={() => window.changelogModal.showModal()} class="btn btn-accent btn-outline shadow-xl">Send changelog</button>
                 <button class="btn btn-success btn-outline shadow-xl">Send Custom Message</button>
                 <button class="btn btn-error btn-outline shadow-xl">Force Update Website</button>
             </div>
@@ -56,3 +71,16 @@ Users();
     {/if}
 </main>
 </RoleCheck>
+<dialog id="changelogModal" class="modal">
+    <form method="dialog" class="modal-box">
+        <h3 class="font-bold text-xl">Sending a changelog</h3>
+        <input id="titleInput" type="text" placeholder="Title" class="input input-bordered w-full max-w-xs" />
+        <input id="descriptionInput" type="text" placeholder="Description" class="input input-bordered w-full max-w-xs" />
+        <input id="tagsInput" type="text" placeholder="Tags, separate by comma" class="input input-bordered w-full max-w-xs" />
+        <input id="imageInput" type="text" placeholder="Image URL" class="input input-bordered w-full max-w-xs" />
+        <div class="modal-action">
+            <button class="btn btn-error btn-outline" on:click={sendNewLog} type="button">Send</button>
+            <button class="btn">Close</button>
+        </div>
+    </form>
+</dialog>
