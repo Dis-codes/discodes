@@ -2,7 +2,7 @@
     import LogOutModal from "./LogOutModal.svelte";
     import { user } from '$lib/userStore';
 
-    import { GetUserRoles } from "$lib/utils/utils";
+    import { GetUserRoles } from "discodes-utilities";
     import { onMount } from "svelte";
     let notificationCount = 2;
     let isAdmin:any

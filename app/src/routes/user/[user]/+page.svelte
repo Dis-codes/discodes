@@ -3,8 +3,7 @@
     import { supabase } from '$lib/supabase';
     import { onMount } from 'svelte';
 
-    import GetUserRoles from '$lib/utils/server';
-    import GetBadges from '$lib/utils/getBadges';
+    import {GetUserRoles, GetUserBadges} from 'discodes-utilities';
     let user: any = null;
     let datas: any = null;
     let badges: string[] = [];
@@ -50,7 +49,7 @@
         if (identity[0].achievements){
             badges = (await GetUserRoles(user.discord_id))
         }
-        badges = GetBadges(badges)
+        badges = GetUserBadges(badges)
         if (identity[0].pro){
             badges.push("pro")
         }
