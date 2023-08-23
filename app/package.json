@@ -1,6 +1,6 @@
 {
-	"name": "app",
-	"version": "0.0.1",
+	"name": "discodes",
+	"version": "0.8.4-a",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
