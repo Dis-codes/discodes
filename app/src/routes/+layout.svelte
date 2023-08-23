@@ -5,7 +5,7 @@
     import { user } from "$lib/userStore";
     import { page } from '$app/stores';  
 
-    import RoleCheck from "$lib/components/RoleCheck.svelte";
+    import RoleCheck from "$lib/components/MiscComponents/RoleCheck.svelte";
 
     export let data
 

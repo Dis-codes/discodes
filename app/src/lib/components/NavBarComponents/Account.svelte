@@ -20,17 +20,17 @@
         <li><a href="/account" target="_self"><span class="material-symbols-outlined">
             person
             </span> Account</a></li>
-        <li><a href="/notifications" target="_self"><span class="material-symbols-outlined">
+        <li><a href="/account/notifications" target="_self"><span class="material-symbols-outlined">
             notifications
             </span> Notifications <span class="badge badge-error text-xs">{notificationCount}</span></a></li>
-        <li><a href="/settings" target="_self"><span class="material-symbols-outlined">
+        <li><a href="/account/settings" target="_self"><span class="material-symbols-outlined">
             settings
             </span> Settings</a></li>
         <li><a href="/help" target="_self"><span class="material-symbols-outlined">
             help
             </span> Help & Support</a></li>
             {#if isAdmin}
-            <li><a href="/admin" target="_self"><span class="material-symbols-outlined">
+            <li><a href="/account/admin" target="_self"><span class="material-symbols-outlined">
                 shield_person
                 </span> Admin</a></li>
             {/if}
