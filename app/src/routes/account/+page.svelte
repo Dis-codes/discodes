@@ -50,8 +50,8 @@ async function updateProfile() {
     
 const { error } = await supabase
   .from('identity')
-  .update({ bio: profileData.bio , private: profileData. private, achievements: profileData.achievements, pro: profileData.pro })
-  .eq('id', user.id)
+  .update({ bio: profileData?.bio , private: profileData?.private, achievements: profileData?.achievements, pro: profileData?.pro })
+  .eq('id', user?.id)
 
       isLoading = false;
       if (error){
