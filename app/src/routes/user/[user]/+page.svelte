@@ -108,12 +108,12 @@
                         {#if !user.private}
 
                         <div class="stat">
-                            <div class="stat-title">Followers</div>
+                            <a href="/user/{user.username}/followers" class="stat-title">Followers</a>
                             <div class="stat-value">{user.followers ? user.followers.length : 0}</div>
                         </div>
                         
                         <div class="stat">
-                            <div class="stat-title">Following</div>
+                            <a href="/user/{user.username}/following" class="stat-title">following</a>
                             <div class="stat-value">{user.following ? user.following.length : 0}</div>
                         </div>
                         

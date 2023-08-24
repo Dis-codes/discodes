@@ -1,10 +1,10 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { NavBar, Loading } from "$lib/components/Components";
-    import { supabase } from '$lib/supabase';
     export let data;
-    const { session } = data;
+    const { session, supabase } = data;
     let loggedUser = session?.user?.user_metadata?.full_name;
+    let following = []
     let keyword: string = '';
     let errorTxt: string = '';
     let searchResults:any = [];
@@ -32,6 +32,12 @@
       } else {
         searchResults = data;
         totalPages = Math.ceil(searchResults.length / resultsPerPage);
+        if (searchResults > 0) {
+          const { data: followersData, error: followersError } = await supabase
+            .from('identity')
+            .select('following')
+            .eq('id', loggedUser.id);
+        }
       }
       if (searchResults.length === 0) {
         errorTxt = 'No results found.';
@@ -40,6 +46,51 @@
     }
 
     onMount(fetchSearchResults);
+    async function toggleFollow(id) {
+  console.log(session);
+  if (!following) return;
+
+  try {
+    let newFollowing = following.includes(id) ? following.filter(f => f !== id) : [...following, id]
+    const { data, error } = await supabase
+      .from('identity')
+      .update({ following: newFollowing
+      })
+      .eq('id', session?.user?.id)
+      .select()
+    if (error) {
+      console.error('Error toggling follow:', error);
+    } else {
+      following = data[0]?.following || [];
+    }
+  } catch (error) {
+    console.error('Error toggling follow:', error.message);
+  }
+}
+
+async function getFollowing() {
+  try {
+    const { data, error } = await supabase
+      .from('identity')
+      .select('following')
+      .eq('id', session?.user?.id);
+
+    if (error) {
+      console.error('Error fetching following:', error);
+    } else {
+      following = data[0]?.following || [];
+      console.log(following);
+    }
+  } catch (error) {
+    console.error('Error fetching following:', error.message);
+  }
+}
+
+async function initialize() {
+  await getFollowing();
+}
+
+initialize()
   </script>
   
   <NavBar />
@@ -89,7 +140,7 @@
           {:else}
               <div class="text-center">
                 <div class="absolute bottom-4 right-4 mb-2 mr-2">
-                  <button class="btn btn-info btn-l">Follow</button>
+                  <button on:click={toggleFollow(user.id)} class="btn btn-info btn-l">{following?.includes(user?.id) ? "Unfollow" : "Follow"}</button>
             </div>
               </div>
           {/if}
