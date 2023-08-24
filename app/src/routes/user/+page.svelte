@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { user } from "$lib/userStore";
+  import { user } from "$lib/stores";
 
     onMount(() => {
         let username = $user.user_metadata.full_name

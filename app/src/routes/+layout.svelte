@@ -2,7 +2,7 @@
     import "../app.css";
     import { invalidate } from '$app/navigation';
     import { onMount } from 'svelte';
-    import { user } from "$lib/userStore";
+    import { themeStore, user } from "$lib/stores";
     import { page } from '$app/stores';  
 
     import RoleCheck from "$lib/components/MiscComponents/RoleCheck.svelte";
@@ -30,17 +30,18 @@
 
 <svelte:head>
 	<title>Discodes</title>
+    
 </svelte:head>
 
 
-
+<div data-theme={$themeStore}>
 {#if allowedUrls.includes($page.url.pathname)}
     <slot />
-
 {:else}
-<RoleCheck roleID={'1139658510343344291'} userID={$user.user_metadata.provider_id}>
+<RoleCheck roleID={'1139658510343344291'} userID={$user?.user_metadata.provider_id}>
     <div class="min-h-screen flex flex-col">
     <slot/>
 </div>
 </RoleCheck>
 {/if}
+</div>

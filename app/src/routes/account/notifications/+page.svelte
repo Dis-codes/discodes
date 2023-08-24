@@ -1,5 +1,5 @@
 <script>
-  import { user } from "$lib/userStore";
+  import { user } from "$lib/stores";
   import { NavBar, Loading } from "$lib/components/Components";
   let dummyNotifications = [
     { id: 1, message: "You have a new message.", timestamp: "2023-08-11 12:30 PM" },

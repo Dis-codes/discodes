@@ -1,5 +1,5 @@
 <script>
-    import { user } from "$lib/userStore";
+    import { user } from "$lib/stores.js";
     import { NavBar, Loading, RoleCheck} from "$lib/components/Components";
     export let data
     let { supabase, session } = data

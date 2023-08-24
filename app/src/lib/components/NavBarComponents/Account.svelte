@@ -1,6 +1,6 @@
 <script lang='ts'>
     import LogOutModal from "./LogOutModal.svelte";
-    import { user } from '$lib/userStore';
+    import { user } from '$lib/stores';
 
     import { GetUserRoles } from "discodes-utilities";
     import { onMount } from "svelte";
