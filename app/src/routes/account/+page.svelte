@@ -74,13 +74,18 @@ const { error } = await supabase
 <AuthCheck>
 <NavBar/>
 <main class="flex items-center justify-center h-screen shadow-xl">
+  <div class="shadow-xl h-32 mb-96 mt-1 mr-2 w-10 border border-neutral rounded-lg">
+    <div class="ml-2 mt-2">
+    <span class="mb-3 material-symbols-outlined">person</span>
+    <span class="material-symbols-outlined">Settings</span>
+  </div>
+  </div>
     {#if user}
         <div class="p-6 shadow-xl border border-neutral rounded-lg ">
             <div class="flex justify-center"><h1 class="text-2xl font-semibold">
               <img src={avatar_url} 
               alt={"Profile Picture of " + (user ? full_name : "User")} 
               class="w-16 h-16 rounded-full mr-2 mt-3 border border-neutral"/>
-              
             </h1>
             <div class="ml-2">
               <div class="p-4">
@@ -90,7 +95,6 @@ const { error } = await supabase
           </div>
           </div>
             <div class="divider"></div>
-
                 <!-- <p><strong>Account Created:</strong> {user?.metadata?.creationTime}</p>
                 <p><strong>Last Signed In:</strong> {user?.metadata?.lastSignInTime}</p> -->
             <div class="form-control relative">
