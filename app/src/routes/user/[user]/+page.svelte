@@ -105,9 +105,10 @@
     </div>
 
   
-    <div class="ml-4 w-full">
-        <div style="height: 195px;" class="flex-1 flex flex-col
-         border border-neutral rounded-xl mb-4">
+
+    <div class="ml-4 w-full ">
+        <div style=" height: 195px;" class="flex-1 flex flex-col border border-neutral rounded-xl mb-4">
+
             <!-- Info content -->
             <div class="flex-1 p-6 shadow-xl card-body">
                 <h1 class="text-4xl font-bold">User stats</h1>

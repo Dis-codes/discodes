@@ -6,6 +6,7 @@
     import { page } from '$app/stores';  
 
     import RoleCheck from "$lib/components/MiscComponents/RoleCheck.svelte";
+    import Loading from "$lib/components/MiscComponents/Loading.svelte";
 
     export let data
 
@@ -25,7 +26,6 @@
 
         return () => subscription.unsubscribe()
     });
-
 </script>
 
 <svelte:head>
@@ -33,7 +33,9 @@
     
 </svelte:head>
 
-
+{#if typeof window === 'undefined'}
+    <!-- DO NOT REMOVE THIS COMMENT LMFAO -->
+{:else}
 <div data-theme={$themeStore}>
 {#if allowedUrls.includes($page.url.pathname)}
     <slot />
@@ -45,3 +47,4 @@
 </RoleCheck>
 {/if}
 </div>
+{/if}
