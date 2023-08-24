@@ -1,7 +1,7 @@
 <script lang="ts">
     import { NavBar, Loading } from '$lib/components/Components';
     import { supabase } from '$lib/supabase';
-    import { user } from '$lib/userStore';
+    import { user } from '$lib/stores';
     import { onMount } from 'svelte';
     let plugin = null
 
