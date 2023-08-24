@@ -1,27 +1,23 @@
-<script>
-    let logs = []
+<script lang="ts">
     import { supabase } from '$lib/supabase';
+    
+    let logs:Array<Object> = []
+
     async function getLogs() {
     const { data, error } = await supabase
         .from('changelog')
         .select('*')
 
     if (error) {
-        console.log(error)
         return;
     }
-    console.log(data)
     logs = data
   }
   getLogs()
   </script>
-  
-
-
-
 
   <h2 class='text-2xl mb-2'>Changelog</h2>
-  <div class="changelog-container w-1/4 mx-auto">
+  <div class="changelog-container w-1/4 mx-auto border border-neutral rounded-lg">
     {#each logs as log, i (log.title)}
     <div class="card w-100 bg-base-100 shadow-xl">
       {#if log.image}  <figure><img src={log.image} alt={log.title}/></figure>{/if}
