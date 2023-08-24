@@ -2,8 +2,16 @@
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'discodes-purple': '#7976e7',
+        'discodes-purple-light': '#918EF1'
+      }
+    },
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["forest", "dark", "pastel", "winter", "dracula"],
+  },
 }
 

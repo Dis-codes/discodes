@@ -1,6 +1,6 @@
 <script lang="ts">
     import Account from "./Account.svelte";
-    import { sessionStore, user} from '$lib/userStore';
+    import { sessionStore, user} from '$lib/stores';
     let searchContent = '';
     
   </script>

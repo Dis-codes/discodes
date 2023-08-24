@@ -1,11 +1,11 @@
-import NavBar from './NavBar.svelte';
-import Account from './Account.svelte';
-import AuthCheck from './AuthCheck.svelte';
-import Blockly from './Blockly.svelte';
-import Loading from './Loading.svelte';
-import LogOutModal from './LogOutModal.svelte';
-import RoleCheck from './RoleCheck.svelte';
-import Changelog from './Changelog.svelte';
+import NavBar from './NavBarComponents/NavBar.svelte';
+import Account from './NavBarComponents/Account.svelte';
+import AuthCheck from './MiscComponents/AuthCheck.svelte';
+import Blockly from './MiscComponents/Blockly.svelte';
+import Loading from './MiscComponents/Loading.svelte';
+import LogOutModal from './NavBarComponents/LogOutModal.svelte';
+import RoleCheck from './MiscComponents/RoleCheck.svelte';
+import Changelog from './MiscComponents/Changelog.svelte';
 export {
     NavBar,
     Account,

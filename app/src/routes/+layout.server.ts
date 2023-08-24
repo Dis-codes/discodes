@@ -1,4 +1,4 @@
-import { user } from '../lib/userStore';
+import { user } from '../lib/stores';
 
 
 export const load = async ({ locals: { getSession } }) => {

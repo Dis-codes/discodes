@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { user } from "$lib/userStore";
+  import { themeStore, user } from "$lib/stores";
   import { NavBar, Loading, AuthCheck } from "$lib/components/Components";
   
   let setting:any = [{name: "Experimental features", tooltip: "Can cause bugs but implements latest features"}, 
@@ -24,6 +24,19 @@
             <div class="divider mb-8 mt-5"></div>
         </div>
         </div>
+        <div class="form-control w-full max-w-xs">
+          <label class="label">
+            <span class="label-text">Themes</span>
+          </label>
+          <select bind:value={$themeStore} class="select select-bordered">
+            <option disabled selected>Pick one</option>
+            <option value="dark">Dark (dark)</option>
+            <option value="dracula">Dracula (dark)</option>
+            <option value="forest">Forest (dark)</option>
+            <option value="winter">Winter (light)</option>
+            <option value="pastel">Pastel (light)</option>
+          </select>
+          </div>
         {#each settingc as c}
             <div class="form-control">
               <div class="lg:tooltip" data-tip="{c.tooltipc}">

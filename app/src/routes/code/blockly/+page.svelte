@@ -7,7 +7,7 @@
     import En from "blockly/msg/en";
     import "blockly/blocks";
 
-    import BlocklyComponent from "$lib/components/Blockly.svelte";
+    import BlocklyComponent from "$lib/components/MiscComponents/Blockly.svelte";
     import type { Abstract } from "blockly/core/events/events_abstract";
 
     const DarkTheme = Blockly.Theme.defineTheme("a", {

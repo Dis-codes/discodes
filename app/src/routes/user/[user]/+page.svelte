@@ -3,8 +3,7 @@
     import { supabase } from '$lib/supabase';
     import { onMount } from 'svelte';
 
-    import GetUserRoles from '$lib/utils/server';
-    import GetBadges from '$lib/utils/getBadges';
+    import {GetUserRoles, GetUserBadges} from 'discodes-utilities';
     let user: any = null;
     let datas: any = null;
     let badges: string[] = [];
@@ -50,7 +49,7 @@
         if (identity[0].achievements){
             badges = (await GetUserRoles(user.discord_id))
         }
-        badges = GetBadges(badges)
+        badges = GetUserBadges(badges)
         if (identity[0].pro){
             badges.push("pro")
         }
@@ -116,12 +115,12 @@
                         {#if !user.private}
 
                         <div class="stat">
-                            <div class="stat-title">Followers</div>
+                            <a href="/user/{user.username}/followers" class="stat-title">Followers</a>
                             <div class="stat-value">{user.followers ? user.followers.length : 0}</div>
                         </div>
                         
                         <div class="stat">
-                            <div class="stat-title">Following</div>
+                            <a href="/user/{user.username}/following" class="stat-title">following</a>
                             <div class="stat-value">{user.following ? user.following.length : 0}</div>
                         </div>
                         
