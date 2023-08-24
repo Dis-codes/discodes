@@ -1,5 +1,5 @@
-<script>
-    import { user } from "$lib/stores.js";
+<script lang="ts">
+    import { user } from "$lib/stores.ts";
     import { NavBar, Loading, RoleCheck} from "$lib/components/Components";
     export let data
     let { supabase, session } = data
@@ -20,10 +20,10 @@
 
 Users();
 async function sendNewLog() {
-    const title = document.getElementById('titleInput').value;
-    const description = document.getElementById('descriptionInput').value;
-    const tags = document.getElementById('tagsInput').value.split(',').map(tag => tag.trim());
-    const image = document.getElementById('imageInput').value;
+    const title = document.getElementById('titleInput')?.value;
+    const description = document.getElementById('descriptionInput')?.value;
+    const tags = document.getElementById('tagsInput')?.value.split(',').map(tag => tag.trim());
+    const image = document.getElementById('imageInput')?.value;
     if (!title || !description || !tags) {
         alert('Please fill in all fields');
         return;
