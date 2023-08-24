@@ -72,40 +72,47 @@
 {#if user}
 <div class="flex items-center justify-center h-screen mx-10">
     <!-- Left Screen (User Profile) -->
-    <div style="height: 54%;" class="shadow-xl mt-8 w-1/4 p-8 border border-neutral rounded-xl mb-20 ">
-    
+    <div style="width: 500px; height: 550px;" class="card shadow-xl mt-8 border border-neutral rounded-xl mb-20">
+      <div class="card-body flex flex-col justify-between">
+  
         <!-- User Image -->
-        <img src={user.avatar_url} alt="User" class="w-24 h-24 rounded-full  mb-4 ring ring-neutral">
-        <p class="text-xl font-bold">{user.display_name}</p>
-        <p>@{user.username}</p>
-        <!-- <p class="transperent">{user.discord_id}</p> -->
-        <!-- Badges -->
-        <div class="divider"></div>
-        <div class="border border-neutral shadow-xl text-white rounded-full mb-4">
+        <img src={user.avatar_url} alt="User" class="w-24 h-24 rounded-full ring ring-neutral"><br>
+        <div>
+          <p class="text-xl font-bold">{user.display_name}</p>
+          <p>@{user.username}</p>
+  
+          <!-- Badges -->
+          <div class="divider"></div>
+          <div class="border border-neutral shadow-xl text-white rounded-full mb-6">
             <div class="mx-2 flex gap-2">
-                {#each badges as badgeId}
-            {#if badgesMap[badgeId]}
-                <div class="py-2">
-                    <span class={badgesMap[badgeId].color + " px-2 rounded-full py-1"}>{badgesMap[badgeId].name}</span>
-                </div>
-            {/if}
-        {/each}
+              {#each badges as badgeId}
+                {#if badgesMap[badgeId]}
+                  <div class="py-2">
+                    <span class={badgesMap[badgeId].color + " flex rounded-full"}>{badgesMap[badgeId].name}</span>
+                  </div>
+                {/if}
+              {/each}
             </div>
+          </div>
         </div>
-
-        <div class="text-white rounded-lg">
-            <p class="text-gray-400 font-semibold">Bio:<br></p>
-            <p> {user.bio}</p>
+  
+        <!-- User Bio -->
+        <div class="text-white rounded-lg mb-20">
+          <p class="text-gray-400 font-semibold">Bio:<br></p>
+          <p>{user.bio}</p>
         </div>
-        <p class="text-gray-400 mt-32">Joined: {new Date(user.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
+      </div>
+      <p class="text-gray-400 self-start p-4">Joined: {new Date(user.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
     </div>
+
+  
     <div class="ml-4 w-full">
-        <div class="flex-1 flex flex-col border border-neutral rounded-xl mb-4">
+        <div style=" height: 195px;" class="flex-1 flex flex-col card border border-neutral rounded-xl mb-4">
             <!-- Info content -->
-            <div class="flex-1 p-6 shadow-xl">
-                <h1 class="text-4xl font-bold mb-5">User stats<br></h1>
+            <div class="flex-1 p-6 shadow-xl card-body">
+                <h1 class="text-4xl font-bold ">User stats</h1>
                 <div class="ml-6">
-                    <div class="stats stats-horizontal mt-3">
+                    <div class="stats stats-horizontal">
                         {#if !user.private}
 
                         <div class="stat">
@@ -131,16 +138,18 @@
                 </div>
             </div>
         </div>
-        <div class="flex-1 flex flex-col border border-neutral rounded-xl mb-12">
+
+        <div style="height: 340px;" class="flex-1 flex flex-col card border border-neutral rounded-xl mb-12">
             <!-- Info content -->
-            <div class="flex-1 p-6 shadow-xl">
+            <div class="flex-1 p-6 shadow-xl card-body">
                 <h1 class="text-3xl font-bold">Plugins</h1>
+                {#if !user.private}
                 <div class="ml-6 mt-4 flex gap-2">
                     {#each plugins.slice(0,  4) as plugin}
                         <div class="shadow-xl py-16 w-1/4 rounded-lg border border-spacing-0.5 border-neutral">
                             <div class="text-center">
-                                <a href="/user/{user.username}/plugins/{plugin.id}" class="font-bold hover:underline">{plugin.name}</a>
-                                <p>{plugin.description}</p>
+                                <a href="/user/{user.username}/plugins/{plugin.id}" class="font-bold hover:underline text-xl">{plugin.name}</a>
+                                <p class="font-">{plugin.description}</p>
                                 <p class="text-sm font-semibold mt-1 text-cyan-400"> {((new Date(plugin.created_at)).toLocaleDateString('en-GB'))}</p>
                             </div>
                         </div>
@@ -150,6 +159,16 @@
                     <div class="text-right mt-4">
                         <a href="/user/{user.username}/plugins" class="text-blue-500 hover:underline cursor-pointer">View all plugins</a> 
                     </div>
+                {/if}
+                {#if plugins.length == 0}
+                <div class="stat">
+                    <div class="stat-title">This user is yet to publish any plugins!</div>
+                </div>
+                {/if}
+                {:else}
+                <div class="stat">
+                    <div class="stat-title">This user has private profile</div>
+                </div>
                 {/if}
             </div>
         </div>

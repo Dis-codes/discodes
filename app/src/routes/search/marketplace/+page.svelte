@@ -51,15 +51,16 @@ console.log(data)
         {#each searchResults.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage) as plugin}
 
         <div class="w-1/3">
-              <div class="card w-96 h-60 bg-base-100 shadow-xl p-3 rounded-lg ">
+              <div class="card w-96  bg-base-100 shadow-xl p-2 rounded-lg ">
+                
                 <div class="card-body">
+                  <a class="text-xl font-bold link link-hover" style="text-transform:capitalize;" href="/user/{plugin.user}/plugins/{plugin.id}">{plugin.name}</a>
                   <h2 class="flex flex-col items-start">
                   </h2>
                     <div class="flex-1">
-                      <a class="text-xl font-semibold link link-hover" href="/user/{plugin.user}/plugins/{plugin.id}">{plugin.name}</a>
+
                       <p class="text-gray-500">{plugin.description}</p>
-                      <p class="text-gray-500">Made by <a href="/user/noxyyk">@{plugin.user}</a></p>
-                      <p class="text-sm font-semibold mt-1 text-cyan-400"> {((new Date(plugin.created_at)).toLocaleDateString('en-GB'))}</p>
+                      <!-- <p class="text-gray-500">Made by <a href="/user/noxyyk">@{plugin.user}</a></p> -->
                   </div>
               <div class="text-center">
                 <div class="absolute bottom-4 right-4 mb-2 mr-2">
@@ -67,6 +68,7 @@ console.log(data)
             </div>
               </div>
             </div>
+            <p class="text-sm font-semibold mt-1 text-cyan-400 p-4"> {((new Date(plugin.created_at)).toLocaleDateString('en-GB'))}</p>
     </div>
         </div>
         <!-- to here -->
