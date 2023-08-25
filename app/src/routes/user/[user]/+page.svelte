@@ -8,15 +8,15 @@
     let datas: any = null;
     let badges: string[] = [];
     const badgesMap: any = {
-        "1138771459938988052" : {
+        "932651844428251195" : {
             "name": "Developer",
             "color": "text-blue-500 badge badge-outline"
         },
-        "1139721194225016862": {
+        "933990402078408715": {
             name : "S4D staff",
             color : "text-yellow-500 badge badge-outline"
         },
-        "1139658510343344291" : {
+        "1144641299748769864" : {
             name : "Alpha",
             color: "text-green-500 badge badge-outline"
         },
@@ -25,9 +25,13 @@
             color: "text-pink-500 badge badge-outline"
         },
         "932656700664717402" : {
-            name : "vip",
+            name : "VIP",
             color: "text-purple-500 badge badge-outline"
         },
+        "932656148417486888" : {
+            name : "Community Team",
+            color: "text-green-500 badge badge-outline"
+        }
     };
     let plugins = [];
     let showAllPlugins = false; // Initially show only 4 plugins
