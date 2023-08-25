@@ -29,6 +29,7 @@
 		"@supabase/auth-ui-svelte": "^0.2.2",
 		"@supabase/supabase-js": "^2.32.0",
 		"blockly": "^10.1.2",
+		"cryptr": "^6.2.0",
 		"discodes-utilities": "^1.0.3"
 	}
 }
