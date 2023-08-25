@@ -31,7 +31,6 @@
        initialProfileData = { ...profileData };
 
 });
-
 async function updateProfile() {
      isLoading = true;
      showMessage = false;
@@ -45,10 +44,8 @@ async function updateProfile() {
         showMessage = false;
       }, 3000)
       return;
-    }
-
-    
-const { error } = await supabase
+    }    
+    const { error } = await supabase
   .from('identity')
   .update({ bio: profileData?.bio , private: profileData?.private, achievements: profileData?.achievements, pro: profileData?.pro })
   .eq('id', user?.id)
@@ -137,7 +134,7 @@ const { error } = await supabase
             
           </div>
               <div class="divider"></div>
-              <div class="flex justify-center"><button class="btn btn-outline btn-error btn-neutral">Delete your account</button></div>
+              <div class="flex justify-center"><a href="/goodbye" class="btn btn-outline btn-error btn-neutral">Delete your account</a></div>
         </div>
     {:else}
    <Loading />
