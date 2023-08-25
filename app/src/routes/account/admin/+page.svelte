@@ -28,12 +28,22 @@ async function sendNewLog() {
         alert('Please fill in all fields');
         return;
     }
-    const { data, error } = await supabase
+    const { error } = await supabase
         .from('changelog')
         .insert([
             { user_id: $user.id, title, description, image, tags },
         ])
-        .select();
+    if (error) {
+        console.log(error);
+        return;
+    }
+    fetch('/api/v1/changelog/send', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title, description, tags, image })
+    })
 }
 
    
