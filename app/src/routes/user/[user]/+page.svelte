@@ -23,7 +23,11 @@
         "pro" : {
             name : "Pro",
             color: "text-pink-500 badge badge-outline"
-        }
+        },
+        "932656700664717402" : {
+            name : "vip",
+            color: "text-purple-500 badge badge-outline"
+        },
     };
     let plugins = [];
     let showAllPlugins = false; // Initially show only 4 plugins

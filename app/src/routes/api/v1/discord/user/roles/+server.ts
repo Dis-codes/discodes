@@ -1,7 +1,7 @@
 import { DISCORD_TOKEN } from "$env/static/private";
 import { error } from "@sveltejs/kit";
 
-const GUILD_ID = "1029802748293689384";
+const GUILD_ID = "932651844344373278";
 
 
 export const GET = async ({ request, url }: { request: Request; url: URL }): Promise<Response> => {
