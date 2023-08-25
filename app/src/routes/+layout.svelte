@@ -10,7 +10,7 @@
 
     export let data
 
-    const allowedUrls: Array<string> = ['/errors/permission', '/', '/auth/callback', '/getsession', ]
+    const allowedUrls: Array<string> = ['/errors/permission', '/', '/auth/callback', '/getsession', '/goodbye']
 
     let { supabase, session } = data
     $: ({ supabase, session } = data)
