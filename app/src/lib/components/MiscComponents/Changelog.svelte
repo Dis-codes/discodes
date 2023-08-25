@@ -7,7 +7,7 @@
     const { data, error } = await supabase
         .from('changelog')
         .select('*')
-
+        .order('id', { ascending: false })
     if (error) {
         return;
     }
