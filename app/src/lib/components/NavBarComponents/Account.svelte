@@ -8,7 +8,7 @@
     let isAdmin:any
     
     onMount(async () => {
-        isAdmin = (await GetUserRoles($user?.user_metadata.provider_id)).includes('1138771459938988052')
+        isAdmin = (await GetUserRoles($user?.user_metadata.provider_id)).includes('1142531927967023114')
     })
 </script>
 
