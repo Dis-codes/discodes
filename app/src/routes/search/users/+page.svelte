@@ -2,6 +2,11 @@
     import { onMount } from 'svelte';
     import { NavBar, Loading } from "$lib/components/Components";
     export let data;
+    let settings = localStorage.getItem('settings');
+    settings = settings ? JSON.parse(settings) : {
+      contentFiltering: null,
+      sortingMethod: "default",
+    };
     const { session, supabase } = data;
     let loggedUser = session?.user?.user_metadata?.full_name;
     let following = []
@@ -25,12 +30,31 @@
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
+        .order('display_name', { ascending: settings.sortingMethod === 'default' })
         .or(`display_name.ilike.%${keyword}%,username.ilike.%${keyword}%`);
-  
+
       if (error) {
         console.error('Error fetching search results:', error);
       } else {
-        searchResults = data;
+        searchResults = data; 
+        if (settings.contentFiltering) {
+    const keywordsArray = settings.contentFiltering.split(",");
+    const filteredData = searchResults.filter(user => {
+        const userDisplayName = user.display_name.toLowerCase();
+        const userUsername = user.username.toLowerCase();
+        for (let i = 0; i < keywordsArray.length; i++) {
+            const keyword = keywordsArray[i].toLowerCase();
+            if (userDisplayName.includes(keyword) || userUsername.includes(keyword)) {
+                return false;
+            }
+        }
+        return true;
+    });
+    if (searchResults.length != filteredData.length) {
+        console.log("Filtered",  searchResults.length - filteredData.length, "users");
+    }
+    searchResults = filteredData;
+}
         totalPages = Math.ceil(searchResults.length / resultsPerPage);
         if (searchResults > 0) {
           const { data: followersData, error: followersError } = await supabase
@@ -81,7 +105,6 @@
               console.error('Error toggling follow:', error);
             } else {
               followers = newFollowers || [];
-              console.log(followers);
             }
           }
 
@@ -102,7 +125,6 @@ async function getFollowing() {
       console.error('Error fetching following:', error);
     } else {
       following = data[0]?.following || [];
-      console.log(following);
     }
   } catch (error) {
     console.error('Error fetching following:', error.message);
