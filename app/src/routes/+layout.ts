@@ -1,22 +1,23 @@
 import { invalidate } from '$app/navigation';
-import { PUBLIC_SUPA_ANON_KEY, PUBLIC_SUPA_URL } from '$env/static/public';
+import { PUBLIC_SUPA_ANON_KEY, PUBLIC_SUPA_URL} from '$env/static/public';
 import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit';
 import { user} from '$lib/stores';
 
 export const load = async ({ fetch, data, depends }) => {
     depends('supabase:auth');
+    const isDevelopment = import.meta.env.DEV;
     const supabase = createSupabaseLoadClient({
         supabaseUrl: PUBLIC_SUPA_URL,
         supabaseKey: PUBLIC_SUPA_ANON_KEY,
         event: { fetch },
         serverSession: data.session,
         cookieOptions: {
-            domain: "discodes.xyz",
-            maxAge: 100000000,
-            path: "/",
-            sameSite: "lax",
-            secure: true,
-          },
+            domain: isDevelopment ? 'localhost' : 'discodes.xyz',
+            maxAge: 60 * 60 * 24,
+            path: '/',
+            sameSite: 'lax',
+            secure: !isDevelopment,
+        },
     });
 
     const { data: { session },

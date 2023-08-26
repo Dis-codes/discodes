@@ -10,12 +10,18 @@
 
     export let data
 
-    const allowedUrls: Array<string> = ['/', '/auth/callback', '/goodbye']
-
+    const allowedUrls: Array<string> = ['/errors/permission', '/', '/auth/callback', '/getsession', '/goodbye']
+        
     let { supabase, session } = data
     $: ({ supabase, session } = data)
 
     onMount(() => {
+        // if (!session?.user) {
+        //     if ($page.url.pathname.startsWith("/errors") || allowedUrls.includes($page.url.pathname)) {
+        //         return
+        //     }
+        //     window.location.href = '/errors/login'
+        // }
         const {
         data: { subscription },
         } = supabase.auth.onAuthStateChange((event, _session) => {
