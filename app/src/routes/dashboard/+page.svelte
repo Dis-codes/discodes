@@ -16,9 +16,9 @@
                 botToken = true;
                 tokenInvalid = false;
                 localStorage.setItem('botToken', token)
-                const response = await fetch(`https://discodes.xyz/api/v1/discord/bot?token=${token}`, {
+                const response = await fetch(`https://discord.com/api/oauth2/applications/@me`, {
                     headers: {
-                        'Authorization': `Bot ${token}`
+                        'Authorization': `Bot ${token}`,
                     }
                 });
                 console.log(response)
