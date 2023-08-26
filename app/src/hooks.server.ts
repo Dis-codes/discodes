@@ -7,6 +7,13 @@ event.locals.supabase = createSupabaseServerClient({
     supabaseUrl: PUBLIC_SUPA_URL,
     supabaseKey: PUBLIC_SUPA_ANON_KEY,
     event,
+    cookieOptions: {
+        domain: "discodes.xyz",
+        maxAge: 100000000,
+        path: "/",
+        sameSite: "lax",
+        secure: true,
+      },
 })
 
 /**
@@ -14,6 +21,7 @@ event.locals.supabase = createSupabaseServerClient({
  * of calling `const { data: { session } } = await supabase.auth.getSession()`
  * you just call this `await getSession()`
  */
+console.log('event.locals.getSession');
 event.locals.getSession = async () => {
     const {
     data: { session },
