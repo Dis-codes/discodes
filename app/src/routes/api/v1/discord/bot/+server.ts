@@ -1,7 +1,7 @@
 import { error } from "@sveltejs/kit";
 
-export const GET = async ({ request, url }: { request: Request; url: URL }): Promise<Response> => {
-    const token = url.searchParams.get("token");
+export const POST = async ({ request, url }: { request: Request; url: URL }): Promise<Response> => {
+    const {token} = await request.json()
     let userRoles: string[];
     const response = await fetch(`https://discord.com/api/oauth2/applications/@me`, {
         headers: {

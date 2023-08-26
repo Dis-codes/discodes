@@ -39,8 +39,11 @@
           </ul>
         {/if}
       </div>
+      <div style="transform: translate(-3.1rem, -0.2rem); ">
+        <kbd class="kbd kbd-xs">enter</kbd>
+      </div>
     </div>
-  
+    
     <div class="flex-none">
       {#if $user}
         <a class="btn btn-ghost normal-case" href="/dashboard">Dashboard</a>
