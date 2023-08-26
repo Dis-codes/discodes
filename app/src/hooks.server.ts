@@ -3,10 +3,18 @@ import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
 import type { Handle } from '@sveltejs/kit'
 
 export const handle: Handle = async ({ event, resolve }) => {
+    const isDevelopment = import.meta.env.DEV;
 event.locals.supabase = createSupabaseServerClient({
     supabaseUrl: PUBLIC_SUPA_URL,
     supabaseKey: PUBLIC_SUPA_ANON_KEY,
     event,
+    cookieOptions: {
+        domain: isDevelopment ? 'localhost' : 'discodes.xyz',
+        maxAge: 60 * 60 * 24,
+        path: '/',
+        sameSite: 'lax',
+        secure: !isDevelopment,
+    },
 })
 
 /**

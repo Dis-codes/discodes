@@ -1,6 +1,6 @@
 <script lang="ts">
     import Account from "./Account.svelte";
-    import { sessionStore, user} from '$lib/stores';
+    import { user} from '$lib/stores';
     let searchContent = '';
     
   </script>
@@ -13,7 +13,7 @@
       <h2 class="ml-4 normal-case text-xl">DisCodes</h2>
     </div>
     <div class="flex-auto">
-      <a class="btn btn-ghost normal-case no-animation" href="https://workspace.discodes.xyz?session_key={JSON.stringify($sessionStore)}">Workspace</a>
+      <a class="btn btn-ghost normal-case no-animation" href="https://workspace.discodes.xyz">Workspace</a>
       <a class="btn btn-ghost normal-case no-animation mx-2" href="/search/marketplace">Marketplace</a>
       <div class="dropdown w-64">
         <input
@@ -39,8 +39,11 @@
           </ul>
         {/if}
       </div>
+      <div style="transform: translate(-3.1rem, -0.2rem); ">
+        <kbd class="kbd kbd-xs">enter</kbd>
+      </div>
     </div>
-  
+    
     <div class="flex-none">
       {#if $user}
         <a class="btn btn-ghost normal-case" href="/dashboard">Dashboard</a>

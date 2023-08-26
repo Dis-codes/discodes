@@ -8,21 +8,29 @@
     let datas: any = null;
     let badges: string[] = [];
     const badgesMap: any = {
-        "1138771459938988052" : {
+        "932651844428251195" : {
             "name": "Developer",
             "color": "text-blue-500 badge badge-outline"
         },
-        "1139721194225016862": {
+        "933990402078408715": {
             name : "S4D staff",
             color : "text-yellow-500 badge badge-outline"
         },
-        "1139658510343344291" : {
+        "1144641299748769864" : {
             name : "Alpha",
             color: "text-green-500 badge badge-outline"
         },
         "pro" : {
             name : "Pro",
             color: "text-pink-500 badge badge-outline"
+        },
+        "932656700664717402" : {
+            name : "VIP",
+            color: "text-purple-500 badge badge-outline"
+        },
+        "932656148417486888" : {
+            name : "Community Team",
+            color: "text-green-500 badge badge-outline"
         }
     };
     let plugins = [];
@@ -105,9 +113,10 @@
     </div>
 
   
-    <div class="ml-4 w-full">
-        <div style="height: 195px;" class="flex-1 flex flex-col
-         border border-neutral rounded-xl mb-4">
+
+    <div class="ml-4 w-full ">
+        <div style=" height: 195px;" class="flex-1 flex flex-col border border-neutral rounded-xl mb-4">
+
             <!-- Info content -->
             <div class="flex-1 p-6 shadow-xl card-body">
                 <h1 class="text-4xl font-bold">User stats</h1>

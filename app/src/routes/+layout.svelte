@@ -6,15 +6,22 @@
     import { page } from '$app/stores';  
 
     import RoleCheck from "$lib/components/MiscComponents/RoleCheck.svelte";
+    import Loading from "$lib/components/MiscComponents/Loading.svelte";
 
     export let data
 
-    const allowedUrls: Array<string> = ['/errors/permission', '/', '/auth/callback', '/getsession', ]
-
+    const allowedUrls: Array<string> = ['/errors/permission', '/', '/auth/callback', '/getsession', '/goodbye']
+        
     let { supabase, session } = data
     $: ({ supabase, session } = data)
 
     onMount(() => {
+        // if (!session?.user) {
+        //     if ($page.url.pathname.startsWith("/errors") || allowedUrls.includes($page.url.pathname)) {
+        //         return
+        //     }
+        //     window.location.href = '/errors/login'
+        // }
         const {
         data: { subscription },
         } = supabase.auth.onAuthStateChange((event, _session) => {
@@ -25,7 +32,6 @@
 
         return () => subscription.unsubscribe()
     });
-
 </script>
 
 <svelte:head>
@@ -33,15 +39,18 @@
     
 </svelte:head>
 
-
+{#if typeof window === 'undefined'}
+    <!-- DO NOT REMOVE THIS COMMENT LMFAO -->
+{:else}
 <div data-theme={$themeStore}>
-{#if allowedUrls.includes($page.url.pathname)}
+{#if $page.url.pathname.startsWith("/errors") || allowedUrls.includes($page.url.pathname) }
     <slot />
 {:else}
-<RoleCheck roleID={'1139658510343344291'} userID={$user?.user_metadata.provider_id}>
+<RoleCheck roleID={'1144641299748769864'} userID={$user?.user_metadata.provider_id}>
     <div class="min-h-screen flex flex-col">
     <slot/>
 </div>
 </RoleCheck>
 {/if}
 </div>
+{/if}

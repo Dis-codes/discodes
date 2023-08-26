@@ -6,6 +6,9 @@ import Loading from './MiscComponents/Loading.svelte';
 import LogOutModal from './NavBarComponents/LogOutModal.svelte';
 import RoleCheck from './MiscComponents/RoleCheck.svelte';
 import Changelog from './MiscComponents/Changelog.svelte';
+import BotUptime from './DashboardComponents/BotUptime.svelte';
+import CommandStats from './DashboardComponents/CommandStats.svelte';
+import BotProfile from './DashboardComponents/BotProfile.svelte';
 export {
     NavBar,
     Account,
@@ -14,5 +17,8 @@ export {
     Loading,
     LogOutModal,
     RoleCheck,
-    Changelog
+    Changelog,
+    BotUptime,
+    CommandStats,
+    BotProfile
 };

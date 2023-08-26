@@ -46,26 +46,49 @@
     }
 
     onMount(fetchSearchResults);
-    async function toggleFollow(id) {
-  console.log(session);
-  if (!following) return;
 
-  try {
-    let newFollowing = following.includes(id) ? following.filter(f => f !== id) : [...following, id]
-    const { data, error } = await supabase
-      .from('identity')
-      .update({ following: newFollowing
-      })
-      .eq('id', session?.user?.id)
-      .select()
-    if (error) {
-      console.error('Error toggling follow:', error);
-    } else {
-      following = data[0]?.following || [];
-    }
-  } catch (error) {
-    console.error('Error toggling follow:', error.message);
-  }
+    async function toggleFollow(id: string) {
+
+      try {
+        let newFollowing = following.includes(id) ? following.filter(f => f !== id) : [...following, id]
+        const { data, error } = await supabase
+          .from('identity')
+          .update({ following: newFollowing
+          })
+          .eq('id', session?.user?.id)
+          .select()
+          following = data[0]?.newFollowing || [];
+        if (error) {
+          console.error('Error toggling follow:', error);
+        } else {
+          console.log("test", following);
+          const { data, error} = await supabase
+          .from('identity')
+          .select('followers')
+          .eq('id', id)
+          let followers = data[0]?.followers || [];
+          if (error) {
+            console.error('Error fetching followers:', error);
+          } else {
+            let newFollowers = followers.includes(session?.user?.id) ? followers.filter(f => f !== session?.user?.id) : [...followers, session?.user?.id]
+            const { data, error } = await supabase
+            .from('identity')
+            .update({ followers: newFollowers
+            })
+            .eq('id', id)
+            .select()
+            if (error) {
+              console.error('Error toggling follow:', error);
+            } else {
+              followers = newFollowers || [];
+              console.log(followers);
+            }
+          }
+
+        }
+      } catch (error) {
+        console.error('Error toggling follow:', error);
+      }
 }
 
 async function getFollowing() {

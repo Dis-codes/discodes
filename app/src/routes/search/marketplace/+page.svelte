@@ -22,7 +22,6 @@
         .from('marketplace')
         .select('*')
         .or(`name.ilike.%${keyword}%,user.ilike.%${keyword}%,description.ilike.%${keyword}%`);
-console.log(data)
       if (error) {
         console.error('Error fetching search results:', error);
       } else {
@@ -41,7 +40,7 @@ console.log(data)
   <NavBar />
   {#if contentLoaded}
   <div class="container mx-auto mt-24">
-    <h1 class="text-2xl font-bold mb-4">Marketplace Results for <span class="font-normal">{keyword}</span></h1>
+    <h1 class="text-2xl font-bold mb-4">Marketplace Results {keyword ? "for" : ""} <span class="font-normal">{keyword}</span></h1>
     {#if errorTxt}
       <p class="text-center font-bold text-lg">{errorTxt}</p>
     {:else}

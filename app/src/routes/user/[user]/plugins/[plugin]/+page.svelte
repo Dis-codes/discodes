@@ -36,7 +36,7 @@
     <div class="card-body ml-4 w-1/3">
         <div class="border border-neutral rounded-xl">
             <!-- Info content -->
-            <h1 style="text-transform: capitalize;" class="text-3xl font-bold p-4">{plugin.name} by Noxyyk</h1>
+            <h1 class="text-3xl font-bold p-4">{plugin.name} <p class="text-base text-gray-600">Made by @{plugin.user}</p></h1>
             <div class="flex-1 p-6 shadow-xl">
                 <p class="text-slate-500 ">{plugin.description}</p>
                 <div class="flex justify-between items-end">
