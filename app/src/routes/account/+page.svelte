@@ -1,6 +1,7 @@
 <script lang="ts">
     import { themeStore} from "$lib/stores";
     import { onMount } from 'svelte';
+    import { GetUserRoles } from "discodes-utilities";
     import { NavBar, Loading, AuthCheck, RoleCheck} from "$lib/components/Components";
     import { writable } from 'svelte/store';
     const currentPage = writable('page1');
@@ -9,6 +10,32 @@
     $: ({ supabase, session } = data);
     const  user = session?.user;
 
+    let isAdmin = false
+    async function getAdmin(){
+      const roles = await GetUserRoles(user?.user_metadata.provider_id);
+      if (roles && roles.includes('1142531927967023114')) {
+        isAdmin = true;
+      }
+    }
+    getAdmin();
+    let settings = localStorage.getItem('settings');
+    if (settings) {
+      settings = JSON.parse(settings);
+    }
+    else {
+      settings = {
+        tips: true,
+        ads: true,
+        privatePlugins: false,
+        sortingMethod: 'default',
+        contentFiltering: [],
+        timezone: 'none'
+      }
+      localStorage.setItem('settings', JSON.stringify(settings));
+    }
+    function updateSettings() {
+      localStorage.setItem('settings', JSON.stringify(settings));
+    }
     /*PAGE 1*/
     let maxChars = 100;
     let profileData = {
@@ -41,6 +68,7 @@
      const hasChanges = JSON.stringify(profileData) !== JSON.stringify(initialProfileData);
 
     if (!hasChanges) {
+      updateSettings();
       isLoading = false;
       showMessage = true;
       isSuccess = false;
@@ -81,6 +109,7 @@
     /*PAGE 3*/
     let info = {
         registeredUsers: "loading...",
+        onlineUsers: "loading...",
         reports: 3,
     }
     let Users = async () => {
@@ -90,6 +119,8 @@
     
         if (profilesData) {
         info.registeredUsers = profilesData.length;
+        info.onlineUsers = profilesData.filter(profile => (new Date(profile.logged_at)).getTime() > (Date.now() - 1000 * 60 * 60 * 23)).length;
+        info.onlineUsersHour = profilesData.filter(profile => (new Date(profile.logged_at)).getTime() > (Date.now() - 1000 * 60 * 60)).length;
         }
     }
     Users();
@@ -132,8 +163,9 @@
             <button on:click={() => $currentPage = 'page1'}><span class="material-symbols-outlined mt-2">person</span></button>
             <button on:click={() => $currentPage = 'page2'}><span class="material-symbols-outlined mt-2">settings</span></button>
             <a href="/user/{user.user_metadata.full_name}/plugins"><span class="material-symbols-outlined mt-2">extension</span></a>
-            <a href="/account/notifications"><span class="material-symbols-outlined mt-2">notifications</span></a>
+{#if isAdmin}
             <button on:click={() => $currentPage = 'page3'}><span class="material-symbols-outlined mt-2">shield_person</span></button>
+{/if}
           </div>
           <div class="mt-auto mb-4"><a href="/auth/logout"><span class="material-symbols-outlined mt-2">logout</span></a></div>
         </div>
@@ -177,8 +209,8 @@
               <label class="label">
                 <span class="label-text">Timezone</span>
               </label>
-              <select class="select select-bordered ">
-                <option selected value="none">NONE - disabled</option>
+              <select class="select select-bordered " bind:value={settings.timezone}>
+                <option value="none">NONE - disabled</option>
                 <option value="International Date Line West">(GMT-12:00) International Date Line West</option>
                   <option value="American Samoa">(GMT-11:00) American Samoa</option>
                   <option value="Midway Island">(GMT-11:00) Midway Island</option>
@@ -367,7 +399,7 @@
       <div class="lg:tooltip" data-tip="Hide plugins for being automatically public - require a pro plan">
       <label class="label cursor-pointer">
         <span class="label-text font-semibold">Private plugins</span> 
-        <input type="checkbox" class="toggle" checked disabled/>
+        <input type="checkbox" class="toggle" disabled bind:checked={settings.privatePlugin}/>
       </label>
       </div>
     </div>
@@ -375,7 +407,7 @@
           <div class="lg:tooltip" data-tip="Tooltips for workspace">
           <label class="label cursor-pointer">
             <span class="label-text font-semibold">Tips</span> 
-            <input type="checkbox" class="toggle" checked/>
+            <input type="checkbox" class="toggle" bind:checked={settings.tips}/>
           </label>
           </div>
         </div>
@@ -384,10 +416,11 @@
           <label class="label cursor-pointer">
             <span class="label-text font-semibold">Ads
             </span> 
-            <input type="checkbox" class="toggle" checked disabled/>
+            <input type="checkbox" class="toggle" bind:checked={settings.ads} disabled/>
           </label>
         </div>
         </div>
+        <div class="flex justify-center"><button on:click={updateSettings} class="btn btn-accent btn-outline shadow-xl btn-sm">Update</button></div>
         {:else if activeTab === 'privacy'} 
         <div class="form-control">
           <div class="lg:tooltip" data-tip="Request for data download to be send to you">
@@ -419,26 +452,28 @@
           <label class="label">
             <span class="label-text">Sorting method</span>
           </label>
-          <select class="select select-bordered">
-            <option value="dark">default</option>
+          <select class="select select-bordered" bind:value={settings.sortingMethod}>
+            <option value="default">default</option>
           </select>
           </div>
           <div class="form-control w-full">
             <label class="label">
               <span class="label-text">Content Filtering and Blocking</span>
             </label>
-            <textarea class="textarea h-28 textarea-ghost mb-2 shadow-sm textarea textarea-bordered"
+            <textarea class="textarea h-28 textarea-ghost mb-2 shadow-sm textarea-bordered"
             placeholder="Add keywords to block, separate by comma"
             style="resize: none;"
             maxlength="100"
+            bind:value={settings.contentFiltering}
             ></textarea>
             </div>
+            <div class="flex justify-center"><button on:click={updateSettings} class="btn btn-accent btn-outline shadow-xl btn-sm">Update</button></div>
         {/if}
       </div>
     {:else if $currentPage === 'page3'} 
-    <RoleCheck roleID={'1142531927967023114'} userID={user?.user_metadata.provider_id}>
-    <div class="p-6 mt-0 shadow-xl rounded-lg border border-neutral">
+    <div class="p-6 mt-0 shadow-xl rounded-lg border border-neutral max-h-[30rem]">
       <div class="flex justify-center"><h1 class="text-3xl font-bold">Admin's Headquarters</h1></div>
+      <RoleCheck roleID={'1142531927967023114'} userID={user?.user_metadata.provider_id}>
       <div class="divider"></div>
           <h2 class="text-xl font-semibold">Welcome back {user.user_metadata.full_name}!</h2>
           <p class="text-gray-500 mb-6">You are logged in as an admin.</p>
@@ -447,6 +482,12 @@
           <h2 class="text-xl font-semibold">Registered users:
           {info.registeredUsers}
           </h2>
+          <h2 class="text-xl font-semibold">Last day online users:
+            {info.onlineUsers}
+            </h2>
+          <h2 class="text-xl font-semibold">Online users:
+            {info.onlineUsersHour}
+            </h2>
           <h2 class="text-xl font-semibold">Reports: <span>{info.reports}</span>
           {#if info.reports > 0 }
           <button class="btn btn-sm btn-info  btn-outline shadow-xl">View reports</button>
@@ -459,6 +500,7 @@
               <button class="btn btn-success btn-outline shadow-xl">Send Custom Message</button>
               <button class="btn btn-error btn-outline shadow-xl">Force Update Website</button>
           </div>
+        </RoleCheck>
       </div>
       <dialog id="changelogModal" class="modal">
         <form method="dialog" class="modal-box">
@@ -473,7 +515,6 @@
             </div>
         </form>
     </dialog>
-  </RoleCheck>
       {/if}
     </div>
     {:else}
