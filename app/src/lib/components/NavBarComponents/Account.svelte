@@ -5,11 +5,6 @@
     import { GetUserRoles } from "discodes-utilities";
     import { onMount } from "svelte";
     let notificationCount = 2;
-    let isAdmin:any
-    
-    onMount(async () => {
-        isAdmin = (await GetUserRoles($user?.user_metadata.provider_id)).includes('1142531927967023114')
-    })
 </script>
 
 <details class="dropdown dropdown-end dropdown-bottom">
@@ -29,11 +24,6 @@
         <li><a href="/help"><span class="material-symbols-outlined">
             help
             </span> Help & Support</a></li>
-            {#if isAdmin}
-            <li><a href="/account/admin" ><span class="material-symbols-outlined">
-                shield_person
-                </span> Admin</a></li>
-            {/if}
         <li class="dropdown-divider"></li>
         <LogOutModal />
     </ul>
