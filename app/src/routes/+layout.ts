@@ -5,12 +5,18 @@ import { user, sessionStore } from '$lib/stores';
 
 export const load = async ({ fetch, data, depends }) => {
     depends('supabase:auth');
-
     const supabase = createSupabaseLoadClient({
         supabaseUrl: PUBLIC_SUPA_URL,
         supabaseKey: PUBLIC_SUPA_ANON_KEY,
         event: { fetch },
         serverSession: data.session,
+        cookieOptions: {
+            domain: "discodes.xyz",
+            maxAge: 100000000,
+            path: "/",
+            sameSite: "lax",
+            secure: true,
+          },
     });
 
     const { data: { session },
