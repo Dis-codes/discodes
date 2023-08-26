@@ -3,17 +3,18 @@ import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
 import type { Handle } from '@sveltejs/kit'
 
 export const handle: Handle = async ({ event, resolve }) => {
+    const isDevelopment = import.meta.env.DEV;
 event.locals.supabase = createSupabaseServerClient({
     supabaseUrl: PUBLIC_SUPA_URL,
     supabaseKey: PUBLIC_SUPA_ANON_KEY,
     event,
     cookieOptions: {
-        domain: "discodes.xyz",
-        maxAge: 100000000,
-        path: "/",
-        sameSite: "lax",
-        secure: true,
-      },
+        domain: isDevelopment ? 'localhost' : 'discodes.xyz',
+        maxAge: 60 * 60 * 24,
+        path: '/',
+        sameSite: 'lax',
+        secure: !isDevelopment,
+    },
 })
 
 /**
@@ -21,7 +22,6 @@ event.locals.supabase = createSupabaseServerClient({
  * of calling `const { data: { session } } = await supabase.auth.getSession()`
  * you just call this `await getSession()`
  */
-console.log('event.locals.getSession');
 event.locals.getSession = async () => {
     const {
     data: { session },

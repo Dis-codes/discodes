@@ -22,7 +22,6 @@
         .from('marketplace')
         .select('*')
         .or(`name.ilike.%${keyword}%,user.ilike.%${keyword}%,description.ilike.%${keyword}%`);
-console.log(data)
       if (error) {
         console.error('Error fetching search results:', error);
       } else {
