@@ -8,6 +8,7 @@ import RoleCheck from './MiscComponents/RoleCheck.svelte';
 import Changelog from './MiscComponents/Changelog.svelte';
 import BotUptime from './DashboardComponents/BotUptime.svelte';
 import CommandStats from './DashboardComponents/CommandStats.svelte';
+import BotProfile from './DashboardComponents/BotProfile.svelte';
 export {
     NavBar,
     Account,
@@ -18,5 +19,6 @@ export {
     RoleCheck,
     Changelog,
     BotUptime,
-    CommandStats
+    CommandStats,
+    BotProfile
 };
