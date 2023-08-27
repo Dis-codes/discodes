@@ -59,7 +59,7 @@
     
 }
 let commands:any;
-let getCommands = async () => {
+let getCommands:any = async () => {
         const { data, error} = await supabase.from('marketplace').select('*').eq('user_id', $user?.id);
         commands = data
         return data;
@@ -117,6 +117,7 @@ let getCommands = async () => {
                 <h1 class="text-3xl font-bold">Commands</h1>
                 {#if commands.length == 0}
                 <p class="text-lg">You don´t have any commands yet!</p>
+                <!-- svelte-ignore missing-declaration -->
                 <button on:click={() => {EditPluginModal.showModal()}} class="btn btn-neutral mt-3">Create one</button>
                 {/if}
                 {#each commands as command}
@@ -131,6 +132,7 @@ let getCommands = async () => {
                                 <p class="text-neutral-500 ">{command.description}</p>
                                 <div class="flex justify-between items-end">
                                     <p class="text-sm font-semibold mt-2  text-cyan-400">{((new Date(command.created_at)).toLocaleDateString('en-GB'))}</p>
+                                    <!-- svelte-ignore missing-declaration -->
                                     <button on:click={() => {EditPluginModal.showModal()}} class="btn btn-neutral mt-3">Edit</button>  
                                 </div>
                             </div>

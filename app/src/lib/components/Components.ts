@@ -9,6 +9,12 @@ import Changelog from './MiscComponents/Changelog.svelte';
 import BotUptime from './DashboardComponents/BotUptime.svelte';
 import CommandStats from './DashboardComponents/CommandStats.svelte';
 import BotProfile from './DashboardComponents/BotProfile.svelte';
+import TokenModal from './DashboardComponents/Modals/TokenModal.svelte';
+import EditToken from './DashboardComponents/Modals/EditToken.svelte';
+import DeleteToken from './DashboardComponents/Modals/DeleteToken.svelte';
+import AddPluginModal from './DashboardComponents/Modals/AddPluginModal.svelte';
+import InvalidToken from './DashboardComponents/Modals/InvalidToken.svelte';
+
 export {
     NavBar,
     Account,
@@ -20,5 +26,10 @@ export {
     Changelog,
     BotUptime,
     CommandStats,
-    BotProfile
+    BotProfile,
+    TokenModal,
+    EditToken,
+    DeleteToken,
+    AddPluginModal,
+    InvalidToken,
 };

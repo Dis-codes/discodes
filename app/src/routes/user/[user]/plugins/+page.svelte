@@ -2,7 +2,7 @@
     import { NavBar, Loading } from '$lib/components/Components';
     import { supabase } from '$lib/supabase';
     import { onMount } from 'svelte';
-    let plugins = [];
+    let plugins:any[] = [];
 
     onMount(async () => {
         let username = window.location.pathname.split('/')[2];
