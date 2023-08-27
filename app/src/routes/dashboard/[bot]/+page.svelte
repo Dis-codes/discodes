@@ -68,22 +68,28 @@ let getCommands = async () => {
 
 <AuthCheck>
     <NavBar/>
-    <div class="flex justify-center items-center h-screen">
-        <div class="">
+    <div  class="flex justify-center items-center h-screen">
+        <div style="height: 600px;" class="card shadow-xl border border-neutral mx-10 mt-28 mb-20">
+            <div class="card-body">
         {#if botToken }
-        <div class="flex gap-20">
+        <div class="flex ">
         <div class="flex flex-col">
             {#await getBot(localStorage.getItem('botToken'))}
                 <Loading/>
             {:then result } 
+
                 <BotProfile botObject={result.data}/>
-                <h2>Bot stats</h2>
-                <p>Guilds: {result.data.approximate_guild_count}</p>
-                <p>Bot is {result.data.bot_public ? "public" : "private"}</p>
-                <p>description: {result.data.description}</p>
-
-
-
+                <div class="font-bold   text-xl mt-10">
+                Bot stats:
+                </div>
+                <div style="width: 200px;" class="border border-neutral shadow-xl rounded-lg p-4 mt-5 h-32">
+                <p class="font-semibold">Guilds: {result.data.approximate_guild_count}</p>
+                <p class="text-info">Bot is {result.data.bot_public ? "public" : "private"}</p>
+                </div>
+                <p class="font-bold   text-xl mt-5">Description:</p>
+                <div class="mt-2 ml-2 text-neutral-400">
+                    Helloo{result.data.description}
+                </div>
             {/await}
        
     </div>
@@ -99,32 +105,44 @@ let getCommands = async () => {
             
         </div>
         {/if}
+        </div>
     </div>
 <!-- <BotUptime/>
 <CommandStats/> -->
-    
         {#await getCommands()}
             <Loading/>
-        {:then commands} 
-            <div class=" w-1/4 border-spacing-0.5">
+        {:then commands}
+        <div style="height: 600px;" class="flex-1 flex flex-col w-1/4 p-6 border border-neutral rounded-xl mt-9 mr-10">
+            <div class="flex-1 p-6 shadow-xl card-body rounded-lg">
+                <h1 class="text-3xl font-bold">Commands</h1>
                 {#if commands.length == 0}
                 <p class="text-lg">You don´t have any commands yet!</p>
                 <button on:click={() => {EditPluginModal.showModal()}} class="btn btn-neutral mt-3">Create one</button>
                 {/if}
                 {#each commands as command}
-                <div class='shadow-xl py-2 rounded-lg border mb-4 border-neutral'>
-                        <div class="text-center">
-                            <a href="/user/{$user?.user_metadata.full_name}/plugins/{command.id}" class="font-bold hover:underline text-xl">{command.name}</a>
-                            <p class="font">{command.description}</p>
-                            <p class="text-sm font-semibold mt-1 text-cyan-400"> {((new Date(command.created_at)).toLocaleDateString('en-GB'))}</p>
-                            <button on:click={() => {EditPluginModal.showModal()}} class="btn btn-neutral mt-3">Edit</button>
+                <div class="card card-compact">
+                    <div class="card-body ml-4 w-1/3">
+                        
+                        <div class="border border-neutral rounded-xl">
+                            <figure><img src="https://picsum.photos/575/250" alt="" /></figure>
+                            <!-- Info content -->
+                            <div class="flex-1 p-6 shadow-xl">
+                                <a href="/user/{$user?.user_metadata.full_name}/plugins/{command.id}" class="font-bold hover:underline text-xl">{command.name}</a>
+                                <p class="text-neutral-500 ">{command.description}</p>
+                                <div class="flex justify-between items-end">
+                                    <p class="text-sm font-semibold mt-2  text-cyan-400">{((new Date(command.created_at)).toLocaleDateString('en-GB'))}</p>
+                                    <button on:click={() => {EditPluginModal.showModal()}} class="btn btn-neutral mt-3">Edit</button>  
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
-                </div>
                 {/each}
-            </div>
+        </div>
+        </div>
         {/await}
 
-
+    
     </div>
 </AuthCheck>
 
