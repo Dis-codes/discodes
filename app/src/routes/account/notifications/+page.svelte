@@ -12,7 +12,7 @@
 
 <main class="flex items-center justify-center h-screen">
   {#if $user}
-    <div class="p-8 shadow-xl rounded-lg border border-neutral">
+    <div class="p-8 shadow-xl rounded-lg border border-neutral w-full sm:w-auto">
       <div class="flex justify-center"><h1 class="text-3xl font-bold">Notifications</h1></div>
       <div class="divider divide-neutral my-6"></div>
 
