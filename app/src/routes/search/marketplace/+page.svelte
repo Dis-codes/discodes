@@ -50,9 +50,10 @@
         {#each searchResults.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage) as plugin}
 
         <div class="w-1/3">
-          <div class="card w-96  bg-base-100 shadow-xl p-2 rounded-lg ">
+          <div class="card card-compact w-96  bg-base-100 shadow-xl p-2 rounded-lg ">
+            <figure><img class="w-auto h-auto" src="https://picsum.photos/450/250" alt="Shoes" /></figure>
                 <div class="card-body">
-                  <a class="text-xl font-bold link link-hover" style="text-transform:capitalize;" href="/user/{plugin.user}/plugins/{plugin.id}">{plugin.name}</a>
+                  <a class="text-xl card-title font-bold link link-hover" style="text-transform:capitalize;" href="/user/{plugin.user}/plugins/{plugin.id}">{plugin.name}</a>
                   <h2 class="flex flex-col items-start">
                   </h2>
                     <div class="flex-1">

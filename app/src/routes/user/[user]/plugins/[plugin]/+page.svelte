@@ -32,9 +32,11 @@
 
 {#if plugin}
 
-<div class="card items-center justify-center h-screen mx-10 mt-80">
+<div class="card card-compact items-center justify-center h-screen mx-10 mt-72">
     <div class="card-body ml-4 w-1/3">
+        
         <div class="border border-neutral rounded-xl">
+            <figure><img class="w-auto h-auto" src="https://picsum.photos/575/250" alt="" /></figure>
             <!-- Info content -->
             <h1 class="text-3xl font-bold p-4">{plugin.name} <p class="text-base text-gray-600">Made by @{plugin.user}</p></h1>
             <div class="flex-1 p-6 shadow-xl">

@@ -33,12 +33,12 @@
             color: "text-green-500 badge badge-outline"
         }
     };
-    let plugins = [];
+    let plugins:any[] = [];
     let showAllPlugins = false; // Initially show only 4 plugins
 
     onMount(async () => {
         let username = window.location.pathname.split('/')[2];
-        const { data, e } = await supabase
+        const { data, error } = await supabase
         .from('profiles')
             .select('*')
             .eq('username', username);
@@ -49,7 +49,7 @@
             .from('identity')
             .select('*')
             .eq('id', user.id);
-            if (e || e2) {
+            if (error || e2) {
                 return;
             }
             user = { ...user, ...identity[0] };
