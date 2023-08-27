@@ -6,10 +6,12 @@
         id: string
     }
 
+    console.log( $page.url.pathname)
+
     export let botObject:BotObject;
 </script>
 
-{#if $page.path = `/dashboard/`}
+{#if $page.url.pathname != `/dashboard/${botObject.id}`}
 <div class="card w-52 bg-base-100 shadow-xl border border-neutral">
     <figure class="px-2 pt-10">
         <img src="https://cdn.discordapp.com/avatars/{botObject.bot.id}/{botObject.bot.avatar}" alt="Shoes" class="rounded-xl" />
