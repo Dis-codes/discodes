@@ -26,7 +26,7 @@
     </button>
 </NavBar>
 <div class="flex flex-col items-center justify-center h-screen">
-    <h1 class="text-3xl font-bold text-[60px] mb-2 text-discodes-purple-light">DisCodes</h1>
+    <h1 class="text-3xl font-bold text-[60px] mb-2 text-discodes-purple-light   max-[1024px]:mt-20">DisCodes</h1>
     <h3 class="text-center font-bold mt-4 mb-4">The best place for your discord bot</h3>
     {#if session?.user}
     <a class="btn btn-accent" href="/dashboard">Open dashboard</a>

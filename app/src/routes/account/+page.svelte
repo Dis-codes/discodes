@@ -156,18 +156,18 @@
 <NavBar/>
 <main class="flex items-center justify-center h-screen shadow-xl">
     {#if user}
-    <div class="flex">
-      <div class="shadow-xl mr-2 w-10 border border-neutral rounded-lg">
-        <div class="ml-2 my-2 flex flex-col justify-between h-full">
-          <div>
-            <button on:click={() => $currentPage = 'page1'}><span class="material-symbols-outlined mt-2">person</span></button>
-            <button on:click={() => $currentPage = 'page2'}><span class="material-symbols-outlined mt-2">settings</span></button>
-            <a href="/user/{user.user_metadata.full_name}/plugins"><span class="material-symbols-outlined mt-2">extension</span></a>
+    <div class="flex flex-col sm:flex-row w-full sm:w-auto">
+      <div class="shadow-xl mb-2 sm:w-10 sm:mb-0 sm:mr-2 border border-neutral rounded-lg">
+        <div class="ml-2 sm:my-2 flex flex-row sm:flex-col justify-between h-10 sm:h-full">
+          <div class="gap-3 flex flex-row sm:flex-col items-center sm:mr-2 mt-2 sm:mt-0">
+            <button on:click={() => $currentPage = 'page1'}><span class="material-symbols-outlined">person</span></button>
+            <button on:click={() => $currentPage = 'page2'}><span class="material-symbols-outlined ">settings</span></button>
+            <a href="/user/{user.user_metadata.full_name}/plugins"><span class="material-symbols-outlined ">extension</span></a>
 {#if isAdmin}
-            <button on:click={() => $currentPage = 'page3'}><span class="material-symbols-outlined mt-2">shield_person</span></button>
+            <button on:click={() => $currentPage = 'page3'}><span class="material-symbols-outlined">shield_person</span></button>
 {/if}
           </div>
-          <div class="mt-auto mb-4"><a href="/auth/logout"><span class="material-symbols-outlined mt-2">logout</span></a></div>
+          <div class="sm:mb-4 mt-2 mr-2"><a href="/auth/logout"><span class="material-symbols-outlined ">logout</span></a></div>
         </div>
       </div>
     {#if $currentPage === 'page1'}
@@ -474,7 +474,7 @@
         {/if}
       </div>
     {:else if $currentPage === 'page3'} 
-    <div class="p-6 mt-0 shadow-xl rounded-lg border border-neutral max-h-[30rem]">
+    <div class="p-6 mt-0 shadow-xl rounded-lg border border-neutral sm:max-h-[30rem]">
       <div class="flex justify-center"><h1 class="text-3xl font-bold">Admin's Headquarters</h1></div>
       <RoleCheck roleID={'1142531927967023114'} userID={user?.user_metadata.provider_id}>
       <div class="divider"></div>
@@ -498,7 +498,7 @@
           <div class="divider"></div>
           </h2>
           <div class="flex justify-center"><h2 class="text-xl font-semibold">Admin's Tools</h2></div>
-          <div class="mt-4">
+          <div class="mt-4 flex flex-col sm:flex-row gap-2">
               <button on:click={() => window.changelogModal.showModal()} class="btn btn-accent btn-outline shadow-xl">Send changelog</button>
               <button class="btn btn-success btn-outline shadow-xl">Send Custom Message</button>
               <button class="btn btn-error btn-outline shadow-xl">Force Update Website</button>
