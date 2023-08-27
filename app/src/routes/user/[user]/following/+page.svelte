@@ -57,15 +57,16 @@
                     <div class="mt-3 flex flex-wrap gap-4">
                         {#if !user.private}
                             {#each filteredProfiles as profile (profile.id)}
-                                <a href={`/user/${profile.username}`} class="flex p-4 rounded shadow-xl mb-4 items-center ring ring-neutral">
+                                <a href={`/user/${profile.username}`} class="flex p-4 rounded shadow-xl mb-4 items-center ring ring-neutral w-64">
                                     <img class="w-16 h-16 rounded-full ring ring-neutral" src={profile.avatar_url} alt={profile.display_name} />
                                     <div class="ml-3">
                                         <p class="text-start">{profile.display_name}</p>
                                         <p class="text-gray-500">@{profile.username}</p>
-                                        <p class="text-center mt-1 text-cyan-400">
+                                        <p class="mt-1 text-cyan-400">
                                             {calculateDaysAgo(profile.logged_at) === 1
                                                 ? 'Online'
-                                                : `Last online ${calculateDaysAgo(profile.logged_at)} days ago`}
+                                                : 'Offline'}
+                                                <!-- : `Last online ${calculateDaysAgo(profile.logged_at)} days ago` -->
                                     </p>
                                 </a>
                             {/each}

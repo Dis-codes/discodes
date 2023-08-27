@@ -12,3 +12,10 @@
     'GRAD' 0,
     'opsz' 48
   }
+img {
+    pointer-events: none; 
+  }
+::selection {
+    background: #7976e7;
+    color: #fff;
+}
