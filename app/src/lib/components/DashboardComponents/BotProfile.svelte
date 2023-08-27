@@ -1,14 +1,16 @@
 <script lang="ts">
+    import { page } from "$app/stores"
+
     interface BotObject {
         bot: {username: string},
         id: string
     }
-    
+
     export let botObject:BotObject;
 </script>
 
-
-<div class="card w-40 bg-base-100 shadow-xl border border-neutral">
+{#if $page.path = `/dashboard/`}
+<div class="card w-52 bg-base-100 shadow-xl border border-neutral">
     <figure class="px-2 pt-10">
         <img src="https://cdn.discordapp.com/avatars/{botObject.bot.id}/{botObject.bot.avatar}" alt="Shoes" class="rounded-xl" />
     </figure>
@@ -19,12 +21,13 @@
         </div>
     </div>
 </div>
-
-<!-- <a href="/dashboard/{botObject.id}" class="flex flex-col">
+{:else}
+<a href="/dashboard/{botObject.id}" class="flex flex-col">
     <div class="avatar">
         <div class="w-24 h-24 rounded-full ring ring-accent mx-auto">
             <img src="https://cdn.discordapp.com/avatars/{botObject.bot.id}/{botObject.bot.avatar}" alt="bot pfp"/>
         </div>
     </div>
     <p class="text-xl text-center text mt-2">{botObject.bot.username}</p>
-</a> -->
+</a>
+{/if}
