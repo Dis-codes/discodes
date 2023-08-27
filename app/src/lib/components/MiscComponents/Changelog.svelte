@@ -17,7 +17,7 @@
   </script>
 
   <h2 class='text-2xl mb-2'>Changelog</h2>
-  <div class="changelog-container w-1/4 mx-auto border border-neutral rounded-lg">
+  <div class="changelog-container w-10/12 sm:w-1/2 lg:w-1/4 mx-auto border border-neutral rounded-lg">
     {#each logs as log, i (log.title)}
     <div class="card w-100 bg-base-100 shadow-xl">
       {#if log.image}  <figure><img src={log.image} alt={log.title}/></figure>{/if}
