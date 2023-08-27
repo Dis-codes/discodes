@@ -439,13 +439,16 @@
             <span class="label-text">Themes</span>
           </label>
           <select bind:value={$themeStore} class="select select-bordered">
-            <option disabled selected>Pick one</option>
-            <option value="dark">Dark (dark)</option>
-            <option value="dracula">Dracula (dark)</option>
-            <option value="forest">Forest (dark)</option>
-            <option value="winter">Winter (light)</option>
-            <option value="pastel">Pastel (light)</option>
-          </select>
+            <option value="dark">Dark (Default)</option>
+            <option value="dracula">Dracula</option>
+            <option value="black">Amoled</option>
+            <option value="luxury">Luxury</option>
+            <option value="night">Night</option>
+            <option value="business">Business</option>
+            <option value="retro">Retro</option>
+            <option value="pastel">Pastel</option>
+            <option value="winter">Winter</option>
+    </select>
           </div>
         <div class="divider">Advanced</div>
         <div class="form-control w-full">
