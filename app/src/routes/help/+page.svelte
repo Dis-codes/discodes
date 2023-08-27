@@ -10,7 +10,7 @@
         <h1 class="text-3xl font-semibold mb-4">Welcome to our Server Help Page</h1>
         <p class="text-lg mb-6">Here you can find user examples, documentation, and tutorials to get started.</p>
         
-        <div class="space-y-4">
+        <div class="flex gap-4 justify-center flex-col sm:flex-row">
             <a href="/help/examples" class="btn">User Examples</a>
             <a href="/help/Docs" class="btn">Documentation</a>
             <a href="/help/Tutorials" class="btn">Tutorials</a>

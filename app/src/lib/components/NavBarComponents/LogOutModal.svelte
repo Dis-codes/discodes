@@ -1,5 +1,5 @@
 <button class="btn btn-neutral" on:click={() => window.logoutModal.showModal()}>Log Out</button>
-<dialog id="logoutModal" class="modal">
+<dialog id="logoutModal" class="modal modal-bottom sm:modal-middle">
 
     <form method="dialog" class="modal-box">
         <h3 class="font-bold text-xl">Log out?</h3>

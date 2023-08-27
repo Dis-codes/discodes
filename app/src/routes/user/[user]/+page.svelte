@@ -77,10 +77,10 @@
 <NavBar />
 
 {#if user}
-<div class="flex items-center justify-center h-screen mx-10">
+<div class="flex flex-col lg:flex-row items-center justify-center h-screen mx-10">
     <!-- Left Screen (User Profile) -->
-    <div style="width: 500px; height: 550px;" class="card shadow-xl mt-8 border border-neutral rounded-xl mb-20">
-      <div class="card-body flex flex-col justify-between">
+    <div class="card shadow-xl mt-8 border border-neutral rounded-xl mb-5 lg:mb-20 w-full lg:w-[500px] lg:h-[550px]">
+      <div class="card-body flex flex-row lg:flex-col  lg:justify-between">
   
         <!-- User Image -->
         <img src={user.avatar_url} alt="User" class="w-24 h-24 rounded-full ring ring-neutral"><br>
@@ -89,8 +89,8 @@
           <p>@{user.username}</p>
   
           <!-- Badges -->
-          <div class="divider"></div>
-          <div class="border border-neutral shadow-xl text-white rounded-full mb-6">
+          <div class="hidden lg:block"><div class="divider"></div></div>
+          <div class="border border-neutral shadow-xl text-white rounded-full lg:mb-6 mt-6 lg:mt-0">
             <div class="mx-2 flex gap-2">
               {#each badges as badgeId}
                 {#if badgesMap[badgeId]}
@@ -104,17 +104,21 @@
         </div>
   
         <!-- User Bio -->
-        <div class="text-white rounded-lg mb-20">
+        <div class="text-white rounded-lg lg:mb-20 hidden lg:block">
           <p class="text-gray-400 font-semibold">Bio:<br></p>
           <p>{user.bio}</p>
         </div>
+      </div>
+      <div class="text-white rounded-lg px-4 lg:hidden">
+        <p class="text-gray-400 font-semibold">Bio:<br></p>
+        <p>{user.bio}</p>
       </div>
       <p class="text-gray-400 self-start p-4">Joined: {new Date(user.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
     </div>
 
   
 
-    <div class="ml-4 w-full ">
+    <div class="w-full lg:ml-4">
         <div style=" height: 195px;" class="flex-1 flex flex-col border border-neutral rounded-xl mb-4">
 
             <!-- Info content -->
