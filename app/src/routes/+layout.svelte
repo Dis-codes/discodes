@@ -36,21 +36,18 @@
 
 <svelte:head>
 	<title>Discodes</title>
-    
 </svelte:head>
 
-{#if typeof window === 'undefined'}
-    <!-- DO NOT REMOVE THIS COMMENT LMFAO -->
-{:else}
+{#if typeof window  !== 'undefined'}
 <div data-theme={$themeStore}>
-{#if $page.url.pathname.startsWith("/errors") || allowedUrls.includes($page.url.pathname) }
-    <slot />
-{:else}
+    {#if $page.url.pathname.startsWith("/errors") || allowedUrls.includes($page.url.pathname) }
+        <slot />
+    {:else}
 <RoleCheck roleID={'1144641299748769864'} userID={$user?.user_metadata.provider_id}>
     <div class="min-h-screen flex flex-col">
-    <slot/>
-</div>
+        <slot/>
+    </div>
 </RoleCheck>
-{/if}
+    {/if}
 </div>
 {/if}
