@@ -1,9 +1,9 @@
 # Roadmap
 ## User auth
- - $\textcolor{green}{\textsf{Begin user auth on button click on `discodes.com/login` (Welcome page)}}$ 
- - $\textcolor{green}{\textsf{When user auth succeeded, redirect to `discodes.com/dashboard`}}$ 
+ - $\textcolor{green}{\textsf{Begin user auth on button click on discodes.com/login (Welcome page)}}$ 
+ - $\textcolor{green}{\textsf{When user auth succeeded, redirect to discodes.com/dashboard}}$ 
 ## Welcome screen
- - $\textcolor{green}{\textsf{Welcome screen on `discodes.com/`}}$ 
+ - $\textcolor{green}{\textsf{Welcome screen on discodes.com/}}$ 
  - $\textcolor{green}{\textsf{Buttons to Sign In, Log In, preview of the app and news/changelog}}$ 
  - $\textcolor{orange}{\textsf{Socials (discord, x)}}$ 
  - $\textcolor{red}{\textsf{Footer}}$ 
