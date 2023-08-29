@@ -12,10 +12,9 @@ export const GET = async ({ request, url }: { request: Request; url: URL }): Pro
             'Authorization': `Bot ${DISCORD_TOKEN}`
         }
     });
-
-    if (!response.ok) throw error(500,'Response is NOT ok')
     const data = await response.json();
+    if (data?.message === "Unknown User") throw error(404, "Unknown User");
+    if (data?.message === "Unknown Member") data.roles = [];
     userRoles = data.roles;
-    
     return new Response(JSON.stringify({ roles: userRoles }), { status: 200 });
 };

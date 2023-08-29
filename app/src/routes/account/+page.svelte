@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { themeStore} from "$lib/stores";
+    import { settings } from "$lib/stores";
     import { onMount } from 'svelte';
     import { GetUserRoles } from "discodes-utilities";
     import { NavBar, Loading, AuthCheck, RoleCheck} from "$lib/components/Components";
@@ -18,31 +18,14 @@
       }
     }
     getAdmin();
-    let settings = localStorage.getItem('settings');
-    if (settings) {
-      settings = JSON.parse(settings);
-    }
-    else {
-      settings = {
-        tips: true,
-        ads: true,
-        privatePlugins: false,
-        sortingMethod: 'default',
-        contentFiltering: [],
-        timezone: 'none'
-      }
-      localStorage.setItem('settings', JSON.stringify(settings));
-    }
-    function updateSettings() {
-      localStorage.setItem('settings', JSON.stringify(settings));
-    }
     /*PAGE 1*/
     let maxChars = 100;
     let profileData = {
     bio: 'Loading...',
     private: false,
     achievements: true,
-    pro: false
+    pro: false,
+    timezone: $settings?.timezone
 };
     let isLoading = false;
     let showMessage = false;
@@ -53,22 +36,26 @@
     async function initOne(){
       const { data, error } = await supabase
             .from('identity')
-            .select('bio, private, achievements, pro')
+            .select('bio, private, achievements, pro, timezone')
             .eq('id', user?.id);
 
         if (error) {
             return;
         }
+      let setSettings = $settings 
+      setSettings.timezone = data[0]?.timezone
+      settings.set({ ...setSettings})
+       
        profileData = data[0];
        initialProfileData = { ...profileData };
     }
     async function updateProfile() {
+     profileData.timezone = $settings?.timezone;
      isLoading = true;
      showMessage = false;
      const hasChanges = JSON.stringify(profileData) !== JSON.stringify(initialProfileData);
 
     if (!hasChanges) {
-      updateSettings();
       isLoading = false;
       showMessage = true;
       isSuccess = false;
@@ -79,7 +66,7 @@
     }    
     const { error } = await supabase
   .from('identity')
-  .update({ bio: profileData?.bio , private: profileData?.private, achievements: profileData?.achievements, pro: profileData?.pro })
+  .update({ bio: profileData?.bio , private: profileData?.private, achievements: profileData?.achievements, pro: profileData?.pro, timezone: $settings?.timezone })
   .eq('id', user?.id)
 
       isLoading = false;
@@ -209,7 +196,7 @@
               <label class="label">
                 <span class="label-text">Timezone</span>
               </label>
-              <select class="select select-bordered " bind:value={settings.timezone}>
+              <select class="select select-bordered " bind:value={$settings.timezone}>
                 <option value="none">NONE - disabled</option>
                 <option value="International Date Line West">(GMT-12:00) International Date Line West</option>
                   <option value="American Samoa">(GMT-11:00) American Samoa</option>
@@ -399,7 +386,7 @@
       <div class="lg:tooltip" data-tip="Hide plugins for being automatically public - require a pro plan">
       <label class="label cursor-pointer">
         <span class="label-text font-semibold">Private plugins</span> 
-        <input type="checkbox" class="toggle" disabled bind:checked={settings.privatePlugin}/>
+        <input type="checkbox" class="toggle" disabled bind:checked={$settings.privatePlugin}/>
       </label>
       </div>
     </div>
@@ -407,7 +394,7 @@
           <div class="lg:tooltip" data-tip="Tooltips for workspace">
           <label class="label cursor-pointer">
             <span class="label-text font-semibold">Tips</span> 
-            <input type="checkbox" class="toggle" bind:checked={settings.tips}/>
+            <input type="checkbox" class="toggle" bind:checked={$settings.tips}/>
           </label>
           </div>
         </div>
@@ -416,11 +403,11 @@
           <label class="label cursor-pointer">
             <span class="label-text font-semibold">Ads
             </span> 
-            <input type="checkbox" class="toggle" bind:checked={settings.ads} disabled/>
+            <input type="checkbox" class="toggle" bind:checked={$settings.ads} disabled/>
           </label>
         </div>
         </div>
-        <div class="flex justify-center"><button on:click={updateSettings} class="btn btn-accent btn-outline shadow-xl btn-sm">Update</button></div>
+        <!-- <div class="flex justify-center"><button on:click={$updateSettings} class="btn btn-accent btn-outline shadow-xl btn-sm">Update</button></div> -->
         {:else if activeTab === 'privacy'} 
         <div class="form-control">
           <div class="lg:tooltip" data-tip="Request for data download to be send to you">
@@ -438,7 +425,7 @@
           <label class="label">
             <span class="label-text">Themes</span>
           </label>
-          <select bind:value={$themeStore} class="select select-bordered">
+          <select bind:value={$settings.theme} class="select select-bordered">
             <option value="dark">Dark (Default)</option>
             <option value="dracula">Dracula</option>
             <option value="black">Amoled</option>
@@ -455,7 +442,7 @@
           <label class="label">
             <span class="label-text">Sorting method</span>
           </label>
-          <select class="select select-bordered" bind:value={settings.sortingMethod}>
+          <select class="select select-bordered" bind:value={$settings.sortingMethod}>
             <option value="default">default</option>
           </select>
           </div>
@@ -467,10 +454,10 @@
             placeholder="Add keywords to block, separate by comma"
             style="resize: none;"
             maxlength="100"
-            bind:value={settings.contentFiltering}
+            bind:value={$settings.contentFiltering}
             ></textarea>
             </div>
-            <div class="flex justify-center"><button on:click={updateSettings} class="btn btn-accent btn-outline shadow-xl btn-sm">Update</button></div>
+            <!-- <div class="flex justify-center"><button on:click={updateSettings} class="btn btn-accent btn-outline shadow-xl btn-sm">Update</button></div> -->
         {/if}
       </div>
     {:else if $currentPage === 'page3'} 
