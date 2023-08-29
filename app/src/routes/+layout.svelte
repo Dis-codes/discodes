@@ -2,7 +2,7 @@
     import "../app.css";
     import { invalidate } from '$app/navigation';
     import { onMount } from 'svelte';
-    import { themeStore, user } from "$lib/stores";
+    import { settings, user } from "$lib/stores";
     import { page } from '$app/stores';  
 
     import RoleCheck from "$lib/components/MiscComponents/RoleCheck.svelte";
@@ -39,7 +39,7 @@
 </svelte:head>
 
 {#if typeof window  !== 'undefined'}
-<div data-theme={$themeStore}>
+<div data-theme={$settings.theme}>
     {#if $page.url.pathname.startsWith("/errors") || allowedUrls.includes($page.url.pathname) }
         <slot />
     {:else}

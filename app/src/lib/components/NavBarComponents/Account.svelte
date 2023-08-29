@@ -26,9 +26,9 @@ onMount(() => {
         <li><a href="/account/notifications"><span class="material-symbols-outlined">
             notifications
             </span> Notifications <span class="badge badge-error text-xs">{notificationCount}</span></a></li>
-        <li><a href="/account/settings"><span class="material-symbols-outlined">
-            settings
-            </span> Settings</a></li>
+        <li><a href="/user/{$user.user_metadata?.full_name}"><span class="material-symbols-outlined">
+            account_circle
+            </span> Profile</a></li>
         <li><a href="/help"><span class="material-symbols-outlined">
             help
             </span> Help & Support</a></li>
