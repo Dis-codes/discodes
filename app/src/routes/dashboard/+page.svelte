@@ -51,24 +51,13 @@
         botToken = false;
     }
 
-    let marketplace = async (name:string, description:string) => {
+    let createPLugin = async (name:string, description:string) => {
 
         if (!name || !description) return
         const {data, error} = await supabase.from('marketplace').select('*').eq('user_id', $user?.id).eq('name', name)
 
         if (data && data?.length > 0) {
-
-            let {data, error} =  await supabase.from('marketplace').update({
-                user_id: $user?.id,
-                name: name,
-                description: description,
-                user: $user?.user_metadata.full_name
-            })
-
-            pluginData = data
-            window.location.href = '/dashboard'
-            return [...pluginData]
-
+            console.error('Plugin Already exists')
         } else  {
             let {data, error} =  await supabase.from('marketplace').insert({
                 user_id: $user?.id,
@@ -137,8 +126,8 @@
 </AuthCheck>
 
 
-<InvalidToken/>
+<!-- <InvalidToken/>
 <AddPluginModal marketplace={marketplace}/>
 <EditToken tokenFunction={checkToken}/>
 <DeleteToken deleteToken={deleteToken}/>
-<TokenModal tokenFunction={checkToken}/>
+<TokenModal tokenFunction={checkToken}/> -->

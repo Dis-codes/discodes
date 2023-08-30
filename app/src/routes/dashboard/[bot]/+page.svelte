@@ -1,7 +1,5 @@
 <script lang="ts">
-    import { NavBar,AuthCheck, BotUptime, CommandStats } from "$lib/components/Components";
-    import BotProfile from "$lib/components/DashboardComponents/BotProfile.svelte";
-    import Loading from "$lib/components/MiscComponents/Loading.svelte";
+    import { NavBar, AuthCheck, TokenModal, EditToken, DeleteToken, BotUptime, CommandStats, EditPluginModal, Loading, BotProfile, AddPluginModal, InvalidToken } from "$lib/components/Components";
     import { onMount } from "svelte";
     import { user } from "$lib/stores";
 
@@ -10,6 +8,8 @@
 
     let botToken: boolean;
 
+
+    
 
     onMount(() => {
         botToken = localStorage.getItem('botToken')
@@ -34,7 +34,7 @@
         }
         return json
     }
-    let marketplace = async (name:string, description:string, selection:string) => {
+    let editPlugin = async (name:string, description:string, selection:string) => {
         if (!name || !description || !selection) return
         const {data, error} = await supabase.from('marketplace').select('*').eq('user_id', $user?.id)
         if (data.length > 0 && selection != "Create new") {
@@ -64,6 +64,50 @@ let getCommands:any = async () => {
         commands = data
         return data;
     }
+
+    async function checkToken(token:any) {
+        if (!token) return
+
+        if(!tokenRegex.test(token)) {
+            botTokenInvalid.showModal()
+            botToken = false;
+            return
+        }
+        botInfo =  await getBot(token)
+        if (!botInfo) return;
+
+        botToken = true;
+        localStorage.setItem('botToken', token)
+    } 
+
+    function deleteToken() { 
+        localStorage.removeItem('botToken')
+        botToken = false;
+    }
+
+    let currentPluginName:string;
+    let pluginData:any ;
+
+    let createPLugin = async (name:string, description:string) => {
+
+    if (!name || !description) return
+    const {data, error} = await supabase.from('marketplace').select('*').eq('user_id', $user?.id).eq('name', name)
+
+    if (data && data?.length > 0) {
+        console.error('Plugin Already exists')
+    } else  {
+        let {data, error} =  await supabase.from('marketplace').insert({
+            user_id: $user?.id,
+            name: name,
+            description: description,
+            user: $user?.user_metadata.full_name
+        })
+
+        pluginData = data
+        window.location.href = '/dashboard'
+        return [...pluginData]
+    }
+    }
 </script>
 
 <AuthCheck>
@@ -79,6 +123,10 @@ let getCommands:any = async () => {
             {:then result } 
 
                 <BotProfile botObject={result.data}/>
+                <!-- svelte-ignore missing-declaration -->
+                <button class="btn btn-neutral mx-auto mt-2" on:click={() => {tokenModal2.showModal()}}>Edit bot token</button>
+                <!-- svelte-ignore missing-declaration -->
+                <button class="btn btn-error mx-auto mt-2" on:click={() => {tokenModal3.showModal()}}>Delete Token</button>
                 <div class="font-bold   text-xl mt-10">
                 Bot stats:
                 </div>
@@ -91,7 +139,7 @@ let getCommands:any = async () => {
                     Helloo{result.data.description}
                 </div>
             {/await}
-       
+
     </div>
     <div>
     </div>
@@ -115,11 +163,13 @@ let getCommands:any = async () => {
         <div style="height: 600px;" class="flex-1 flex flex-col w-1/4 p-6 border border-neutral rounded-xl mt-9 mr-10">
             <div class="flex-1 p-6 shadow-xl card-body rounded-lg">
                 <h1 class="text-3xl font-bold">Commands</h1>
+                
                 {#if commands.length == 0}
                 <p class="text-lg">You don´t have any commands yet!</p>
                 <!-- svelte-ignore missing-declaration -->
                 <button on:click={() => {EditPluginModal.showModal()}} class="btn btn-neutral mt-3">Create one</button>
                 {/if}
+                
                 {#each commands as command}
                 <div class="card card-compact">
                     <div class="card-body ml-4 w-1/3">
@@ -133,41 +183,26 @@ let getCommands:any = async () => {
                                 <div class="flex justify-between items-end">
                                     <p class="text-sm font-semibold mt-2  text-cyan-400">{((new Date(command.created_at)).toLocaleDateString('en-GB'))}</p>
                                     <!-- svelte-ignore missing-declaration -->
-                                    <button on:click={() => {EditPluginModal.showModal()}} class="btn btn-neutral mt-3">Edit</button>  
+                                    <button on:click={(e) => {editPluginModal.showModal(), currentPluginName = e.target.parentElement.parentElement.getElementsByTagName('a')[0].innerText}} class="btn btn-neutral mt-3">Edit</button>  
                                 </div>
                             </div>
                         </div>
                         </div>
                     </div>
                 {/each}
+                    
+        <!-- svelte-ignore missing-declaration -->
+        <button class="btn btn-neutral mx-auto" on:click={() => {createPluginModal.showModal()}}>New command</button>
         </div>
         </div>
         {/await}
-
-    
     </div>
 </AuthCheck>
 
-<dialog id="EditPluginModal" class="modal modal-bottom sm:modal-middle text-center">
-    <form method="dialog" class="modal-box" on:submit={(e) => {marketplace(new FormData(e.currentTarget).get('name'),new FormData(e.currentTarget).get('description'),new FormData(e.currentTarget).get('selection'))}}>
-        <h3 class="font-bold text-lg">Name your new comand</h3>
-        <input name="name" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs my-4" />
-        <h3 class="font-bold text-lg">Add a description</h3>
-        <input name="description" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs my-4" />
-        <select name="selection" class="select select-bordered w-full max-w-xs">
-            <option disabled selected>Which Command to edit?</option>
-            {#await getCommands()}
-            <Loading/>
-        {:then commands} 
-            {#each commands as command}
-            <option value={command.id}>{command.name}</option>
-            {/each}
-            {/await}
-            <option>Create new</option>
-          </select>
-        <div class="modal-action">
-        <button type="submit" class="btn btn-success">Edit command</button>
-        <button class="btn">Cancel</button>
-    </div>
-    </form>
-</dialog>
+
+<InvalidToken/>
+<EditPluginModal marketplace={editPlugin} getCommands={getCommands} pluginName={currentPluginName}/>
+<AddPluginModal marketplace={createPLugin}/>
+<EditToken tokenFunction={checkToken}/>
+<DeleteToken deleteToken={deleteToken}/>
+<TokenModal tokenFunction={checkToken}/>
