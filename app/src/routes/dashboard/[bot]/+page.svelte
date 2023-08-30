@@ -35,6 +35,7 @@
         return json
     }
     let editPlugin = async (name:string, description:string, id:string) => {
+        if (!name || !description || !id) return
         const {data, error} = await supabase.from('marketplace').select('*').eq('user_id', $user?.id)
         if (data.length > 0 && id != "Create new") {
             let {data:dat, error:er} =  await supabase.from('marketplace').update({
@@ -116,8 +117,8 @@ let getCommands:any = async () => {
     <div  class="flex justify-center items-center h-screen">
         <div style="height: 600px;" class="shadow-xl border border-neutral mx-10 mt-28 mb-20 rounded-xl">
         {#if botToken }
-        <div class="flex ">
-        <div class="flex flex-col mt-5">
+        <div class="flex">
+        <div class="flex flex-col mt-5 w-96">
             {#await getBot(localStorage.getItem('botToken'))}
                 <Loading/>
             {:then result } 
@@ -131,14 +132,14 @@ let getCommands:any = async () => {
                 <div class="mx-5 mt-6">
                 <p class="font-bold text-xl">Bot stats:</p>
                 
-                <div style="width: 200px;" class="border border-neutral shadow-xl rounded-lg p-4 mt-5 h-32">
+                <div style="width: 200px;" class="border border-neutral shadow-xl rounded-lg p-4 mt-5 h-32 ">
                 <p class="font-semibold">Guilds: {result.data.approximate_guild_count}</p>
                 <p class="text-info">Bot is {result.data.bot_public ? "public" : "private"}</p>
                 <p class="font-semibold">Owned by {result.data?.team?.members ? result.data.team.members[0].user.username : result.data.owner.username}</p>
                 </div>
-                <p class="font-bold   text-xl mt-5">Description:</p>
+                <p class="font-bold text-xl mt-5">Description:</p>
                 <div class="mt-2 ml-2 text-neutral-400">
-                    Helloo{result.data.description}
+                {result.data.description} 
                 </div>
             </div>
             {/await}
@@ -164,7 +165,7 @@ let getCommands:any = async () => {
         {:then commands}
         <div style="height: 600px;" class="flex-1 flex flex-col w-1/4 p-6 border border-neutral rounded-xl mt-9 mr-10">
             <h1 class="text-3xl font-bold">Commands</h1>
-            <div class="flex-1 p-6 shadow-xl rounded-lg flex h-full overflow-auto">
+            <div class="flex-1 p-6 shadow-xl rounded-lg flex h-full overflow-auto scroll-container">
                 
                 {#if commands.length == 0}
                 <p class="text-lg">You don´t have any commands yet!</p>
@@ -202,3 +203,26 @@ let getCommands:any = async () => {
 <EditToken tokenFunction={checkToken}/>
 <DeleteToken deleteToken={deleteToken}/>
 <TokenModal tokenFunction={checkToken}/>
+
+<style>
+     .scroll-container {
+      max-height: 50vh;
+      overflow-y: auto;
+  
+      scrollbar-width: thin;
+      scrollbar-color: transparent  rgb(110, 110, 110);
+  
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color:  rgb(110, 110, 110);
+        border-radius: 4px;
+      }
+  
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+    }
+</style>
