@@ -34,15 +34,14 @@
         }
         return json
     }
-    let editPlugin = async (name:string, description:string, selection:string) => {
-        if (!name || !description || !selection) return
+    let editPlugin = async (name:string, description:string, id:string) => {
         const {data, error} = await supabase.from('marketplace').select('*').eq('user_id', $user?.id)
-        if (data.length > 0 && selection != "Create new") {
+        if (data.length > 0 && id != "Create new") {
             let {data:dat, error:er} =  await supabase.from('marketplace').update({
                 name: name,
                 description: description,
                 user: $user?.user_metadata.full_name
-            }).eq('id', selection).select()
+            }).eq('id', id).select()
           return  window.location.reload()
         }
             if (data.filter((e:any) => e.name == name).length > 0) {
@@ -86,6 +85,8 @@ let getCommands:any = async () => {
     }
 
     let currentPluginName:string;
+    let currentPluginDescription:string;
+    let currentPluginID:string;
     let pluginData:any ;
 
     let createPLugin = async (name:string, description:string) => {
@@ -113,31 +114,33 @@ let getCommands:any = async () => {
 <AuthCheck>
     <NavBar/>
     <div  class="flex justify-center items-center h-screen">
-        <div style="height: 600px;" class="card shadow-xl border border-neutral mx-10 mt-28 mb-20">
-            <div class="card-body">
+        <div style="height: 600px;" class="shadow-xl border border-neutral mx-10 mt-28 mb-20 rounded-xl">
         {#if botToken }
         <div class="flex ">
-        <div class="flex flex-col">
+        <div class="flex flex-col mt-5">
             {#await getBot(localStorage.getItem('botToken'))}
                 <Loading/>
             {:then result } 
 
                 <BotProfile botObject={result.data}/>
-                <!-- svelte-ignore missing-declaration -->
-                <button class="btn btn-neutral mx-auto mt-2" on:click={() => {tokenModal2.showModal()}}>Edit bot token</button>
-                <!-- svelte-ignore missing-declaration -->
-                <button class="btn btn-error mx-auto mt-2" on:click={() => {tokenModal3.showModal()}}>Delete Token</button>
-                <div class="font-bold   text-xl mt-10">
-                Bot stats:
+               <div class="flex flex-row justify-center gap-4 mt-3"> 
+                <button class="btn btn-neutral" on:click={() => {tokenModal2.showModal()}}>Edit bot token</button>
+                <button class="btn btn-error" on:click={() => {tokenModal3.showModal()}}>Delete Token</button>
                 </div>
+
+                <div class="mx-5 mt-6">
+                <p class="font-bold text-xl">Bot stats:</p>
+                
                 <div style="width: 200px;" class="border border-neutral shadow-xl rounded-lg p-4 mt-5 h-32">
                 <p class="font-semibold">Guilds: {result.data.approximate_guild_count}</p>
                 <p class="text-info">Bot is {result.data.bot_public ? "public" : "private"}</p>
+                <p class="font-semibold">Owned by {result.data?.team?.members ? result.data.team.members[0].user.username : result.data.owner.username}</p>
                 </div>
                 <p class="font-bold   text-xl mt-5">Description:</p>
                 <div class="mt-2 ml-2 text-neutral-400">
                     Helloo{result.data.description}
                 </div>
+            </div>
             {/await}
 
     </div>
@@ -153,7 +156,6 @@ let getCommands:any = async () => {
             
         </div>
         {/if}
-        </div>
     </div>
 <!-- <BotUptime/>
 <CommandStats/> -->
@@ -161,39 +163,33 @@ let getCommands:any = async () => {
             <Loading/>
         {:then commands}
         <div style="height: 600px;" class="flex-1 flex flex-col w-1/4 p-6 border border-neutral rounded-xl mt-9 mr-10">
-            <div class="flex-1 p-6 shadow-xl card-body rounded-lg">
-                <h1 class="text-3xl font-bold">Commands</h1>
+            <h1 class="text-3xl font-bold">Commands</h1>
+            <div class="flex-1 p-6 shadow-xl rounded-lg flex h-full overflow-auto">
                 
                 {#if commands.length == 0}
                 <p class="text-lg">You don´t have any commands yet!</p>
-                <!-- svelte-ignore missing-declaration -->
-                <button on:click={() => {EditPluginModal.showModal()}} class="btn btn-neutral mt-3">Create one</button>
-                {/if}
-                
+                {:else}
+                <div class="grid grid-cols-4 gap-5">
                 {#each commands as command}
-                <div class="card card-compact">
-                    <div class="card-body ml-4 w-1/3">
-                        
+                    <div class="w-full">
                         <div class="border border-neutral rounded-xl">
-                            <figure><img src="https://picsum.photos/575/250" alt="" /></figure>
                             <!-- Info content -->
+                            <figure><img src="https://picsum.photos/575/250" class="rounded-t-xl" alt="" /></figure>
                             <div class="flex-1 p-6 shadow-xl">
                                 <a href="/user/{$user?.user_metadata.full_name}/plugins/{command.id}" class="font-bold hover:underline text-xl">{command.name}</a>
                                 <p class="text-neutral-500 ">{command.description}</p>
                                 <div class="flex justify-between items-end">
                                     <p class="text-sm font-semibold mt-2  text-cyan-400">{((new Date(command.created_at)).toLocaleDateString('en-GB'))}</p>
-                                    <!-- svelte-ignore missing-declaration -->
-                                    <button on:click={(e) => {editPluginModal.showModal(), currentPluginName = e.target.parentElement.parentElement.getElementsByTagName('a')[0].innerText}} class="btn btn-neutral mt-3">Edit</button>  
+                                    <button on:click={(e) => {editPluginModal.showModal(), currentPluginName = command.name, currentPluginDescription = command.description, currentPluginID = command.id }} class="btn btn-neutral mt-3">Edit</button>  
                                 </div>
                             </div>
                         </div>
-                        </div>
                     </div>
                 {/each}
-                    
-        <!-- svelte-ignore missing-declaration -->
-        <button class="btn btn-neutral mx-auto" on:click={() => {createPluginModal.showModal()}}>New command</button>
-        </div>
+                </div>
+                {/if}
+            </div>
+            <button class="btn btn-neutral mt-5 ml-auto" on:click={() => {createPluginModal.showModal()}}>New command</button>
         </div>
         {/await}
     </div>
@@ -201,7 +197,7 @@ let getCommands:any = async () => {
 
 
 <InvalidToken/>
-<EditPluginModal marketplace={editPlugin} getCommands={getCommands} pluginName={currentPluginName}/>
+<EditPluginModal marketplace={editPlugin} getCommands={getCommands} pluginName={currentPluginName} pluginDescription={currentPluginDescription} pluginID={currentPluginID}/>
 <AddPluginModal marketplace={createPLugin}/>
 <EditToken tokenFunction={checkToken}/>
 <DeleteToken deleteToken={deleteToken}/>

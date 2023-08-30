@@ -103,14 +103,24 @@
     </div>
     <div>
         <!-- svelte-ignore missing-declaration -->
-        <button on:click={() => {tokenModal.showModal()}}>
-        <div class="avatar">
-            <div class="w-24 h-24 rounded-full ring ring-accent mx-auto">
-                <img src="../../Images/plus.png" alt="bot pfp"/>
+        <!-- <button >
+        <div class=">
+            <div class="">
+                
             </div>
         </div>
         <p class="text-xl text-center text mt-2">Add New</p>
-     </button>
+     </button> -->
+
+     <button on:click={() => {tokenModal.showModal()}}  class="w-52 bg-base-100 shadow-xl border border-neutral rounded-xl h-full">
+        <figure class="w-24 h-24 rounded-full ring ring-accent mx-auto flex justify-center">
+            <img src="../../Images/plus.png" alt="bot pfp"/>
+        </figure>
+        <div class="flex flex-col p-8  text-center">
+            <h2 class="text-xl">Add new bot</h2>
+        </div>
+    </button>
+
     </div>
         </div>
         {:else}
@@ -126,8 +136,8 @@
 </AuthCheck>
 
 
-<!-- <InvalidToken/>
-<AddPluginModal marketplace={marketplace}/>
-<EditToken tokenFunction={checkToken}/>
-<DeleteToken deleteToken={deleteToken}/>
-<TokenModal tokenFunction={checkToken}/> -->
+<InvalidToken/>
+<!-- <AddPluginModal marketplace={marketplace}/> -->
+<!-- <EditToken tokenFunction={checkToken}/>
+<DeleteToken deleteToken={deleteToken}/> -->
+<TokenModal tokenFunction={checkToken}/>

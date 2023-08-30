@@ -12,17 +12,14 @@
 </script>
 
 {#if $page.url.pathname != `/dashboard/${botObject.id}`}
-<div class="card w-52 bg-base-100 shadow-xl border border-neutral">
-    <figure class="px-2 pt-10">
+<a href="/dashboard/{botObject.id}" class="flex flex-col w-52 bg-base-100 shadow-xl border border-neutral rounded-xl">
+    <figure class="px-2 pt-10 flex  justify-center h-full">
         <img src="https://cdn.discordapp.com/avatars/{botObject.bot.id}/{botObject.bot.avatar}" alt="Shoes" class="rounded-xl" />
     </figure>
-    <div class="card-body items-center text-center">
-        <h2 class="card-title">{botObject.bot.username}</h2>
-        <div class="card-actions">
-            <a href="/dashboard/{botObject.id}" class="btn btn-info shadow-xl">Edit Bot</a>
-        </div>
+    <div class="flex flex-col p-8 items-center text-center">
+        <h2 class="text-xl">{botObject.bot.username}</h2>
     </div>
-</div>
+</a>
 {:else}
 <a href="/dashboard/{botObject.id}" class="flex flex-col">
     <div class="avatar">
