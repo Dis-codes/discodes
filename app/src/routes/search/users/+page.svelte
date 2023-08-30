@@ -24,6 +24,7 @@
       keyword = window.location.href.split('?keyword=')[1];
       if (!keyword || keyword.length < 3) {
         errorTxt = 'Please enter at least 3 characters.';
+        contentLoaded = true;
         return;
       }
   
@@ -37,24 +38,24 @@
         console.error('Error fetching search results:', error);
       } else {
         searchResults = data; 
-        if (settings.contentFiltering) {
-    const keywordsArray = settings.contentFiltering.split(",");
-    const filteredData = searchResults.filter(user => {
-        const userDisplayName = user.display_name.toLowerCase();
-        const userUsername = user.username.toLowerCase();
-        for (let i = 0; i < keywordsArray.length; i++) {
-            const keyword = keywordsArray[i].toLowerCase();
-            if (userDisplayName.includes(keyword) || userUsername.includes(keyword)) {
-                return false;
-            }
-        }
-        return true;
-    });
-    if (searchResults.length != filteredData.length) {
-        console.log("Filtered",  searchResults.length - filteredData.length, "users");
-    }
-    searchResults = filteredData;
-}
+//         if (settings.contentFiltering?.length > 0) {
+//         const keywordsArray = settings?.contentFiltering.includes(",") ? settings?.contentFiltering.split(",") : [settings?.contentFiltering];
+//         const filteredData = searchResults.filter(user => {
+//         const userDisplayName = user.display_name.toLowerCase();
+//         const userUsername = user.username.toLowerCase();
+//         for (let i = 0; i < keywordsArray.length; i++) {
+//             const keyword = keywordsArray[i].toLowerCase();
+//             if (userDisplayName.includes(keyword) || userUsername.includes(keyword)) {
+//                 return false;
+//             }
+//         }
+//         return true;
+//     });
+//     if (searchResults.length != filteredData.length) {
+//         console.log("Filtered",  searchResults.length - filteredData.length, "users");
+//     }
+//     searchResults = filteredData;
+// }
         totalPages = Math.ceil(searchResults.length / resultsPerPage);
         if (searchResults > 0) {
           const { data: followersData, error: followersError } = await supabase

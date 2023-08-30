@@ -8,7 +8,7 @@ tips: true,
 ads: true,
 privatePlugins: false,
 sortingMethod: 'default',
-contentFiltering: [],
+contentFiltering: "",
 timezone: 'none'
 }
 export const user = writable<any>(null);
