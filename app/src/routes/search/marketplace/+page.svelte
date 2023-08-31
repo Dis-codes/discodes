@@ -73,24 +73,24 @@
       </div>
       <!-- add buttons to change page -->
         <div class="flex justify-center mt-4 ">
-        <a
+        <button
             class="btn btn-outline btn-sm mr-2 {currentPage === 1 ? 'btn-disabled' : ''}"
             on:click={() => currentPage = 1}
-          ><span class="material-symbols-outlined">first_page</span></a>
-        <a
+          ><span class="material-symbols-outlined">first_page</span></button>
+        <button
             class="btn btn-outline btn-sm mr-2 {currentPage === 1 ? 'btn-disabled' : ''}"
             on:click={() => currentPage--}
-          ><span class="material-symbols-outlined">navigate_before</span></a>
+          ><span class="material-symbols-outlined">navigate_before</span></button>
        <p>Page {currentPage} of {totalPages}</p>
 
-        <a
+        <button
             class="btn btn-outline btn-sm ml-2 {currentPage === totalPages ? 'btn-disabled' : ''}"
             on:click={() => currentPage++}
-        ><span class="material-symbols-outlined">navigate_next</span></a>
-        <a
+        ><span class="material-symbols-outlined">navigate_next</span></button>
+        <button
             class="btn btn-outline btn-sm ml-2 {currentPage === totalPages ? 'btn-disabled' : ''}"
             on:click={() => currentPage = totalPages}
-          ><span class="material-symbols-outlined">last_page</span></a>
+          ><span class="material-symbols-outlined">last_page</span></button>
         </div>
     {/if}
   </div>

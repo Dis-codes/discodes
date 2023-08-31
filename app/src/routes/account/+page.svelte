@@ -45,15 +45,15 @@
       let setSettings = $settings 
       setSettings.timezone = data[0]?.timezone
       settings.set({ ...setSettings})
-       
-       profileData = data[0];
-       initialProfileData = { ...profileData };
+
+        profileData = data[0];
+        initialProfileData = { ...profileData };
     }
     async function updateProfile() {
-     profileData.timezone = $settings?.timezone;
-     isLoading = true;
-     showMessage = false;
-     const hasChanges = JSON.stringify(profileData) !== JSON.stringify(initialProfileData);
+      profileData.timezone = $settings?.timezone;
+      isLoading = true;
+      showMessage = false;
+      const hasChanges = JSON.stringify(profileData) !== JSON.stringify(initialProfileData);
 
     if (!hasChanges) {
       isLoading = false;
