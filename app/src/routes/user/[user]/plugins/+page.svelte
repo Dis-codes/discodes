@@ -52,8 +52,4 @@
 {:else}
 <Loading />
 {/if}
-<style>
-    .transperent{
-     color: rgba(128, 128, 128, 0.171);
-    }
-</style>
+
