@@ -1,6 +1,5 @@
 <script lang="ts">
     export let marketplace:any
-    export let getCommands:any
     export let pluginName:string
     export let pluginDescription:string
     export let pluginID:string
