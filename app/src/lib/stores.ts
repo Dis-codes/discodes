@@ -7,7 +7,7 @@ const InitSettings = {
 	tips: true,
 	ads: true,
 	privatePlugins: false,
-	sortingMethod: "default",
+	sortingMethod: "ascending",
 	contentFiltering: "",
 	timezone: "none"
 };

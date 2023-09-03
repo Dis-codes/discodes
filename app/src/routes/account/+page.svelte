@@ -162,7 +162,7 @@
           <div class="flex justify-center"><a href="/user/{user.user_metadata.full_name}" class="text-2xl font-semibold">
             <img src={avatar_url} 
             alt={"Profile Picture of " + (user ? full_name : "User")} 
-            class="w-16 h-16 rounded-full mr-2 mt-3 border border-neutral"/>
+            class="w-16 h-16 rounded-full mr-2 mt-3 border border-neutral notfound"/>
           </a>
           <div class="ml-2">
             <div class="p-4">
@@ -443,7 +443,8 @@
             <span class="label-text">Sorting method</span>
           </label>
           <select class="select select-bordered" bind:value={$settings.sortingMethod}>
-            <option value="default">default</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
           </select>
           </div>
           <div class="form-control w-full">
@@ -460,7 +461,7 @@
             <!-- <div class="flex justify-center"><button on:click={updateSettings} class="btn btn-accent btn-outline shadow-xl btn-sm">Update</button></div> -->
         {/if}
       </div>
-    {:else if $currentPage === 'page3'} 
+    {:else if $currentPage === 'page3' && isAdmin} 
     <div class="p-6 mt-0 shadow-xl rounded-lg border border-neutral sm:max-h-[30rem]">
       <div class="flex justify-center"><h1 class="text-3xl font-bold">Admin's Headquarters</h1></div>
       <RoleCheck roleID={'1142531927967023114'} userID={user?.user_metadata.provider_id}>

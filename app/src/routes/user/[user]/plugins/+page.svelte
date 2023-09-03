@@ -1,8 +1,11 @@
 <script lang="ts">
     import { NavBar, Loading } from '$lib/components/Components';
-    import { supabase } from '$lib/supabase';
     import { onMount } from 'svelte';
     let plugins:any[] = [];
+
+    export let data
+    let { supabase, session } = data
+    $: ({ supabase, session } = data)
 
     onMount(async () => {
         let username = window.location.pathname.split('/')[2];

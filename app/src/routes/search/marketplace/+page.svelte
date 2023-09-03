@@ -1,9 +1,10 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { NavBar, Loading } from "$lib/components/Components";
-    import { supabase } from '$lib/supabase';
-    export let data;
-    const { session } = data;
+    import {settings} from "$lib/stores";
+    export let data
+    let { supabase, session } = data
+    $: ({ supabase, session } = data)
     let loggedUser = session?.user?.user_metadata?.full_name;
     let keyword: string = '';
     let errorTxt: string = '';
@@ -21,6 +22,7 @@
       const { data, error } = await supabase
         .from('marketplace')
         .select('*')
+        .order('name', { ascending: $settings.sortingMethod === "ascending" })
         .or(`name.ilike.%${keyword}%,user.ilike.%${keyword}%,description.ilike.%${keyword}%`);
       if (error) {
         console.error('Error fetching search results:', error);

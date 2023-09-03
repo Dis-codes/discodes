@@ -19,3 +19,10 @@ img {
     background: #7976e7;
     color: #fff;
 }
+.notfound {
+  background-image: url("../../../Images/emptypfp.png");
+  background-size: cover;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}

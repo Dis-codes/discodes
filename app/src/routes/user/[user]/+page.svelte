@@ -1,6 +1,5 @@
 <script lang="ts">
     import { NavBar, Loading } from '$lib/components/Components';
-    import { supabase } from '$lib/supabase';
     import { onMount } from 'svelte';
 
     import {GetUserRoles, GetUserBadges} from 'discodes-utilities';
@@ -33,6 +32,10 @@
             color: "text-green-500 badge badge-outline"
         }
     };
+    export let data
+    let { supabase, session } = data
+    $: ({ supabase, session } = data)
+
     let plugins:any[] = [];
     let showAllPlugins = false; // Initially show only 4 plugins
 
@@ -77,28 +80,28 @@
 <NavBar />
 
 {#if user}
-<div class="flex flex-col lg:flex-row items-center justify-center h-screen mx-10">
+<div class="flex flex-col lg:flex-row items-center justify-center lg:h-screen mx-10 mt-20 lg:mt-0">
     <!-- Left Screen (User Profile) -->
     <div class="card shadow-xl mt-8 border border-neutral rounded-xl mb-5 lg:mb-20 w-full lg:w-[500px] lg:h-[550px]">
       <div class="card-body flex flex-row lg:flex-col  lg:justify-between">
   
         <!-- User Image -->
-        <img src={user.avatar_url} alt="User" class="w-24 h-24 rounded-full ring ring-neutral"><br>
+        <img src={user.avatar_url} alt="User" class="w-24 h-24 rounded-full ring ring-neutral notfound"><br>
         <div>
           <p class="text-xl font-bold">{user.display_name}</p>
           <p>@{user.username}</p>
   
           <!-- Badges -->
           <div class="hidden lg:block"><div class="divider"></div></div>
-          <div class="border border-neutral shadow-xl text-white rounded-full lg:mb-6 mt-6 lg:mt-0">
-            <div class="mx-2 flex gap-2">
-              {#each badges as badgeId}
+          <div class="border border-neutral shadow-xl text-white rounded-lg md:rounded-full lg:mb-6 mt-6 lg:mt-0">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 m-2">
+                {#each badges as badgeId}
                 {#if badgesMap[badgeId]}
-                  <div class="py-2">
-                    <span class={badgesMap[badgeId].color + " flex rounded-full"}>{badgesMap[badgeId].name}</span>
-                  </div>
-                {/if}
-              {/each}
+                <div class="flex">
+                    <span class={badgesMap[badgeId].color + " flex rounded-full truncate w-full py-3    "}>{badgesMap[badgeId].name}</span>
+                </div>
+                    {/if}
+                    {/each}
             </div>
           </div>
         </div>

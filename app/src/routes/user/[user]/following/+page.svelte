@@ -1,7 +1,10 @@
 <script lang="ts">
     import { NavBar, Loading } from '$lib/components/Components';
-    import { supabase } from '$lib/supabase';
     import { onMount } from 'svelte';
+
+    export let data
+    let { supabase, session } = data
+    $: ({ supabase, session } = data)
 
     let user: any = null;
     let filteredProfiles = [];
@@ -32,7 +35,6 @@
         //if user.following includes profile.id
 
         filteredProfiles= profiles.filter(profile => user.following.includes(profile.id));
-            
     });
     function calculateDaysAgo(dateString) {
         const lastLoggedAt = new Date(dateString);
@@ -46,19 +48,19 @@
 <NavBar />
 
 {#if user}
-<div class="flex items-center justify-center h-screen mx-10">
+<div class="flex items-center justify-center {filteredProfiles.length > 15 ? "mt-20" : "h-screen "} md:mx-10" >
     <!-- Left Screen (User Profile) -->
-    <div class="ml-4 w-full">
+    <div class="w-full">
         <div class="flex-1 flex flex-col border border-neutral rounded-xl mb-4">
             <!-- Info content -->
             <div class="flex-1 p-6 shadow-xl">
                 <h1 class="text-4xl font-bold mb-10">{user.username} is following:</h1>
-                <div class="ml-6">
-                    <div class="mt-3 flex flex-wrap gap-4">
+                <div class="md:ml-6">
+                    <div class="flex flex-wrap gap-4">
                         {#if !user.private}
                             {#each filteredProfiles as profile (profile.id)}
-                                <a href={`/user/${profile.username}`} class="flex p-4 rounded shadow-xl mb-4 items-center ring ring-neutral w-64">
-                                    <img class="w-16 h-16 rounded-full ring ring-neutral" src={profile.avatar_url} alt={profile.display_name} />
+                                <a href={`/user/${profile.username}`} class="flex p-4 rounded shadow-xl mb-4 items-center ring ring-neutral w-full sm:w-64 ">
+                                    <img class="w-16 h-16 notfound rounded-full ring ring-neutral" src={profile.avatar_url} alt={profile.display_name} />
                                     <div class="ml-3">
                                         <p class="text-start">{profile.display_name}</p>
                                         <p class="text-gray-500">@{profile.username}</p>
@@ -84,3 +86,4 @@
 {:else}
 <Loading />
 {/if}
+
