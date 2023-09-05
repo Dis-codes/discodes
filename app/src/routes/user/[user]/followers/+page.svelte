@@ -48,7 +48,7 @@
 <NavBar />
 
 {#if user}
-<div class="flex items-center justify-center {filteredProfiles.length > 15 ? "mt-20" : "h-screen "} md:mx-10" >
+<div class="flex items-center justify-center {filteredProfiles.length > 15 ? "mt-20" : "lg:h-screen mt-20 lg:mt-0"}  md:mx-10" >
     <!-- Left Screen (User Profile) -->
     <div class="w-full">
         <div class="flex-1 flex flex-col border border-neutral rounded-xl mb-4">

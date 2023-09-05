@@ -85,7 +85,7 @@
     <div class="flex justify-center items-center h-screen">
         <div>
         {#if botToken }
-        <div class="flex gap-20">
+        <div class="flex gap-4 md:gap-20 flex-col md:flex-row">
         <div class="flex flex-col">
             {#await getBot(localStorage.getItem('botToken'))}
                 <Loading/>
@@ -112,11 +112,11 @@
         <p class="text-xl text-center text mt-2">Add New</p>
      </button> -->
 
-     <button on:click={() => {tokenModal.showModal()}}  class="w-52 bg-base-100 shadow-xl border border-neutral rounded-xl h-full">
-        <figure class="w-24 h-24 rounded-full ring ring-accent mx-auto flex justify-center">
+     <button on:click={() => {tokenModal.showModal()}}  class="flex flex-row md:flex-col w-52 bg-base-100 shadow-xl border border-neutral rounded-xl h-full">
+        <figure class="md:w-28 mx-auto my-4 md:my-0 md:mt-auto flex justify-center w-16 ml-2 md:ml-auto ring rounded-full ring-accent">
             <img src="../../Images/plus.png" alt="bot pfp"/>
         </figure>
-        <div class="flex flex-col p-8  text-center">
+        <div class="m-auto">
             <h2 class="text-xl">Add new bot</h2>
         </div>
     </button>

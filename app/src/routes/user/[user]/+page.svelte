@@ -80,10 +80,10 @@
 <NavBar />
 
 {#if user}
-<div class="flex flex-col lg:flex-row items-center justify-center lg:h-screen mx-10 mt-20 lg:mt-0">
+<div class="flex flex-col lg:flex-row items-center justify-center lg:h-screen md:mx-10 mt-20 lg:mt-0">
     <!-- Left Screen (User Profile) -->
-    <div class="card shadow-xl mt-8 border border-neutral rounded-xl mb-5 lg:mb-20 w-full lg:w-[500px] lg:h-[550px]">
-      <div class="card-body flex flex-row lg:flex-col  lg:justify-between">
+    <div class="flex flex-col shadow-xl mt-8 border border-neutral rounded-xl mb-5 lg:mb-20 w-full lg:w-[500px] lg:h-[579px]">
+      <div class="card-body flex flex-row lg:flex-col">
   
         <!-- User Image -->
         <img src={user.avatar_url} alt="User" class="w-24 h-24 rounded-full ring ring-neutral notfound"><br>
@@ -107,17 +107,17 @@
         </div>
   
         <!-- User Bio -->
-        <div class="text-white rounded-lg lg:mb-20 hidden lg:block">
-          <p class="text-gray-400 font-semibold">Bio:<br></p>
-          <p>{user.bio}</p>
+        <div class="flex-col text-white rounded-lg hidden lg:flex">
+            <p class="text-gray-400 font-semibold">Bio:<br></p>
+            <p>{user.bio}</p>
         </div>
-      </div>
-      <div class="text-white rounded-lg px-4 lg:hidden">
+    </div>
+    <div class="flex flex-col text-white rounded-lg px-4 lg:hidden">
         <p class="text-gray-400 font-semibold">Bio:<br></p>
         <p>{user.bio}</p>
-      </div>
-      <p class="text-gray-400 self-start p-4">Joined: {new Date(user.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
     </div>
+    <p class="text-gray-400 ml-4 lg:ml-8 mb-4">Joined: {new Date(user.created_at).toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
+</div>
 
   
 
@@ -125,25 +125,25 @@
         <div style=" height: 195px;" class="flex-1 flex flex-col border border-neutral rounded-xl mb-4">
 
             <!-- Info content -->
-            <div class="flex-1 p-6 shadow-xl card-body">
-                <h1 class="text-4xl font-bold">User stats</h1>
-                <div class="ml-6">
+            <div class="flex-1 shadow-xl">
+                <h1 class="text-xl p-6 md:text-4xl font-bold">User stats</h1>
+                <div class="flex mx-auto md:ml-6 justify-center md:justify-normal">
                     <div class="stats stats-horizontal">
                         {#if !user.private}
 
                         <div class="stat">
                             <a href="/user/{user.username}/followers" class="stat-title">Followers</a>
-                            <div class="stat-value">{user.followers ? user.followers.length : 0}</div>
+                            <div class="stat-value text-center">{user.followers ? user.followers.length : 0}</div>
                         </div>
                         
                         <div class="stat">
                             <a href="/user/{user.username}/following" class="stat-title">following</a>
-                            <div class="stat-value">{user.following ? user.following.length : 0}</div>
+                            <div class="stat-value text-center">{user.following ? user.following.length : 0}</div>
                         </div>
                         
                         <div class="stat">
-                            <div class="stat-title">Plugin Downloads:</div>
-                            <div class="stat-value">{user.plugins_downloads || 0}</div>
+                            <div class="stat-title">Downloads</div>
+                            <div class="stat-value text-center">{user.plugins_downloads || 0}</div>
                         </div>
                         {:else}
                         <div class="stat">
@@ -155,12 +155,12 @@
             </div>
         </div>
 
-        <div style="height: 340px;" class="flex-1 flex flex-col border border-neutral rounded-xl mb-12">
+        <div class="flex-1 flex flex-col border border-neutral rounded-xl mb-12 h-full">
             <!-- Info content -->
             <div class="flex-1 p-6 shadow-xl card-body">
-                <h1 class="text-3xl font-bold">Plugins</h1>
+                <h1 class="text-xl md:text-4xl font-bold">Plugins</h1>
                 {#if !user.private}
-                <div class="ml-6 mt-4 flex gap-2">
+                <div class="ml-6 mt-4 md:flex gap-2 hidden">
                     {#each plugins.slice(0,  4) as plugin}
                         <div class="shadow-xl py-16 w-1/4 rounded-lg border border-spacing-0.5 border-neutral">
                             <div class="text-center">
@@ -171,11 +171,9 @@
                         </div>
                     {/each}
                 </div>
-                {#if plugins.length > 4}
-                    <div class="text-right mt-4">
+                    <div class="text-center md:text-right mt-4 {plugins.length > 4 ? "" : "md:hidden"}">
                         <a href="/user/{user.username}/plugins" class="text-blue-500 hover:underline cursor-pointer">View all plugins</a> 
                     </div>
-                {/if}
                 {#if plugins.length == 0}
                 <div class="stat">
                     <div class="stat-title">This user is yet to publish any plugins!</div>

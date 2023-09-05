@@ -12,8 +12,8 @@
 </script>
 
 {#if $page.url.pathname != `/dashboard/${botObject.id}`}
-<a href="/dashboard/{botObject.id}" class="flex flex-col w-52 bg-base-100 shadow-xl border border-neutral rounded-xl">
-    <figure class="px-2 pt-10 flex  justify-center h-full">
+<a href="/dashboard/{botObject.id}" class="flex flex-row md:flex-col w-52 bg-base-100 shadow-xl border border-neutral rounded-xl">
+    <figure class="px-2 pt-4 md:pt-10 flex justify-center h-full">
         <img src="https://cdn.discordapp.com/avatars/{botObject.bot.id}/{botObject.bot.avatar}" alt="Shoes" class="rounded-xl notfound" />
     </figure>
     <div class="flex flex-col p-8 items-center text-center">
