@@ -1,36 +1,51 @@
 <script>
   import { user } from "$lib/stores";
   import { NavBar, Loading } from "$lib/components/Components";
-  let dummyNotifications = [
-    { id: 1, message: "You have a new message.", timestamp: "2023-08-11 12:30 PM" },
-    { id: 2, message: "Your order has been shipped.", timestamp: "2023-08-10 09:15 AM" },
-  ];
-
+  import { deleteNotification } from "$lib/components/supabase";
+  export let data;
+  let { supabase, session } = data;
+  $: ({ supabase, session } = data);
+  async function getNotifications(){
+    const { data: notifications } = await supabase
+      .from("notifications")
+      .select("*")
+      .eq("user_id", $user.id);
+    return notifications;
+  }
 </script>
 
 <NavBar/>
 
 <main class="flex items-center justify-center h-screen">
   {#if $user}
-    <div class="p-8 shadow-xl rounded-lg border border-neutral w-full sm:w-auto">
+  {#await getNotifications() then notifications}
+    
+
+    <div class="p-8 shadow-xl rounded-lg border border-neutral w-full sm:w-96">
       <div class="flex justify-center"><h1 class="text-3xl font-bold">Notifications</h1></div>
       <div class="divider divide-neutral my-6"></div>
-
-      {#each /*$user.data.notifications*/ dummyNotifications as notification (notification.id)}
+      {#if notifications.length == 0}
+        <div class="flex justify-center"><p class="text-xl">No notifications</p></div>
+      {/if}
+      {#each  notifications as notification (notification.id)}
         <div class="py-2">
           <div class="collapse border border-neutral shadow-xl">
             <input type="checkbox"/> 
             <div class="collapse-title text-xl font-medium ">
-              <p class="text-sm text-gray-500">{notification.message}<br>{notification.timestamp}</p>
+              <p class="text-sm text-gray-500">{notification.title}<br>{new Date(notification.timestamp).toLocaleDateString()}</p>
             </div>
             <div class="collapse-content"> 
-            <p class="text-lg ">Your robux subscription expired ;0</p>
+            <p class="text-lg ">{notification.message}</p>
+            <div class="flex justify-end">
+              <button class="btn btn-sm btn-neutral" on:click={() => deleteNotification(supabase, notification.id)}>Delete</button>
+            </div>
             </div>
           </div>
         </div>
       {/each}
 
     </div>
+    {/await}
   {:else}
     <Loading />
   {/if}

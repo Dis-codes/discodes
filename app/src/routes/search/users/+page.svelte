@@ -2,6 +2,7 @@
     import { onMount } from 'svelte';
     import { NavBar, Loading } from "$lib/components/Components";
     import { settings } from '$lib/stores';
+    import { setNotification } from '$lib/components/supabase';
     export let data
     let { supabase, session } = data
     $: ({ supabase, session } = data)
@@ -71,46 +72,87 @@
     onMount(fetchSearchResults);
 
     async function toggleFollow(id: string) {
+  try {
+    // Fetch the current user's following list
+    const { data: followingData, error: followingError } = await supabase
+      .from('identity')
+      .select('following')
+      .eq('id', session?.user?.id);
 
-      try {
-        let newFollowing = following.includes(id) ? following.filter(f => f !== id) : [...following, id]
-        const { data, error } = await supabase
-          .from('identity')
-          .update({ following: newFollowing
-          })
-          .eq('id', session?.user?.id)
-          .select()
-          following = data[0]?.newFollowing || [];
-        if (error) {
-          console.error('Error toggling follow:', error);
-        } else {
-          const { data, error} = await supabase
-          .from('identity')
-          .select('followers')
-          .eq('id', id)
-          let followers = data[0]?.followers || [];
-          if (error) {
-            console.error('Error fetching followers:', error);
-          } else {
-            let newFollowers = followers.includes(session?.user?.id) ? followers.filter(f => f !== session?.user?.id) : [...followers, session?.user?.id]
-            const { data, error } = await supabase
-            .from('identity')
-            .update({ followers: newFollowers
-            })
-            .eq('id', id)
-            .select()
-            if (error) {
-              console.error('Error toggling follow:', error);
-            } else {
-              followers = newFollowers || [];
-            }
-          }
+    if (followingError) {
+      console.error('Error fetching following:', followingError);
+      return;
+    }
 
-        }
-      } catch (error) {
-        console.error('Error toggling follow:', error);
-      }
+    let following = followingData[0]?.following || [];
+    const isNew = !following.includes(id);
+    // Toggle follow/unfollow
+    if (following.includes(id)) {
+      following = following.filter(f => f !== id);
+    } else {
+      following.push(id);
+    }
+
+    // Update the following list for the current user
+    const { data: updatedFollowingData, error: updateFollowingError } = await supabase
+      .from('identity')
+      .update({ following })
+      .eq('id', session?.user?.id)
+      .select();
+
+    if (updateFollowingError) {
+      console.error('Error updating following:', updateFollowingError);
+      return;
+    }
+
+    // Fetch the user being followed to update their followers list
+    const { data: followersData, error: followersError } = await supabase
+      .from('identity')
+      .select('followers')
+      .eq('id', id);
+
+    if (followersError) {
+      console.error('Error fetching followers:', followersError);
+      return;
+    }
+
+    let followers = followersData[0]?.followers || [];
+
+    // Toggle follow/unfollow from the follower's perspective
+    if (followers.includes(session?.user?.id)) {
+      if (isNew) return
+      followers = followers.filter(f => f !== session?.user?.id);
+    } else {
+      if (!isNew) return
+      followers.push(session?.user?.id);
+    }
+
+    // Update the followers list for the user being followed
+    const { data: updatedFollowersData, error: updateFollowersError } = await supabase
+      .from('identity')
+      .update({ followers })
+      .eq('id', id)
+      .select();
+
+    if (updateFollowersError) {
+      console.error('Error updating followers:', updateFollowersError);
+      return;
+    }
+
+    // Check if a new follower notification should be sent
+    if (followers.includes(session?.user?.id)) {
+      await setNotification(
+        supabase,
+        id,
+        'New follower',
+        `${session?.user?.user_metadata?.full_name} is now following you!`
+      );
+    }
+  } catch (error) {
+    console.error('Error toggling follow:', error);
+  }
 }
+
 
 async function getFollowing() {
   try {
