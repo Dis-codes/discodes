@@ -34,11 +34,11 @@
         Workspace
         {/if}
       </a>      
-      <a class="btn btn-ghost {isMobile ? (isSearch ? "square btn-sm" : "btn-square btn-sm") : ""} normal-case no-animation mx-2" href="/search/marketplace">
+      <a class="btn btn-ghost {isMobile ? (isSearch ? "square btn-sm" : "btn-square btn-sm") : ""} normal-case no-animation mx-2" href="/discover">
         {#if isMobile}
         <span class="material-symbols-outlined">storefront</span>
         {:else}
-        Marketplace
+        Discover
         {/if}
       </a>
       {#if isSearch}

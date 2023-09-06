@@ -12,6 +12,7 @@ const InitSettings = {
 	timezone: "none"
 };
 export const user = writable<object>({});
+export const supabaseClient = writable<object>({});
 export const settings = writable<object>(getSettings?.theme ? getSettings : InitSettings);
 
 settings.subscribe((value) => {

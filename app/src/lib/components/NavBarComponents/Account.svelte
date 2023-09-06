@@ -1,12 +1,12 @@
 <script lang='ts'>
     import LogOutModal from "./LogOutModal.svelte";
     import { user } from '$lib/stores';
-    import { supabase } from '$lib/supabase';
+    import { supabaseClient as supabase } from "$lib/stores";
     import { GetUserRoles } from "discodes-utilities";
     import { onMount } from "svelte";
     let notificationCount = 0;
     onMount(async () => {
-        const { data: notifications, error } = await supabase
+        const { data: notifications, error } = await $supabase
             .from("notifications")
             .select("*")
             .eq("user_id", $user.id);

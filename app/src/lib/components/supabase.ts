@@ -14,4 +14,12 @@ export const deleteNotification = async (supabase, id) => {
             .from("notifications")
             .delete()
             .match({ id: id });
-  }
+}
+export const getFollowing = async (supabase, id) => {
+    const { data, error } = await supabase
+      .from('identity')
+      .select('following')
+      .eq('id', id);
+    if (error) return [] 
+    return data[0]?.following || [];
+}

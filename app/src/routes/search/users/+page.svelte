@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import { NavBar, Loading } from "$lib/components/Components";
     import { settings } from '$lib/stores';
-    import { setNotification } from '$lib/components/supabase';
+    import { setNotification, getFollowing} from '$lib/components/supabase';
     export let data
     let { supabase, session } = data
     $: ({ supabase, session } = data)
@@ -13,7 +13,7 @@
     let errorTxt: string = '';
     let searchResults:any = [];
     let currentPage: number = 1;
-    const resultsPerPage = 12;
+    const resultsPerPage = 6;
     let totalPages = 0;
     const currentDate:any = new Date();
     const maxSessionDuration = 86400 * 1000
@@ -31,33 +31,15 @@
         .from('profiles')
         .select('*')
         .order('display_name', { ascending: $settings.sortingMethod === "ascending" })
-        .or(`display_name.ilike.%${keyword}%,username.ilike.%${keyword}%`);
+        //.or(`display_name.ilike.%${keyword}%,username.ilike.%${keyword}%`);
 
       if (error) {
         console.error('Error fetching search results:', error);
       } else {
         searchResults = data; 
-//         if ($settings.contentFiltering?.length > 0) {
-//         const keywordsArray = $settings?.contentFiltering.includes(",") ? $settings?.contentFiltering.split(",") : [$settings?.contentFiltering];
-//         const filteredData = searchResults.filter(user => {
-//         const userDisplayName = user.display_name.toLowerCase();
-//         const userUsername = user.username.toLowerCase();
-//         for (let i = 0; i < keywordsArray.length; i++) {
-//             const keyword = keywordsArray[i].toLowerCase();
-//             if (userDisplayName.includes(keyword) || userUsername.includes(keyword)) {
-//                 return false;
-//             }
-//         }
-//         return true;
-//     });
-//     if (searchResults.length != filteredData.length) {
-//         console.log("Filtered",  searchResults.length - filteredData.length, "users");
-//     }
-//     searchResults = filteredData;
-// }
         totalPages = Math.ceil(searchResults.length / resultsPerPage);
         if (searchResults > 0) {
-          const { data: followersData, error: followersError } = await supabase
+          await supabase
             .from('identity')
             .select('following')
             .eq('id', loggedUser.id);
@@ -152,27 +134,8 @@
     console.error('Error toggling follow:', error);
   }
 }
-
-
-async function getFollowing() {
-  try {
-    const { data, error } = await supabase
-      .from('identity')
-      .select('following')
-      .eq('id', session?.user?.id);
-
-    if (error) {
-      console.error('Error fetching following:', error);
-    } else {
-      following = data[0]?.following || [];
-    }
-  } catch (error) {
-    console.error('Error fetching following:', error.message);
-  }
-}
-
 async function initialize() {
-  await getFollowing();
+  following = await getFollowing(supabase, session?.user?.id);
 }
 
 initialize()
@@ -181,62 +144,51 @@ initialize()
   <NavBar />
   {#if contentLoaded}
   <div class="container mx-auto mt-24">
-    <h1 class="text-2xl font-bold mb-4">Users Results for <span class="font-normal">{keyword}</span></h1>
+    <h1 class="text-2xl font-bold mb-4 ml-2 sm:ml-0">Users Results for <span class="font-normal">{keyword}</span></h1>
     {#if errorTxt}
       <p class="text-center font-bold text-lg">{errorTxt}</p>
     {:else}
-    <p>Showing {(currentPage - 1) * resultsPerPage + 1} - {currentPage * resultsPerPage > searchResults.length? searchResults.length : currentPage * resultsPerPage} of {searchResults.length} users</p>
-    <!-- --Nikola was here :) -->
-    <div class="flex flex-wrap -mx-4">
-        {#each searchResults.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage) as user}
-
-        <div class="w-1/3">
-              <div class="card w-96 h-60 bg-base-100 shadow-xl p-3 rounded-lg ">
-                <div class="card-body">
-                  <h2 class="flex flex-col items-start">
-                    <img
-                    src={user.avatar_url}
-                    alt="Avatar"
-                    class="h-20 w-20 rounded-full mb-2 outline outline-cyan-700 notfound"/>
-                  </h2>
-                    <div class="flex-1">
-                      <a class="text-xl font-semibold link link-hover" href="/user/{user.username}">{user.display_name}</a>
-                      <p class="text-gray-500">@{user.username}</p>
-                      <p class="text-sm font-semibold mt-1 text-cyan-400">{((currentDate - new Date(user.logged_at)) <= maxSessionDuration) ? "online" : "offline"}</p>
+  {#if searchResults.length > 1}
+    <p class="ml-2 sm:ml-0">Showing {(currentPage - 1) * resultsPerPage + 1} - {currentPage * resultsPerPage > searchResults.length? searchResults.length : currentPage * resultsPerPage} of {searchResults.length} users</p>
+    {/if}
+    <div class="flex flex-wrap sm:mx-4">
+      {#each searchResults.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage) as user}
+        <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 sm:px-4 mb-4">
+          <div class="h-fit bg-base-100 shadow-xl p-3 rounded-lg">
+            <div class="ml-4 md:ml-6 md:mt-6 mt-4 flex flex-row sm:flex-col sm:flex gap-2">
+              <h2 class="flex items-start">
+                <img src={user.avatar_url} alt="Avatar" class="h-20 w-20 rounded-full mb-2 outline outline-cyan-700 notfound" />
+              </h2>
+              <div class="flex-1">
+                <a class="text-xl font-semibold link link-hover" href="/user/{user.username}">{user.display_name ? user.display_name : user.username}</a>
+                <p class="text-gray-500">@{user.username}</p>
+                <div class="flex justify-between">
+                  {#if (currentDate - new Date(user.logged_at)) <= maxSessionDuration}
+                  <p class="text-sm font-semibold mt-1 text-cyan-400">online</p>
+                  {:else}
+                  <p class="text-sm font-semibold mt-1 text-gray-500">offline</p>
+                  {/if}
+                  <div class="text-sm text-gray-500">
+                    {#if user.username === loggedUser}
+                    <p class="mr-2">This is you</p>
+                    {:else}
+                    <button on:click={toggleFollow(user.id)} class="btn btn-info btn-xs sm:btn-md mt-1 sm:-mt-4 mr-2 sm:mr-0">
+                      {following?.includes(user?.id) ? "Unfollow" : "Follow"}
+                    </button>
+                    {/if}
                   </div>
-                  <div class="absolute bottom-48 right-2 mt-1 mr-2">
-                      <div class="dropdown dropdown-end">
-                        <label tabindex="0" class="btn btn-circle btn-ghost btn-xs text-info">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </label>
-                        <div tabindex="0" class="card compact dropdown-content z-[1] shadow-xl bg-base-100 rounded-box w-56">
-                          <div class="card-body">
-                            <h2 class="card-title font-semibold">About me:</h2> 
-                            <p>Have fun make the about me user puts here!</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  {#if user.username === loggedUser}
-                  <div class="text-center mt-2">
-                    <p class="text-sm text-gray-500 mt-4">This is you</p>
-                  </div>
-                  
-          {:else}
-              <div class="text-center">
-                <div class="absolute bottom-4 right-4 mb-2 mr-2">
-                  <button on:click={toggleFollow(user.id)} class="btn btn-info btn-l">{following?.includes(user?.id) ? "Unfollow" : "Follow"}</button>
-            </div>
+                </div>
               </div>
-          {/if}
+    
             </div>
-    </div>
+          </div>
         </div>
-        <!-- to here -->
-        {/each}
-      </div>
+      {/each}
+    </div>
+    
+    
       <!-- add buttons to change page -->
-        <div class="flex justify-center mt-4 ">
+        <div class="flex justify-center mt-4 mb-4 {totalPages == 1 ? "hidden" : ""}">
         <a
             class="btn btn-outline btn-sm mr-2 {currentPage === 1 ? 'btn-disabled' : ''}"
             on:click={() => currentPage = 1}

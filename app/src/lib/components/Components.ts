@@ -15,7 +15,7 @@ import DeleteToken from "./DashboardComponents/Modals/DeleteToken.svelte";
 import AddPluginModal from "./DashboardComponents/Modals/AddPluginModal.svelte";
 import InvalidToken from "./DashboardComponents/Modals/InvalidToken.svelte";
 import EditPluginModal from "./DashboardComponents/Modals/EditPluginModal.svelte";
-
+import PluginCard from "./MiscComponents/PluginCard.svelte";
 export {
 	NavBar,
 	Account,
@@ -33,5 +33,6 @@ export {
 	DeleteToken,
 	AddPluginModal,
 	InvalidToken,
-	EditPluginModal
+	EditPluginModal,
+	PluginCard
 };
