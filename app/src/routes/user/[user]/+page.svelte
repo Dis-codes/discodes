@@ -82,7 +82,7 @@
 {#if user}
 <div class="flex flex-col lg:flex-row items-center justify-center lg:h-screen md:mx-10 mt-20 lg:mt-0">
     <!-- Left Screen (User Profile) -->
-    <div class="flex flex-col shadow-xl mt-8 border border-neutral rounded-xl mb-5 lg:mb-20 w-full lg:w-[500px] lg:h-[579px] lg:mt-0 lg:mb-0">
+    <div class="flex flex-col shadow-xl mt-8 border border-neutral rounded-xl mb-5 w-full lg:w-[500px] lg:h-[579px] lg:mt-0 lg:mb-0">
       <div class="card-body flex flex-row lg:flex-col">
   
         <!-- User Image -->
