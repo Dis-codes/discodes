@@ -82,7 +82,7 @@
 {#if user}
 <div class="flex flex-col lg:flex-row items-center justify-center lg:h-screen md:mx-10 mt-20 lg:mt-0">
     <!-- Left Screen (User Profile) -->
-    <div class="flex flex-col shadow-xl mt-8 border border-neutral rounded-xl mb-5 lg:mb-20 w-full lg:w-[500px] lg:h-[579px]">
+    <div class="flex flex-col shadow-xl mt-8 border border-neutral rounded-xl mb-5 lg:mb-20 w-full lg:w-[500px] lg:h-[579px] lg:mt-0 lg:mb-0">
       <div class="card-body flex flex-row lg:flex-col">
   
         <!-- User Image -->
@@ -92,6 +92,7 @@
           <p>@{user.username}</p>
   
           <!-- Badges -->
+          {#if badges.length > 0}
           <div class="hidden lg:block"><div class="divider"></div></div>
           <div class="border border-neutral shadow-xl text-white rounded-lg md:rounded-full lg:mb-6 mt-6 lg:mt-0">
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 m-2">
@@ -104,6 +105,7 @@
                     {/each}
             </div>
           </div>
+            {/if}
         </div>
   
         <!-- User Bio -->
@@ -121,8 +123,8 @@
 
   
 
-    <div class="w-full lg:ml-4">
-        <div style=" height: 195px;" class="flex-1 flex flex-col border border-neutral rounded-xl mb-4">
+    <div class="w-full lg:ml-4 lg:h-[579px] flex flex-col gap-4">
+        <div class="flex-1 flex flex-col border border-neutral rounded-xl">
 
             <!-- Info content -->
             <div class="flex-1 shadow-xl">
@@ -155,7 +157,7 @@
             </div>
         </div>
 
-        <div class="flex-1 flex flex-col border border-neutral rounded-xl mb-12 h-full">
+        <div class="flex-1 flex flex-col border border-neutral rounded-xl ">
             <!-- Info content -->
             <div class="flex-1 p-6 shadow-xl card-body">
                 <h1 class="text-xl md:text-4xl font-bold">Plugins</h1>
@@ -171,13 +173,14 @@
                         </div>
                     {/each}
                 </div>
-                    <div class="text-center md:text-right mt-4 {plugins.length > 4 ? "" : "md:hidden"}">
-                        <a href="/user/{user.username}/plugins" class="text-blue-500 hover:underline cursor-pointer">View all plugins</a> 
-                    </div>
                 {#if plugins.length == 0}
                 <div class="stat">
                     <div class="stat-title">This user is yet to publish any plugins!</div>
                 </div>
+                {:else}
+                    <div class="text-center md:text-right mt-4">
+                        <a href="/user/{user.username}/plugins" class="text-blue-500 hover:underline cursor-pointer">View all plugins</a> 
+                    </div>
                 {/if}
                 {:else}
                 <div class="stat">
