@@ -31,7 +31,7 @@
         .from('profiles')
         .select('*')
         .order('display_name', { ascending: $settings.sortingMethod === "ascending" })
-        //.or(`display_name.ilike.%${keyword}%,username.ilike.%${keyword}%`);
+        .or(`display_name.ilike.%${keyword}%,username.ilike.%${keyword}%,discord_id.eq.${keyword}`);
 
       if (error) {
         console.error('Error fetching search results:', error);
