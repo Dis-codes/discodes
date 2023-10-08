@@ -26,7 +26,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@supabase/auth-helpers-sveltekit": "^0.10.2",
+		"@supabase/auth-helpers-sveltekit": "^0.10.3",
 		"@supabase/auth-ui-shared": "^0.1.6",
 		"@supabase/auth-ui-svelte": "^0.2.6",
 		"@supabase/supabase-js": "^2.33.1",
