@@ -1,8 +1,8 @@
 <script>
     export let plugin;
 </script>
-
-<div class="border bg-base-100 shadow-md rounded-lg p-4 m-2 w-72">
+<div id="animz">
+<div class="shadow-xl rounded-lg p-5 m-2 w-80 ring ring-neutral">
     <div class="font-bold text-xl mb-2 text-gray-300">{plugin.name}</div>
     <p class="text-gray-400 mb-2">{plugin.description}</p>
     <a href="/user/{plugin.user}" class="text-gray-500 hover:link hover:font-bold">By @{plugin.user}</a>
@@ -17,3 +17,15 @@
         </a>
     </div>
 </div>
+</div>
+<style>
+    #animz {
+    transition-duration: 1s;
+    transition-property: transform;
+}
+
+#animz :hover{
+    transform:scale(1.02);
+
+}
+</style>

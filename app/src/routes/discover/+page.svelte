@@ -8,7 +8,7 @@
     $: ({ supabase, session } = data);
     let searchResults: any = [];
     let contentLoaded = false;
-    const itemsPerPage = 5;
+    const itemsPerPage = 4;
     let mostDownloadedSliceIndex = 0;
     let topRatedSliceIndex = 0;
     let featuredSliceIndex = 0;
@@ -56,55 +56,55 @@
 </script>
 
 <NavBar />
-
-<div class="container mt-24 mx-auto">
-    <h1 class="text-4xl font-bold mb-4">Discover</h1>
+<div class="mt-28">
+    <h1 class="text-6xl font-bold mb-4 p-10 ml-12">Discover</h1>
+<div class="container mt-14 mx-auto">
     {#if contentLoaded}
-    <div>
-        <h2 class="text-2xl font-bold">Most Downloaded</h2>
-        <div class="flex justify-between items-center -mx-20">
-            <button class="btn btn-outline btn-sm {mostDownloadedSliceIndex >= itemsPerPage ? '' : 'btn-disabled'}" on:click={() => prevSlice('mostDownloaded')}><span class="material-symbols-outlined">navigate_before</span></button>
-            <div class="flex flex-wrap">
+    <div class="border border-collapse border-neutral-700 rounded-xl shadow-2xl">
+        <h2 class="text-2xl font-bold p-5">Most Downloaded</h2>
+        <div class="flex justify-between mx-7 mb-8">
+            <button class="btn btn-circle btn-neutral my-28  {mostDownloadedSliceIndex >= itemsPerPage ? '' : 'btn-disabled'}" on:click={() => prevSlice('mostDownloaded')}><span class="material-symbols-outlined">navigate_before</span></button>
+            <div class="flex flex-wrap p-3">
                 {#each searchResults
                     .sort((a, b) => b.downloads - a.downloads)
                     .slice(mostDownloadedSliceIndex, mostDownloadedSliceIndex + itemsPerPage) as plugin}
                     <PluginCard {plugin} />
                 {/each}
             </div>
-            <button class="btn btn-outline btn-sm {mostDownloadedSliceIndex + itemsPerPage < searchResults.length ? '' : 'btn-disabled'}" on:click={() => nextSlice('mostDownloaded')}><span class="material-symbols-outlined">navigate_next</span></button>
+            <button class="btn btn-circle btn-neutral my-28 {mostDownloadedSliceIndex + itemsPerPage < searchResults.length ? '' : 'btn-disabled'}" on:click={() => nextSlice('mostDownloaded')}><span class="material-symbols-outlined">navigate_next</span></button>
         </div>
     </div>
-    <div>
-        <h2 class="text-2xl font-bold">Popular</h2>
-        <div class="flex justify-between items-center -mx-20">
-            <button class="btn btn-outline btn-sm {popularSliceIndex >= itemsPerPage ? '' : 'btn-disabled'}" on:click={() => prevSlice('popular')}><span class="material-symbols-outlined">navigate_before</span></button>
-            <div class="flex flex-wrap">
+    <div class="border border-collapse border-neutral-700 rounded-xl shadow-2xl mt-10">
+        <h2 class="text-2xl font-bold p-5">Popular</h2>
+        <div class="flex justify-between mx-7 mb-8">
+            <button class="btn btn-circle btn-neutral my-28 {popularSliceIndex >= itemsPerPage ? '' : 'btn-disabled'}" on:click={() => prevSlice('popular')}><span class="material-symbols-outlined">navigate_before</span></button>
+            <div class="flex flex-wrap p-3 mb-2">
                 {#each searchResults
                     .sort((a, b) => b.rating - a.rating)
                     .slice(popularSliceIndex, popularSliceIndex + itemsPerPage) as plugin}
                     <PluginCard {plugin} />
                 {/each}
             </div>
-            <button class="btn btn-outline btn-sm {popularSliceIndex + itemsPerPage < searchResults.length ? '' : 'btn-disabled'}" on:click={() => nextSlice('popular')}><span class="material-symbols-outlined">navigate_next</span></button>
+            <button class="btn btn-circle btn-neutral my-28 {popularSliceIndex + itemsPerPage < searchResults.length ? '' : 'btn-disabled'}" on:click={() => nextSlice('popular')}><span class="material-symbols-outlined">navigate_next</span></button>
         </div>
-    </div>
-    <div>
-        <h2 class="text-2xl font-bold">Featured</h2>
-        <div class="flex justify-between items-center -mx-20">
-            <button class="btn btn-outline btn-sm {featuredSliceIndex >= itemsPerPage ? '' : 'btn-disabled'}" on:click={() => prevSlice('featured')}><span class="material-symbols-outlined">navigate_before</span></button>
-            <div class="flex flex-wrap">
+        </div>
+    <div class="border border-collapse border-neutral-700 rounded-xl shadow-2xl mt-10">
+        <h2 class="text-2xl font-bold p-5">Featured</h2>
+        <div class="flex justify-between mx-7 mb-8">
+            <button class="btn btn-circle btn-neutral my-28 {featuredSliceIndex >= itemsPerPage ? '' : 'btn-disabled'}" on:click={() => prevSlice('featured')}><span class="material-symbols-outlined">navigate_before</span></button>
+            <div class="flex flex-wrap p-3 mb-2">
                 {#each shuffleArray(searchResults).slice(featuredSliceIndex, featuredSliceIndex + itemsPerPage) as plugin}
                     <PluginCard {plugin} />
                 {/each}
             </div>
-            <button class="btn btn-outline btn-sm {featuredSliceIndex + itemsPerPage < searchResults.length ? '' : 'btn-disabled'}" on:click={() => nextSlice('featured')}><span class="material-symbols-outlined">navigate_next</span></button>
+            <button class="btn btn-circle btn-neutral my-28 {featuredSliceIndex + itemsPerPage < searchResults.length ? '' : 'btn-disabled'}" on:click={() => nextSlice('featured')}><span class="material-symbols-outlined">navigate_next</span></button>
         </div>
     </div>
-    <div>
-        <h2 class="text-2xl font-bold">Top Rated</h2>
-        <div class="flex justify-between items-center -mx-20">
-            <button class="btn btn-outline btn-sm {topRatedSliceIndex >= itemsPerPage ? '' : 'btn-disabled'}" on:click={() => prevSlice('topRated')}><span class="material-symbols-outlined">navigate_before</span></button>
-            <div class="flex flex-wrap">
+    <div class="border border-collapse border-neutral-700 rounded-xl shadow-2xl mt-10">
+        <h2 class="text-2xl font-bold p-5">Top Rated</h2>
+        <div class="flex justify-between mx-7 mb-8">
+            <button class="btn btn-circle btn-neutral my-28 {topRatedSliceIndex >= itemsPerPage ? '' : 'btn-disabled'}" on:click={() => prevSlice('topRated')}><span class="material-symbols-outlined">navigate_before</span></button>
+            <div class="flex flex-wrap p-3 mb-2">
                 {#each searchResults
                     .sort((a, b) => {
             const ratioA = a.downloads > a.rating ? a.rating / a.downloads : 0;
@@ -114,10 +114,10 @@
                     <PluginCard {plugin} />
                 {/each}
             </div>
-            <button class="btn btn-outline btn-sm {topRatedSliceIndex + itemsPerPage < searchResults.length ? '' : 'btn-disabled'}" on:click={() => nextSlice('topRated')}><span class="material-symbols-outlined">navigate_next</span></button>
+            <button class="btn btn-circle btn-neutral my-28 {topRatedSliceIndex + itemsPerPage < searchResults.length ? '' : 'btn-disabled'}" on:click={() => nextSlice('topRated')}><span class="material-symbols-outlined">navigate_next</span></button>
         </div>
     </div>
-     <div class="mb-10 flex flex-col text-center gap-4">
+     <div class="mb-10 flex flex-col text-center gap-4 mt-12">
         <h2 class="text-2xl font-bold">Other</h2>
         <a href="/search/marketplace" class="link link-primary">View all</a>
      </div>
@@ -125,3 +125,16 @@
         <Loading />
     {/if}
 </div>
+</div>
+
+<style>
+    #animz {
+    transition-duration: 1s;
+    transition-property: transform;
+}
+
+    #animz :hover{
+    transform:scale(2);
+
+}
+</style>
