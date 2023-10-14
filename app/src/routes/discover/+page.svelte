@@ -127,14 +127,3 @@
 </div>
 </div>
 
-<style>
-    #animz {
-    transition-duration: 1s;
-    transition-property: transform;
-}
-
-    #animz :hover{
-    transform:scale(2);
-
-}
-</style>

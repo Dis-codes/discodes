@@ -1,7 +1,7 @@
 <script>
     export let plugin;
 </script>
-<div id="animz">
+<div class="transform  scale-100  hover:scale-105  transition-transform  duration-500">
 <div class="shadow-xl rounded-lg p-5 m-2 w-80 ring ring-neutral">
     <div class="font-bold text-xl mb-2 text-gray-300">{plugin.name}</div>
     <p class="text-gray-400 mb-2">{plugin.description}</p>
@@ -18,14 +18,3 @@
     </div>
 </div>
 </div>
-<style>
-    #animz {
-    transition-duration: 1s;
-    transition-property: transform;
-}
-
-#animz :hover{
-    transform:scale(1.02);
-
-}
-</style>
