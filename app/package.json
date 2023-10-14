@@ -15,7 +15,7 @@
 		"@sveltejs/kit": "^1.25.1",
 		"autoprefixer": "^10.4.15",
 		"daisyui": "^3.9.2",
-		"eslint": "^8.49.0",
+		"eslint": "^8.51.0",
 		"postcss": "^8.4.31",
 		"svelte": "^4.0.5",
 		"svelte-check": "^3.5.1",
