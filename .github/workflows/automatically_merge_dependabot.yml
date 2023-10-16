@@ -1,0 +1,27 @@
+name: automatically merge dependabot PR's
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Checkout repository
+         uses: actions/checkout@v4
+
+  auto-merge:
+    name: 🤖 Auto merge dependabot PR
+    timeout-minutes: 10
+    needs: build
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - name: 🤖 Merge PR from dependabot
+        uses: fastify/github-action-merge-dependabot@v3
+        with:
+          target: minor
+          merge-method: rebase
