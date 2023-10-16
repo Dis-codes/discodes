@@ -22,6 +22,3 @@ jobs:
     steps:
       - name: 🤖 Merge PR from dependabot
         uses: fastify/github-action-merge-dependabot@v3
-        with:
-          target: minor
-          merge-method: rebase
