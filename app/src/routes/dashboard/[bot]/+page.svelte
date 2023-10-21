@@ -2,18 +2,9 @@
     import { NavBar, AuthCheck, TokenModal, EditToken, DeleteToken, BotUptime, CommandStats, EditPluginModal, Loading, BotProfile, AddPluginModal, InvalidToken } from "$lib/components/Components";
     import { onMount } from "svelte";
     import { user } from "$lib/stores";
-
+    import { botToken} from "$lib/stores";
     export let data
     const { supabase } = data
-
-    let botToken: boolean;
-
-
-    
-
-    onMount(() => {
-        botToken = localStorage.getItem('botToken')
-    })
 
     async function getBot(token:string) {
         const response = await fetch(`/api/v1/discord/bot`, {
@@ -29,7 +20,7 @@
         }
         const json = await response.json()
         if (json.data.id != window.location.pathname.split('/')[2]) {
-            botToken=false
+            botToken.set("")
             return null
         }
         return json
@@ -70,19 +61,17 @@ let getCommands:any = async () => {
 
         if(!tokenRegex.test(token)) {
             botTokenInvalid.showModal()
-            botToken = false;
+            botToken.set("")
             return
         }
         botInfo =  await getBot(token)
         if (!botInfo) return;
 
-        botToken = true;
-        localStorage.setItem('botToken', token)
+        botToken.set(token)
     } 
 
     function deleteToken() { 
-        localStorage.removeItem('botToken')
-        botToken = false;
+        botToken.set("")
     }
 
     let currentPluginName:string;
@@ -116,11 +105,11 @@ let getCommands:any = async () => {
     <NavBar/>
     <div  class="flex justify-center items-center h-screen">
         <div style="height: 600px;" class="shadow-xl border border-neutral mx-10 mt-28 mb-20 rounded-xl">
-        {#if botToken }
+        {#if $botToken }
         <div class="flex">
         <div class="flex flex-col mt-5 w-96">
-            {#await getBot(localStorage.getItem('botToken'))}
-                <Loading/>
+            {#await getBot($botToken)}
+            <Loading center={false} />
             {:then result } 
 
                 <BotProfile botObject={result.data}/>
@@ -160,9 +149,7 @@ let getCommands:any = async () => {
     </div>
 <!-- <BotUptime/>
 <CommandStats/> -->
-        {#await getCommands()}
-            <Loading/>
-        {:then commands}
+        {#await getCommands() then commands}
         <div style="height: 600px;" class="flex-1 flex flex-col w-1/4 p-6 border border-neutral rounded-xl mt-9 mr-10">
             <h1 class="text-3xl font-bold">Commands</h1>
             <div class="flex-1 p-6 shadow-xl rounded-lg flex h-full overflow-auto scroll-container">

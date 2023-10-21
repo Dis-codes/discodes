@@ -2,19 +2,13 @@
     import { NavBar, AuthCheck, TokenModal, EditToken, DeleteToken, BotUptime, CommandStats, Loading, BotProfile, AddPluginModal, InvalidToken } from "$lib/components/Components";
     import { onMount } from "svelte";
     import { user } from "$lib/stores";
-
+    import { botToken} from "$lib/stores";
     export let data
     const { supabase } = data
 
     let pluginData:any ;
     let botInfo: object;
-    let botToken: boolean;
-    const tokenRegex = /(mfa\.[\w-]{84}|[\w-]{24}\.[\w-]{6}\.[\w-]{27})/;
-
-
-    onMount(() => {
-        botToken = localStorage.getItem('botToken')
-    })
+    const tokenRegex = /(mfa\.[\w-]{84}|[\w-]{24}\.[\w-]{6}\.[\w-]{27})/g
 
     async function getBot(token:string) {
         const response = await fetch(`/api/v1/discord/bot`, {
@@ -26,6 +20,7 @@
         });
         if (!response.ok) {
             botTokenInvalid.showModal()
+            botToken.set("")
             return null
         }
         return await response.json()
@@ -36,19 +31,17 @@
 
         if(!tokenRegex.test(token)) {
             botTokenInvalid.showModal()
-            botToken = false;
+            botToken.set("")
             return
         }
         botInfo =  await getBot(token)
         if (!botInfo) return;
 
-        botToken = true;
-        localStorage.setItem('botToken', token)
+        botToken.set(token)
     } 
 
     function deleteToken() { 
-        localStorage.removeItem('botToken')
-        botToken = false;
+        botToken.set("")
     }
 
     let createPLugin = async (name:string, description:string) => {
@@ -84,10 +77,10 @@
     <NavBar/>
     <div class="flex justify-center items-center h-screen">
         <div>
-        {#if botToken }
+        {#if $botToken }
         <div class="flex gap-4 md:gap-20 flex-col md:flex-row">
         <div class="flex flex-col">
-            {#await getBot(localStorage.getItem('botToken'))}
+            {#await getBot($botToken)}
                 <Loading/>
             {:then result } 
                 <BotProfile botObject={result.data}/>

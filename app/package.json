@@ -33,6 +33,7 @@
 		"@typescript-eslint/eslint-plugin": "^6.8.0",
 		"@typescript-eslint/parser": "^6.8.0",
 		"blockly": "^10.2.2",
-		"discodes-utilities": "^1.0.3"
+		"discodes-utilities": "^1.0.3",
+		"jose": "^4.15.4"
 	}
 }
