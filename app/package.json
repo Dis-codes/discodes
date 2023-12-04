@@ -26,12 +26,12 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@supabase/auth-helpers-sveltekit": "^0.10.3",
+		"@supabase/auth-helpers-sveltekit": "^0.10.7",
 		"@supabase/auth-ui-shared": "^0.1.8",
-		"@supabase/auth-ui-svelte": "^0.2.7",
-		"@supabase/supabase-js": "^2.38.1",
-		"@typescript-eslint/eslint-plugin": "^6.8.0",
-		"@typescript-eslint/parser": "^6.8.0",
+		"@supabase/auth-ui-svelte": "^0.2.8",
+		"@supabase/supabase-js": "^2.39.0",
+		"@typescript-eslint/eslint-plugin": "^6.13.1",
+		"@typescript-eslint/parser": "^6.13.1",
 		"blockly": "^10.2.2",
 		"discodes-utilities": "^1.0.3"
 	}
