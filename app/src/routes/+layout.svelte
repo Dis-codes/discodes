@@ -3,34 +3,39 @@
     import { invalidate } from '$app/navigation';
     import { onMount } from 'svelte';
     import { settings, user } from "$lib/stores";
-    import { page } from '$app/stores';  
+    import { page } from '$app/stores';
 
     import RoleCheck from "$lib/components/MiscComponents/RoleCheck.svelte";
     import Loading from "$lib/components/MiscComponents/Loading.svelte";
-
-    export let data
+    import {goto} from "$app/navigation"
+   // export let data
 
     const allowedUrls: Array<string> = ['/errors/permission', '/', '/auth/callback', '/getsession', '/goodbye']
         
-    let { supabase, session } = data
-    $: ({ supabase, session } = data)
+    // let { supabase, session } = data
+    // $: ({ supabase, session } = data)
 
     onMount(() => {
+
+        if (!import.meta.env.DEV && $page.url.pathname ===  '/'){
+            goto("./errors/maintanance")
+        }
+
         // if (!session?.user) {
         //     if ($page.url.pathname.startsWith("/errors") || allowedUrls.includes($page.url.pathname)) {
         //         return
         //     }
         //     window.location.href = '/errors/login'
         // }
-        const {
-        data: { subscription },
-        } = supabase.auth.onAuthStateChange((event, _session) => {
-        if (_session?.expires_at !== session?.expires_at) {
-            invalidate('supabase:auth')
-        }
-        })
+        // const {
+        // data: { subscription },
+        // } = supabase.auth.onAuthStateChange((event, _session) => {
+        // if (_session?.expires_at !== session?.expires_at) {
+        //     invalidate('supabase:auth')
+        // }
+        // })
 
-        return () => subscription.unsubscribe()
+        //return () => subscription.unsubscribe()
     });
 </script>
 
